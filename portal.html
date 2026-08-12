@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Portal de Asesores · hh Luxury Real Estate</title>
+<meta name="theme-color" content="#2d2d2d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<meta name="application-name" content="hh Asesores">
+<style>
+  :root{
+    /* ===== Marca hh (tomada del CSS real de hhre.mx) ===== */
+    --hh-black:#000000;
+    --hh-almost:#2d2d2d;
+    --hh-gray:#5f5c57;     /* gris cálido, sesgo oliva */
+    --hh-olive:#9e9683;    /* acento oficial */
+    --hh-beige:#e5e4df;
+
+    /* Tokens claros — neutros con sesgo oliva, derivados del beige */
+    --canvas:#F4F3EF;
+    --surface:#FFFFFF;
+    --surface-2:#FAF9F6;
+    --ink:#22211E;
+    --ink-strong:#000000;
+    --muted:#5f5c57;
+    --faint:#918D84;
+    --line:#E3E1DA;
+    --accent:#9e9683;
+    --accent-text:#6B6455;      /* versión legible del acento sobre claro */
+    --accent-tint:#EFEDE6;
+    --accent-ink:#1A1A17;       /* texto sobre el acento */
+    --warn:#8A6D2F;
+    --warn-bg:#F6EFDD;
+    --shadow-sm:0 1px 2px rgba(45,45,45,.05), 0 3px 12px rgba(45,45,45,.05);
+    --shadow-md:0 10px 28px rgba(45,45,45,.11);
+    --r:14px; --r-sm:10px;
+    --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+    --serif:"Cormorant Garamond","Times New Roman",Times,serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
+      --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
+      --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
+      --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
+      --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6;
+    --ink:#22211E; --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84;
+    --line:#E3E1DA; --accent:#9e9683; --accent-text:#6B6455;
+    --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD;
+    --shadow-sm:0 1px 2px rgba(45,45,45,.05),0 3px 12px rgba(45,45,45,.05);
+    --shadow-md:0 10px 28px rgba(45,45,45,.11);
+  }
+  :root[data-theme="dark"]{
+    --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
+    --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
+    --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
+    --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
+    --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+  :focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:6px}
+  ::selection{background:var(--accent-tint)}
+
+  /* ===== Aviso de maqueta ===== */
+  .draft{background:var(--accent-ink);color:var(--hh-beige);font-size:12px;letter-spacing:.04em;
+         padding:9px 18px;text-align:center}
+  .draft b{color:var(--accent)}
+
+  /* ===== Marco ===== */
+  .app{display:grid;grid-template-columns:236px 1fr;max-width:1220px;margin:0 auto;min-height:100vh}
+  @media (max-width:860px){.app{grid-template-columns:1fr}}
+
+  /* ---- Rail ---- */
+  .rail{background:var(--surface);border-right:1px solid var(--line);padding:26px 16px;
+        display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
+  @media (max-width:860px){.rail{display:none}}
+  .mark{padding:0 10px}
+  .mark .hh{font-family:var(--serif);font-size:42px;line-height:.85;font-weight:400;
+            color:var(--ink-strong);letter-spacing:-.02em}
+  .mark .sub{margin-top:7px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;
+             color:var(--muted);line-height:1.7}
+  nav{display:flex;flex-direction:column;gap:2px}
+  .nav-h{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+         padding:0 11px;margin:0 0 8px}
+  nav a{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;
+        color:var(--muted);font-size:14px;font-weight:500;transition:background .15s,color .15s}
+  nav a svg{width:17px;height:17px;flex:none;stroke:var(--accent-text);fill:none;stroke-width:1.6}
+  nav a:hover{background:var(--accent-tint);color:var(--ink)}
+  .rail-foot{margin-top:auto;font-size:11px;color:var(--faint);padding:0 11px;line-height:1.6}
+
+  /* ---- Main ---- */
+  main{padding:24px clamp(16px,3.5vw,36px) 72px;display:flex;flex-direction:column;gap:26px;min-width:0}
+
+  .mobmark{display:none}
+  @media (max-width:860px){
+    .mobmark{display:flex;align-items:baseline;gap:12px;padding-bottom:4px}
+    .mobmark .hh{font-family:var(--serif);font-size:32px;line-height:1;color:var(--ink-strong)}
+    .mobmark .sub{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  }
+
+  /* Barra de plaza + buscador */
+  .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .plaza{display:inline-flex;gap:3px;background:var(--surface);border:1px solid var(--line);
+         border-radius:11px;padding:3px;box-shadow:var(--shadow-sm)}
+  .pbtn{border:0;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);
+        padding:8px 16px;border-radius:8px;transition:background .15s,color .15s}
+  .pbtn:hover{color:var(--ink)}
+  .pbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+  .search{flex:1;min-width:210px;display:flex;align-items:center;gap:10px;background:var(--surface);
+          border:1px solid var(--line);border-radius:11px;padding:11px 15px;box-shadow:var(--shadow-sm)}
+  .search svg{width:16px;height:16px;stroke:var(--faint);fill:none;stroke-width:1.8;flex:none}
+  .search input{border:0;background:none;outline:none;color:var(--ink);font-family:var(--sans);
+                font-size:14px;width:100%}
+  .search input::placeholder{color:var(--faint)}
+
+  /* Hero */
+  .hero{background:var(--hh-almost);border-radius:var(--r);padding:30px 32px;
+        display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;
+        box-shadow:var(--shadow-md)}
+  .hero .eyebrow{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--hh-olive);
+                 font-weight:600}
+  .hero h1{margin:9px 0 0;font-size:clamp(21px,2.7vw,28px);font-weight:600;color:#F5F4F0;
+           letter-spacing:-.02em;text-wrap:balance;max-width:22ch;line-height:1.2}
+  .hero p{margin:9px 0 0;font-size:14px;color:#B0ACA2;max-width:44ch}
+  .stat{text-align:right}
+  .stat .n{font-size:36px;font-weight:600;color:#F5F4F0;line-height:1;font-variant-numeric:tabular-nums}
+  .stat .l{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--hh-olive);margin-top:7px}
+
+  /* Secciones */
+  section{display:flex;flex-direction:column;gap:14px;scroll-margin-top:20px}
+  .sec-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .sec-h h2{margin:0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+            color:var(--ink-strong);font-weight:700}
+  .sec-h .note{font-size:12.5px;color:var(--faint)}
+
+  /* Grupos de documentos */
+  .group{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);
+         overflow:hidden;box-shadow:var(--shadow-sm)}
+  .group-h{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--surface-2);
+           border-bottom:1px solid var(--line)}
+  .group-h .gi{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+  .group-h h3{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.05em;color:var(--ink);
+              text-transform:uppercase}
+  .group-h .ct{margin-left:auto;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .row{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line);
+       transition:background .14s;cursor:pointer}
+  .row:last-child{border-bottom:0}
+  .row:hover{background:var(--surface-2)}
+  .rico{width:32px;height:32px;border-radius:8px;background:var(--accent-tint);flex:none;
+        display:grid;place-items:center}
+  .rico svg{width:15px;height:15px;stroke:var(--accent-text);fill:none;stroke-width:1.7}
+  .rtxt{min-width:0;flex:1}
+  .rtxt .t{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+  .rtxt .d{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45;
+           display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .badges{display:flex;gap:5px;flex:none;align-items:center}
+  .pill{font-size:10px;font-weight:700;letter-spacing:.06em;padding:3px 7px;border-radius:5px;
+        background:var(--surface-2);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+  .pill.acc{background:var(--accent-tint);color:var(--accent-text);border-color:transparent}
+  .pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+  @media (max-width:600px){
+    .rtxt .d{-webkit-line-clamp:3}
+    .row{align-items:flex-start}
+    .badges{flex-direction:column;align-items:flex-end;gap:4px}
+  }
+
+  /* Herramientas */
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media (max-width:900px){.tools{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.tools{grid-template-columns:1fr}}
+  .tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:17px;
+        display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-sm)}
+  .tool .tico{width:36px;height:36px;border-radius:9px;background:var(--accent-tint);
+              display:grid;place-items:center;margin-bottom:2px}
+  .tool .tico svg{width:18px;height:18px;stroke:var(--accent-text);fill:none;stroke-width:1.6}
+  .tool h3{margin:0;font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+  .tool p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .tool .st{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;gap:5px}
+  .tool.pend{border-style:dashed;background:none;box-shadow:none}
+  .tool.ready{border-color:var(--accent)}
+  .tool.ready .tico{background:var(--accent);}
+  .tool.ready .tico svg{stroke:var(--accent-ink)}
+
+  /* Contacto */
+  .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media (max-width:760px){.contacts{grid-template-columns:1fr}}
+  .contact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);
+           padding:17px;box-shadow:var(--shadow-sm)}
+  .contact .role{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-text);
+                 font-weight:700}
+  .contact .who{margin-top:8px;font-size:15px;font-weight:600;color:var(--ink)}
+  .contact .links{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .contact .links a{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:6px;
+        background:var(--accent-tint);color:var(--accent-text);white-space:nowrap}
+  .contact .links a:hover{background:var(--accent);color:var(--accent-ink)}
+  .contact .det{margin-top:10px;font-size:12px;color:var(--faint);line-height:1.55}
+  .contact .det a{color:var(--muted);border-bottom:1px solid var(--line)}
+
+  .empty{padding:40px 18px;text-align:center;color:var(--faint);font-size:14px;
+         background:var(--surface);border:1px dashed var(--line);border-radius:var(--r-sm)}
+  [hidden]{display:none !important}
+
+  footer{border-top:1px solid var(--line);padding-top:18px;font-size:12px;color:var(--faint);
+         line-height:1.7}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="mark">
+      <div class="hh">hh</div>
+      <div class="sub">Luxury Real Estate<br>Portal de asesores</div>
+    </div>
+
+    <nav>
+      <p class="nav-h">Ir a</p>
+      <a href="#documentos">
+        <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+        Documentos
+      </a>
+      <a href="#herramientas">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 1 5 5l-9.6 9.6a2 2 0 0 1-2.8-2.8z"/><path d="M6 6l3 3"/></svg>
+        Herramientas
+      </a>
+      <a href="#contacto">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Contacto
+      </a>
+    </nav>
+
+    <div class="rail-foot">
+      Monterrey · Puebla<br>
+      Uso interno del equipo hh
+    </div>
+  </aside>
+
+  <main>
+    <div class="mobmark">
+      <span class="hh">hh</span>
+      <span class="sub">Portal de asesores</span>
+    </div>
+
+    <div class="controls">
+      <div class="plaza" role="group" aria-label="Elige tu plaza">
+        <button class="pbtn" type="button" data-plaza="mty" aria-pressed="false">Monterrey</button>
+        <button class="pbtn" type="button" data-plaza="pue" aria-pressed="false">Puebla</button>
+        <button class="pbtn" type="button" data-plaza="all" aria-pressed="true">Todas</button>
+      </div>
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Buscar un formato… (ej. exclusividad, buró, recibo)" aria-label="Buscar documentos">
+      </label>
+    </div>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Todo en un solo lugar</div>
+        <h1>Los formatos que usas todos los días, siempre en la versión vigente.</h1>
+        <p>Elige tu plaza arriba y el portal te muestra únicamente lo que aplica en tu ciudad.</p>
+      </div>
+      <div class="stat">
+        <div class="n" id="count">25</div>
+        <div class="l">Documentos</div>
+      </div>
+    </div>
+
+    <section id="documentos">
+      <div class="sec-h">
+        <h2>Documentos y formatos</h2>
+        <span class="note">Agrupados por etapa de la operación</span>
+      </div>
+      <div id="groups"></div>
+      <div class="empty" id="empty" hidden>No hay documentos que coincidan con tu búsqueda.</div>
+    </section>
+
+    <section id="herramientas">
+      <div class="sec-h">
+        <h2>Herramientas</h2>
+        <span class="note">Próximamente — se van activando conforme quedan listas</span>
+      </div>
+      <div class="tools">
+        <article class="tool pend" data-plaza="mty">
+          <div class="tico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h3M8 15h3M14 11v6"/></svg></div>
+          <h3>Costos de adquisición · Monterrey</h3>
+          <p>Lo que le cuesta al comprador cerrar la operación en Nuevo León: ISAI, notariales, registrales y avalúo.</p>
+          <div class="st"><span class="pill warn">Próximamente</span> <span class="pill">Nuevo León</span></div>
+        </article>
+
+        <article class="tool pend" data-plaza="pue">
+          <div class="tico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h3M8 15h3M14 11v6"/></svg></div>
+          <h3>Costos de adquisición · Puebla</h3>
+          <p>La misma cuenta con los impuestos y derechos que aplican en Puebla.</p>
+          <div class="st"><span class="pill warn">Próximamente</span> <span class="pill">Puebla</span></div>
+        </article>
+
+        <article class="tool pend" data-plaza="both">
+          <div class="tico"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 4-6 5 8"/><path d="M3 21h18"/></svg></div>
+          <h3>Estimación de valor</h3>
+          <p>Parte de propiedades similares, saca el precio por metro cuadrado y genera una carta en PDF para el propietario.</p>
+          <div class="st"><span class="pill warn">Próximamente</span></div>
+        </article>
+
+        <article class="tool pend" data-plaza="both">
+          <div class="tico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+          <h3>Redacción de anuncios</h3>
+          <p>Llenas la ficha de la propiedad una vez y salen los textos listos para copiar: Marketplace, redes, portales y WhatsApp.</p>
+          <div class="st"><span class="pill warn">Próximamente</span></div>
+        </article>
+
+        <article class="tool pend" data-plaza="both">
+          <div class="tico"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Calculadora de comisiones</h3>
+          <p>Comisión del asesor, de la oficina e IVA a partir del monto de la operación.</p>
+          <div class="st"><span class="pill warn">En construcción</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="sec-h">
+        <h2>Contacto</h2>
+        <span class="note">A quién le escribes según tu plaza</span>
+      </div>
+      <div class="contacts">
+        <article class="contact" data-plaza="mty">
+          <div class="role">Gerencia · Monterrey</div>
+          <div class="who">Lic. Zaida Loredo Gómez</div>
+          <div class="links">
+            <a href="tel:+528120003513">812 000 3513</a>
+            <a href="mailto:zloredo@hhre.mx">zloredo@hhre.mx</a>
+          </div>
+          <div class="det">Oficina Santa Engracia · <a href="tel:+528112461540">81 1246 1540</a> ext. 110<br>
+            Av. José Vasconcelos 345, Plaza Tanarah Loc. 308, San Pedro Garza García</div>
+        </article>
+        <article class="contact" data-plaza="pue">
+          <div class="role">Gerencia · Puebla</div>
+          <div class="who">Lic. José Alberto Flores Andrade</div>
+          <div class="links">
+            <a href="tel:+522441194394">244 119 4394</a>
+            <a href="mailto:aflores@hhre.mx">aflores@hhre.mx</a>
+          </div>
+          <div class="det">Oficina Lomas de Angelópolis · <a href="tel:+522222902990">222 290 2990</a><br>
+            Paseo Sinfonía #2 Local 3-6, Plaza Ópera, San Andrés Cholula</div>
+        </article>
+        <article class="contact" data-plaza="both">
+          <div class="role">Dirección</div>
+          <div class="who">Lic. Fernando García Benavides</div>
+          <div class="links">
+            <a href="tel:+528128822228">81 2882 2228</a>
+            <a href="mailto:fbenavides@gaben.mx">fbenavides@gaben.mx</a>
+          </div>
+          <div class="det">Cuando el gerente de tu plaza no pueda resolverlo.</div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      Documentos: bases <em>Documentos Luxury Properties — SP</em> (Monterrey) y <em>— LA</em> (Puebla) de Notion.
+      Contactos: Directorio de Equipo hh + página de contacto de hhre.mx.<br>
+      Falta: conectar las ligas de descarga y resolver los 3 documentos que Monterrey no tiene.
+    </footer>
+  </main>
+</div>
+
+<script>
+  const DOCS = [
+    {c:"Comercial", t:"Presentación de los servicios LP", p:"both", para:"Propietario",
+     d:"Documento comercial con los servicios de intermediación, asesoría y gestión que ofrece Luxury Properties al propietario."},
+    {c:"Comercial", t:"Portales donde se publican las propiedades", p:"both", para:"Propietario",
+     d:"Listado de plataformas y portales donde hh publica y promociona las propiedades en venta o renta."},
+
+    {c:"Contratos y convenios de captación", t:"Contrato de intermediación con Exclusividad", p:"both", para:"Propietario",
+     d:"El propietario concede a hh la exclusividad para promover, intermediar y negociar. Fija comisiones, vigencia y obligaciones."},
+    {c:"Contratos y convenios de captación", t:"Contrato de intermediación sin Exclusividad", p:"both", para:"Propietario",
+     d:"Faculta a hh a promover e intermediar el inmueble permitiendo al propietario trabajar con otros intermediarios."},
+    {c:"Contratos y convenios de captación", t:"Autorización para intermediar Inmueble", p:"both", para:"Propietario",
+     d:"Para cuando no te firmaron el contrato de intermediación de entrada. Autoriza a promover, gestionar propuestas y recibir depósitos."},
+    {c:"Contratos y convenios de captación", t:"Carta de cancelación de operación en venta o renta", p:"both", para:"Cliente",
+     d:"Acredita la devolución del depósito y confirma que la cancelación fue decisión del propietario."},
+
+    {c:"Datos bancarios", t:"Datos bancarios para separaciones e investigaciones", p:"both", para:"Cliente",
+     d:"Cuentas de hh para separaciones o apartados. El monto es más IVA."},
+    {c:"Datos bancarios", t:"Datos bancarios para pago de comisiones (honorarios)", p:"pue", para:"Propietario",
+     d:"Cuentas de hh para el pago de comisiones u honorarios. El monto es más IVA."},
+
+    {c:"Formatos de arrendamiento", t:"Persona Física — Solicitud Inquilino y Garante", p:"both", para:"Cliente",
+     d:"Solicitud para personas físicas que requieren Garantía Jurídica como inquilinos o garantes."},
+    {c:"Formatos de arrendamiento", t:"Persona Moral — Solicitud Inquilino y Garante", p:"both", para:"Cliente",
+     d:"Solicitud para personas morales que requieren Garantía Jurídica, con datos de la empresa y representantes legales."},
+    {c:"Formatos de arrendamiento", t:"Persona Física — Solicitud Propietario", p:"both", para:"Propietario",
+     d:"Para personas físicas propietarias que quieren ofrecer su inmueble en arrendamiento con Garantía Jurídica."},
+    {c:"Formatos de arrendamiento", t:"Persona Moral — Solicitud Propietario", p:"both", para:"Propietario",
+     d:"Para personas morales propietarias que quieren ofrecer su inmueble en arrendamiento con Garantía Jurídica."},
+    {c:"Formatos de arrendamiento", t:"Autorización para consulta de Buró de Crédito", p:"both", para:"Asesor",
+     d:"Autorización firmada que permite a hh consultar el historial crediticio del solicitante."},
+
+    {c:"Formatos de compraventa", t:"Persona Física — Solicitud de Comprador", p:"both", para:"Cliente",
+     d:"Datos personales, del inmueble, servicios, fechas y condiciones para elaborar el contrato."},
+    {c:"Formatos de compraventa", t:"Persona Moral — Solicitud de Vendedor", p:"both", para:"Propietario",
+     d:"Información legal y corporativa de la entidad propietaria más los datos del inmueble."},
+    {c:"Formatos de compraventa", t:"Checklist de compraventa", p:"both", para:"Cliente",
+     d:"Documentos del comprador y del vendedor que se van a requerir para la escrituración."},
+    {c:"Formatos de compraventa", t:"Checklist de promesa de compraventa", p:"both", para:"Cliente",
+     d:"Documentos mínimos y datos para elaborar el contrato de promesa."},
+
+    {c:"Recibos", t:"Recibo de servicios por intermediación", p:"both", para:"Asesor",
+     d:"Acredita el pago que recibe el colaborador de hh por los servicios de intermediación de un inmueble."},
+    {c:"Recibos", t:"Recibo de separación de hh con cliente", p:"both", para:"Cliente",
+     d:"Acredita el depósito entregado a hh para asegurar una operación: condiciones, plazos y reglas de devolución."},
+    {c:"Recibos", t:"Recibo de separación entre propietario y cliente", p:"both", para:"Propietario",
+     d:"Confirma que el propietario recibe el depósito del prospecto y autoriza a hh a gestionar la documentación."},
+
+    {c:"Recursos adicionales", t:"Ejemplo de contrato de arrendamiento", p:"both", para:"Asesor",
+     d:"Modelo de contrato de arrendamiento habitacional con Garantía Jurídica, como referencia."},
+    {c:"Recursos adicionales", t:"Ejemplo de promesa de compraventa", p:"pue", para:"Asesor",
+     d:"Modelo de contrato de promesa, como referencia para asesores y clientes."},
+    {c:"Recursos adicionales", t:"Propuesta de operación / Oferta de compra o arrendamiento", p:"pue", para:"Asesor",
+     d:"Formato para hacerle una propuesta formal de compra o arrendamiento al propietario."},
+    {c:"Recursos adicionales", t:"Aviso de privacidad", p:"both", para:"Asesor",
+     d:"Informa al titular cómo hh trata, usa, transfiere y resguarda sus datos personales (LFPDPPP)."},
+    {c:"Recursos adicionales", t:"Guía de estacionamiento", p:"mty", para:"Cliente",
+     d:"Dónde se estacionan los clientes y visitantes que llegan a la oficina."}
+  ];
+
+  const ORDEN = ["Comercial","Contratos y convenios de captación","Datos bancarios",
+                 "Formatos de arrendamiento","Formatos de compraventa","Recibos","Recursos adicionales"];
+
+  const ICON = '<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
+
+  const groupsEl = document.getElementById("groups");
+  const emptyEl  = document.getElementById("empty");
+  const countEl  = document.getElementById("count");
+  const qEl      = document.getElementById("q");
+
+  let plaza = localStorage.getItem("hh-plaza") || "all";
+
+  const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  function plazaPill(p){
+    if (p === "both") return '<span class="pill">MTY · PUE</span>';
+    if (p === "mty")  return '<span class="pill acc">Solo MTY</span>';
+    return '<span class="pill acc">Solo PUE</span>';
+  }
+
+  function render(){
+    const q = qEl.value.trim().toLowerCase();
+    const visibles = DOCS.filter(d =>
+      (plaza === "all" || d.p === "both" || d.p === plaza) &&
+      (!q || (d.t + " " + d.d + " " + d.c).toLowerCase().includes(q))
+    );
+
+    countEl.textContent = visibles.length;
+    emptyEl.hidden = visibles.length > 0;
+
+    groupsEl.innerHTML = ORDEN.map(cat => {
+      const items = visibles.filter(d => d.c === cat);
+      if (!items.length) return "";
+      return `<div class="group" style="margin-bottom:12px">
+        <div class="group-h">
+          <span class="gi"></span>
+          <h3>${esc(cat)}</h3>
+          <span class="ct">${items.length}</span>
+        </div>
+        ${items.map(d => `<div class="row">
+          <span class="rico">${ICON}</span>
+          <span class="rtxt">
+            <span class="t">${esc(d.t)}</span>
+            <span class="d">${esc(d.d)}</span>
+          </span>
+          <span class="badges">
+            <span class="pill">${esc(d.para)}</span>
+            ${plazaPill(d.p)}
+          </span>
+        </div>`).join("")}
+      </div>`;
+    }).join("");
+
+    document.querySelectorAll(".contact, .tool").forEach(c => {
+      const cp = c.dataset.plaza;
+      c.hidden = !(plaza === "all" || cp === "both" || cp === plaza);
+    });
+
+    document.querySelectorAll(".pbtn").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.plaza === plaza)));
+  }
+
+  document.querySelectorAll(".pbtn").forEach(b => b.addEventListener("click", () => {
+    plaza = b.dataset.plaza;
+    localStorage.setItem("hh-plaza", plaza);
+    render();
+  }));
+  qEl.addEventListener("input", render);
+
+  render();
+</script>
+</body>
+</html>
