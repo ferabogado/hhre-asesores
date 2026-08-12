@@ -11,7 +11,22 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="hh Asesores">
 <meta name="application-name" content="hh Asesores">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <style>
+  /* ===== Hanken Grotesk — tipografía oficial de la marca hh ===== */
+  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-300.woff2") format("woff2");
+             font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-400.woff2") format("woff2");
+             font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-500.woff2") format("woff2");
+             font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-600.woff2") format("woff2");
+             font-weight:600;font-style:normal;font-display:swap}
+  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-700.woff2") format("woff2");
+             font-weight:700;font-style:normal;font-display:swap}
   :root{
     /* ===== Marca hh (tomada del CSS real de hhre.mx) ===== */
     --hh-black:#000000;
@@ -91,9 +106,14 @@
         display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
   @media (max-width:860px){.rail{display:none}}
   .mark{padding:0 10px}
-  .mark .hh{font-family:var(--serif);font-size:42px;line-height:.85;font-weight:400;
-            color:var(--ink-strong);letter-spacing:-.02em}
-  .mark .sub{margin-top:7px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;
+  .logo{width:74px;height:auto;display:block}
+  .logo.dk{display:none}
+  @media (prefers-color-scheme:dark){.logo.lt{display:none}.logo.dk{display:block}}
+  :root[data-theme="dark"] .logo.lt{display:none}
+  :root[data-theme="dark"] .logo.dk{display:block}
+  :root[data-theme="light"] .logo.lt{display:block}
+  :root[data-theme="light"] .logo.dk{display:none}
+  .mark .sub{margin-top:11px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;
              color:var(--muted);line-height:1.7}
   nav{display:flex;flex-direction:column;gap:2px}
   .nav-h{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
@@ -109,8 +129,8 @@
 
   .mobmark{display:none}
   @media (max-width:860px){
-    .mobmark{display:flex;align-items:baseline;gap:12px;padding-bottom:4px}
-    .mobmark .hh{font-family:var(--serif);font-size:32px;line-height:1;color:var(--ink-strong)}
+    .mobmark{display:flex;align-items:center;gap:13px;padding-bottom:4px}
+    .mobmark .logo{width:48px}
     .mobmark .sub{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
   }
 
@@ -224,7 +244,8 @@
 <div class="app">
   <aside class="rail">
     <div class="mark">
-      <div class="hh">hh</div>
+      <img class="logo lt" src="logo-hh-negro.png" alt="hh Hache Hache" width="520" height="505">
+      <img class="logo dk" src="logo-hh-blanco.png" alt="hh Hache Hache" width="520" height="504">
       <div class="sub">Luxury Real Estate<br>Portal de asesores</div>
     </div>
 
@@ -252,7 +273,8 @@
 
   <main>
     <div class="mobmark">
-      <span class="hh">hh</span>
+      <img class="logo lt" src="logo-hh-negro.png" alt="hh Hache Hache" width="520" height="505">
+      <img class="logo dk" src="logo-hh-blanco.png" alt="hh Hache Hache" width="520" height="504">
       <span class="sub">Portal de asesores</span>
     </div>
 

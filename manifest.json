@@ -1,0 +1,17 @@
+{
+  "name": "hh Asesores",
+  "short_name": "hh Asesores",
+  "description": "Portal de asesores de hh Luxury Real Estate — Monterrey y Puebla",
+  "start_url": "portal.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F3EF",
+  "theme_color": "#2d2d2d",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
