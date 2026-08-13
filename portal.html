@@ -213,6 +213,10 @@
   .tool p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
   .tool .st{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;gap:5px}
   .tool.pend{border-style:dashed;background:none;box-shadow:none}
+  a.tool.lista{border-color:var(--accent);transition:transform .15s,box-shadow .15s}
+  a.tool.lista:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  a.tool.lista .tico{background:var(--accent)}
+  a.tool.lista .tico svg{stroke:var(--accent-ink)}
   .tool.ready{border-color:var(--accent)}
   .tool.ready .tico{background:var(--accent);}
   .tool.ready .tico svg{stroke:var(--accent-ink)}
@@ -334,12 +338,12 @@
           <div class="st"><span class="pill warn">Próximamente</span> <span class="pill">Puebla</span></div>
         </article>
 
-        <article class="tool pend" data-plaza="both">
+        <a class="tool lista" data-plaza="both" href="estimacion.html">
           <div class="tico"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 4-6 5 8"/><path d="M3 21h18"/></svg></div>
           <h3>Estimación de valor</h3>
-          <p>Parte de propiedades similares, saca el precio por metro cuadrado y genera una carta en PDF para el propietario.</p>
-          <div class="st"><span class="pill warn">Próximamente</span></div>
-        </article>
+          <p>Parte de tres propiedades parecidas, saca el precio por metro cuadrado y arma la carta para el propietario.</p>
+          <div class="st"><span class="pill acc">Abrir herramienta →</span></div>
+        </a>
 
         <article class="tool pend" data-plaza="both">
           <div class="tico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>

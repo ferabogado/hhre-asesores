@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Estimación de valor · hh Luxury Real Estate</title>
+<meta name="theme-color" content="#2d2d2d">
+<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<style>
+  :root{
+    --hh-almost:#2d2d2d; --hh-olive:#9e9683; --hh-beige:#e5e4df;
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6;
+    --ink:#22211E; --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84;
+    --line:#E3E1DA; --accent:#9e9683; --accent-text:#6B6455;
+    --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD;
+    --shadow-sm:0 1px 2px rgba(45,45,45,.05), 0 3px 12px rgba(45,45,45,.05);
+    --shadow-md:0 10px 28px rgba(45,45,45,.11);
+    --r:14px; --r-sm:10px;
+    --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+    --serif:"Cormorant Garamond","Times New Roman",Times,serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
+      --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
+      --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
+      --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
+      --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6; --ink:#22211E;
+    --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84; --line:#E3E1DA;
+    --accent:#9e9683; --accent-text:#6B6455; --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD;
+  }
+  :root[data-theme="dark"]{
+    --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917; --ink:#E9E7E1;
+    --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870; --line:#302F2B;
+    --accent:#B3AB95; --accent-text:#C4BCA6; --accent-tint:rgba(158,150,131,.16);
+    --accent-ink:#16150F; --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:6px}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 80px}
+
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+             flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .mark .hh{font-family:var(--serif);font-size:38px;line-height:.85;color:var(--ink-strong)}
+  .mark .sub{margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  .volver{font-size:13px;font-weight:600;color:var(--accent-text);text-decoration:none}
+  .volver:hover{text-decoration:underline}
+
+  h1{margin:26px 0 4px;font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.02em;
+     color:var(--ink-strong)}
+  .lead{margin:0 0 24px;color:var(--muted);font-size:14.5px;max-width:62ch}
+
+  fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+           padding:20px;margin:0 0 16px;box-shadow:var(--shadow-sm)}
+  legend{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+         color:var(--accent-text);padding:0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
+        background:var(--surface-2);color:var(--ink);font-family:var(--sans);font-size:14.5px}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .ayuda{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.45}
+
+  .comp{border:1px dashed var(--line);border-radius:var(--r-sm);padding:15px;background:var(--surface-2)}
+  .comp h3{margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+  .comps{display:grid;gap:12px}
+  .m2{font-size:12.5px;color:var(--accent-text);font-weight:600;margin-top:10px;
+      font-variant-numeric:tabular-nums}
+
+  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+  button{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:12px 22px;
+         border-radius:10px;border:1px solid var(--line);background:var(--surface);
+         color:var(--ink);cursor:pointer;transition:filter .14s}
+  button.primario{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  button:hover{filter:brightness(.94)}
+
+  .aviso{background:var(--warn-bg);color:var(--warn);border-radius:var(--r-sm);
+         padding:12px 15px;font-size:13px;font-weight:600;margin-bottom:16px}
+  .aviso[hidden]{display:none}
+
+  /* ---- Carta ---- */
+  .carta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+         padding:clamp(22px,4vw,44px);box-shadow:var(--shadow-md);margin-top:26px}
+  .carta .encabezado{display:flex;justify-content:space-between;align-items:flex-start;
+        gap:20px;flex-wrap:wrap;padding-bottom:20px;border-bottom:2px solid var(--hh-almost)}
+  .carta h2{margin:22px 0 6px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+        color:var(--accent-text);font-weight:700}
+  .carta p{margin:10px 0;font-size:14.5px;line-height:1.65}
+  .linea{display:flex;justify-content:space-between;gap:16px;padding:8px 0;
+         border-bottom:1px dotted var(--line);font-size:14.5px;font-variant-numeric:tabular-nums}
+  .linea span:last-child{font-weight:600;white-space:nowrap}
+  .total{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+         margin-top:18px;padding:16px 18px;border-radius:var(--r-sm);background:var(--hh-almost)}
+  .total .et{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--hh-olive);font-weight:700}
+  .total .vl{font-size:clamp(22px,3.4vw,30px);font-weight:600;color:#F5F4F0;
+             font-variant-numeric:tabular-nums;white-space:nowrap}
+  .letras{margin-top:10px;font-size:13.5px;color:var(--muted);font-style:italic}
+  .nota{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+        font-size:12px;color:var(--faint);line-height:1.6}
+  .firma{margin-top:26px;font-size:14px}
+  .firma b{display:block;margin-top:26px;color:var(--ink-strong)}
+
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    header.top,h1,.lead,fieldset,.acciones,.aviso,.noimp{display:none !important}
+    .carta{border:0;box-shadow:none;padding:0;margin:0}
+    .total{background:#2d2d2d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark">
+      <div class="hh">hh</div>
+      <div class="sub">Luxury Real Estate</div>
+    </div>
+    <a class="volver" href="portal.html">← Volver al portal</a>
+  </header>
+
+  <h1>Estimación de valor</h1>
+  <p class="lead">
+    Captura los datos del inmueble y tres propiedades parecidas. La herramienta calcula el valor
+    comercial con el mismo método del formato de hh y arma la carta lista para entregar al propietario.
+  </p>
+
+  <div class="aviso" id="aviso" hidden></div>
+
+  <form id="f" autocomplete="off">
+
+    <fieldset>
+      <legend>Datos de la propiedad</legend>
+      <div class="grid">
+        <div><label for="propietario">Propietario</label><input id="propietario" placeholder="Nombre completo"></div>
+        <div><label for="asesor">Asesor</label><input id="asesor" placeholder="Tu nombre"></div>
+        <div><label for="fecha">Fecha</label><input id="fecha" type="date"></div>
+      </div>
+      <div class="grid" style="margin-top:14px">
+        <div><label for="calle">Calle y número</label><input id="calle"></div>
+        <div><label for="colonia">Colonia</label><input id="colonia"></div>
+        <div><label for="municipio">Municipio</label><input id="municipio"></div>
+        <div><label for="estado">Estado</label><input id="estado" value="Nuevo León"></div>
+      </div>
+      <div class="grid" style="margin-top:14px">
+        <div>
+          <label for="terreno">M² de terreno</label>
+          <input id="terreno" type="number" min="0" step="0.01" inputmode="decimal">
+          <p class="ayuda">Si es departamento, repite aquí los m² de construcción.</p>
+        </div>
+        <div>
+          <label for="constr">M² de construcción</label>
+          <input id="constr" type="number" min="0" step="0.01" inputmode="decimal">
+          <p class="ayuda">Si es terreno, repite aquí los m² de terreno.</p>
+        </div>
+        <div>
+          <label for="edad">Edad del inmueble (años)</label>
+          <input id="edad" type="number" min="0" max="70" step="1" inputmode="numeric">
+          <p class="ayuda">La construcción se deprecia a 70 años.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tipo de construcción</legend>
+      <label for="clase">Característica que más se parezca a la propiedad</label>
+      <select id="clase"></select>
+      <p class="ayuda">De aquí sale el precio por m² de construcción (tabla SHF del formato de hh).</p>
+      <p class="m2" id="m2clase">—</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tres propiedades parecidas</legend>
+      <p class="ayuda" style="margin:0 0 14px">
+        Busca tres propiedades similares en zona, metraje, edad y áreas. Si la propiedad está
+        <b>publicada</b> (todavía no se vende), el método le descuenta 5% al precio.
+      </p>
+      <div class="comps" id="comps"></div>
+    </fieldset>
+
+    <div class="acciones">
+      <button type="submit" class="primario">Calcular valor</button>
+      <button type="button" id="imprimir" hidden>Guardar la carta en PDF</button>
+      <button type="button" id="limpiar">Limpiar</button>
+    </div>
+  </form>
+
+  <div id="salida"></div>
+</div>
+
+<script>
+// ===== Tabla de costo por m² de construcción (formato hh, base SHF) =====
+const CLASES = [
+  ["CASA Clase 4 SHF Media 80 m²", 13256.40],
+  ["CASA Clase 5 SHF semilujo 108 m² unifamiliar", 18459.53],
+  ["CONDOMINIO Horizontal 150 m²", 20616.00],
+  ["CASA Clase 6 SHF Residencial, 349 m² unifamiliar", 20734.79],
+  ["CASA Clase 7 SHF Residencial-Plus, 696 m² unifamiliar", 29970.02],
+  ["DEPTO Clase 2 SHF económica, 1-4 niveles, 43 m² (sin estacionamiento)", 6943.93],
+  ["DÚPLEX Clase 3 SHF interés social, 53 m², 2 niveles (sin estacionamiento)", 8848.74],
+  ["DEPTO Clase 4 SHF, 76 m², 1-4 niveles (sin estacionamiento)", 13677.79],
+  ["DEPTO Clase 5 SHF, 1-4 niveles, 91 m² (sin estacionamiento)", 18162.80],
+  ["DEPTO Clase 5 SHF, 14-18 niveles, 91 m²", 19784.74],
+  ["DEPTO Clase 6 SHF Residencial, 209 m², 1-4 niveles", 24083.94],
+  ["DEPTO Clase 7 SHF Residencial Plus, 375 m², 1-4 niveles", 28132.90],
+  ["LOCAL comercial categoría popular, 8 m²", 9765.60],
+  ["LOCAL comercial categoría media, 98 m²", 20819.56],
+  ["LOCAL comercial categoría selecta / semilujo, 162 m²", 25286.48],
+  ["EDIFICIO oficinas categoría económica, 4,860 m², 1 elevador", 12959.11],
+  ["EDIFICIO oficinas categoría comercial, 4,860 m², 8 niveles", 18531.47],
+  ["EDIFICIO oficinas categoría media, 4,860 m²", 18990.38],
+  ["EDIFICIO oficinas semilujo, 30,540 m² cubiertos", 27535.88],
+  ["EDIFICIO oficinas categoría lujo, 1,936 m²", 41006.90],
+  ["EDIFICIO oficinas con cimentación de pilotes", 24714.65],
+  ["EDIFICIO oficinas 1,080 m², 2 niveles, media", 15275.41]
+];
+
+const VIDA_UTIL = 70;                       // años, igual que el formato
+const CASTIGO_PUBLICADO = 0.95;             // 5% si aún está publicada
+
+const $ = id => document.getElementById(id);
+const num = id => { const v = parseFloat($(id).value); return isNaN(v) ? null : v; };
+const mxn = n => n.toLocaleString("es-MX", {style:"currency", currency:"MXN", maximumFractionDigits:2});
+
+// costo por m² de construcción ya depreciado por la edad
+const valorM2Constr = (costoM2, edad) => costoM2 / VIDA_UTIL * (VIDA_UTIL - edad);
+
+// ---- Armado del formulario ----
+CLASES.forEach(([n, c], i) => {
+  const o = document.createElement("option");
+  o.value = i; o.textContent = n;
+  $("clase").appendChild(o);
+});
+$("comps").innerHTML = [1,2,3].map(i => `
+  <div class="comp">
+    <h3>Propiedad ${i}</h3>
+    <div class="grid">
+      <div><label for="p${i}precio">Precio</label>
+        <input id="p${i}precio" type="number" min="0" step="1" inputmode="decimal"></div>
+      <div><label for="p${i}terreno">M² de terreno</label>
+        <input id="p${i}terreno" type="number" min="0" step="0.01" inputmode="decimal"></div>
+      <div><label for="p${i}constr">M² de construcción</label>
+        <input id="p${i}constr" type="number" min="0" step="0.01" inputmode="decimal"></div>
+      <div><label for="p${i}edad">Edad (años)</label>
+        <input id="p${i}edad" type="number" min="0" max="70" step="1" inputmode="numeric"></div>
+      <div><label for="p${i}estado">¿Publicada o vendida?</label>
+        <select id="p${i}estado">
+          <option value="vendido">Vendida</option>
+          <option value="publicado">Publicada</option>
+        </select></div>
+    </div>
+    <p class="m2" id="p${i}res">Precio por m² de terreno: —</p>
+  </div>`).join("");
+
+$("fecha").valueAsDate = new Date();
+
+const costoClase = () => CLASES[+$("clase").value][1];
+const pintaClase = () => $("m2clase").textContent =
+  `Precio por m² de construcción: ${mxn(costoClase())}`;
+$("clase").addEventListener("change", pintaClase);
+pintaClase();
+
+// ---- Número a letras ----
+function enLetras(n){
+  const U=["","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce",
+    "trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte"];
+  const D=["","","veinti","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
+  const C=["","ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos",
+    "setecientos","ochocientos","novecientos"];
+  function hasta999(x){
+    if(x===0) return "";
+    if(x===100) return "cien";
+    let t="";
+    const c=Math.floor(x/100), r=x%100;
+    if(c) t=C[c];
+    if(r){
+      if(t) t+=" ";
+      if(r<=20) t+=U[r];
+      else{
+        const d=Math.floor(r/10), u=r%10;
+        t += d===2 ? "veinti"+U[u] : D[d]+(u?" y "+U[u]:"");
+      }
+    }
+    return t;
+  }
+  const entero=Math.floor(n), cent=Math.round((n-entero)*100);
+  let t="";
+  const mill=Math.floor(entero/1e6), miles=Math.floor((entero%1e6)/1000), resto=entero%1000;
+  if(mill) t += (mill===1?"un millón":hasta999(mill)+" millones")+" ";
+  if(miles) t += (miles===1?"mil":hasta999(miles)+" mil")+" ";
+  if(resto) t += hasta999(resto);
+  t = (t.trim()||"cero");
+  return t.charAt(0).toUpperCase()+t.slice(1)+` pesos ${String(cent).padStart(2,"0")}/100 M.N.`;
+}
+
+// ---- Cálculo ----
+function comparables(costoM2){
+  const out=[];
+  for(const i of [1,2,3]){
+    const precio=num(`p${i}precio`), terr=num(`p${i}terreno`),
+          cons=num(`p${i}constr`), ed=num(`p${i}edad`);
+    if(precio===null||terr===null||cons===null||ed===null){ out.push(null); continue; }
+    if(terr<=0){ out.push(NaN); continue; }
+    const ajuste = $(`p${i}estado`).value==="publicado" ? CASTIGO_PUBLICADO : 1;
+    out.push(((precio - cons*valorM2Constr(costoM2, ed)) / terr) * ajuste);
+  }
+  return out;
+}
+
+function avisa(msg){
+  const a=$("aviso");
+  if(!msg){ a.hidden=true; return; }
+  a.hidden=false; a.textContent=msg;
+  a.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+$("f").addEventListener("submit", e => {
+  e.preventDefault();
+  const costoM2=costoClase();
+  const terreno=num("terreno"), constr=num("constr"), edad=num("edad");
+
+  if(terreno===null||constr===null||edad===null)
+    return avisa("Faltan los metros de terreno, los de construcción o la edad del inmueble.");
+  if(terreno<=0) return avisa("Los m² de terreno tienen que ser mayores a cero.");
+  if(edad>VIDA_UTIL) return avisa(`La edad no puede pasar de ${VIDA_UTIL} años: es la vida útil que usa el método.`);
+
+  const c=comparables(costoM2);
+  c.forEach((v,i)=>{
+    $(`p${i+1}res`).textContent = v===null ? "Precio por m² de terreno: —"
+      : isNaN(v) ? "Revisa los m² de terreno"
+      : `Precio por m² de terreno: ${mxn(v)}`;
+  });
+  const validos=c.filter(v=>v!==null&&!isNaN(v));
+  if(validos.length<3) return avisa("Captura las tres propiedades parecidas: el método promedia las tres.");
+  if(validos.some(v=>v<=0))
+    return avisa("Una propiedad da un valor de terreno negativo. Revisa su precio, sus metros o su edad.");
+
+  avisa(null);
+
+  const m2Terreno = validos.reduce((a,b)=>a+b,0)/3;
+  const m2Constr  = valorM2Constr(costoM2, edad);
+  const vTerreno  = terreno*m2Terreno;
+  const vConstr   = constr*m2Constr;
+  const total     = vTerreno+vConstr;
+
+  const dir=[ $("calle").value, $("colonia").value, $("municipio").value ].filter(Boolean).join(", ");
+  const estado=$("estado").value.trim();
+  const fecha=$("fecha").valueAsDate
+    ? $("fecha").valueAsDate.toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"})
+    : "";
+
+  $("salida").innerHTML = `
+    <div class="carta">
+      <div class="encabezado">
+        <div class="mark">
+          <div class="hh" style="font-family:var(--serif);font-size:38px;line-height:.85">hh</div>
+          <div class="sub" style="margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)">Luxury Real Estate</div>
+        </div>
+        <div style="text-align:right;font-size:13px;color:var(--muted)">
+          ${estado ? `En ${estado}, a` : "A"} ${fecha}
+        </div>
+      </div>
+
+      <p><b>Sr(a). ${$("propietario").value || "________________"}</b><br>Presente.—</p>
+      <p>Con referencia a la visita efectuada al inmueble de su propiedad ubicado en:
+         <b>${dir || "________________"}${estado ? ", "+estado : ""}</b>, a continuación le damos
+         nuestra opinión respecto al <b>valor comercial</b> de su propiedad.</p>
+
+      <h2>1. Terreno</h2>
+      <div class="linea"><span>Superficie total</span><span>${terreno.toLocaleString("es-MX")} m²</span></div>
+      <div class="linea"><span>Valor actual por m²</span><span>${mxn(m2Terreno)}</span></div>
+      <div class="linea"><span>Total</span><span>${mxn(vTerreno)}</span></div>
+
+      <h2>2. Construcción</h2>
+      <div class="linea"><span>Superficie total</span><span>${constr.toLocaleString("es-MX")} m²</span></div>
+      <div class="linea"><span>Valor actual por m² (${edad} ${edad===1?"año":"años"} de antigüedad)</span><span>${mxn(m2Constr)}</span></div>
+      <div class="linea"><span>Total</span><span>${mxn(vConstr)}</span></div>
+
+      <div class="total">
+        <span class="et">Valor total comercial</span>
+        <span class="vl">${mxn(total)}</span>
+      </div>
+      <p class="letras">${enLetras(total)}</p>
+      <p>Dicho valor comercial sería el piso para recibir ofertas.</p>
+
+      <div class="firma">
+        Atentamente:
+        <b>${$("asesor").value || "________________"}</b>
+        <span style="font-size:12px;color:var(--muted)">Asesor inmobiliario y colaborador · hh Luxury Real Estate</span>
+      </div>
+
+      <p class="nota">
+        La presente opinión de valor tiene carácter informativo y <b>carece de validez legal</b>.
+        Se realizó con base en tres propiedades comparables de la zona y en el costo de construcción
+        por m² del tipo seleccionado, depreciado a ${VIDA_UTIL} años de vida útil.
+        No sustituye un avalúo practicado por perito valuador.
+      </p>
+    </div>`;
+
+  $("imprimir").hidden=false;
+  $("salida").scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+$("imprimir").addEventListener("click", ()=>window.print());
+$("limpiar").addEventListener("click", ()=>{
+  $("f").reset(); $("salida").innerHTML=""; $("imprimir").hidden=true;
+  avisa(null); $("fecha").valueAsDate=new Date(); pintaClase();
+  [1,2,3].forEach(i=>$(`p${i}res`).textContent="Precio por m² de terreno: —");
+});
+</script>
+</body>
+</html>
