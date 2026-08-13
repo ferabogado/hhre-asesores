@@ -172,8 +172,6 @@ function CalculadoraHH() {
   const [conCredito, setConCredito] = useState(false);
   const [credito, setCredito] = useState("");
   const [avanzado, setAvanzado] = useState(false);
-
-  const [clave, setClave] = useState("");
   const [error, setError] = useState("");
   const [generando, setGenerando] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
@@ -486,8 +484,6 @@ function CalculadoraHH() {
         a.click();
         a.remove();
       } catch { /* el iframe puede bloquearla; quedan los enlaces */ }
-
-      setClave("");
     } catch (e) {
       setError(
         e?.message === "sin-red"
@@ -576,7 +572,6 @@ function CalculadoraHH() {
     setConCredito(false);
     setCredito("");
     setAvanzado(false);
-    setClave("");
     setError("");
     setPdfUrl("");
     setPdfNombre("");
@@ -618,7 +613,7 @@ function CalculadoraHH() {
             Costos de adquisición
           </h1>
           <p style={{ margin: "12px auto 0", maxWidth: 460, fontFamily: SANS, fontSize: 13.5, fontWeight: 300, lineHeight: 1.65, color: C.gris, textAlign: "center" }}>
-            Lo que un comprador desembolsa al escriturar un inmueble en Puebla: impuestos, derechos y gastos.
+            Lo que el comprador paga además del precio para escriturar en Puebla: ISABI, derechos de registro, honorarios notariales y avalúo.
           </p>
         </div>
       </header>
@@ -855,21 +850,8 @@ function CalculadoraHH() {
                 Descargar la estimación
               </div>
               <p style={{ margin: "0 0 24px", fontFamily: SANS, fontSize: 12, fontWeight: 300, lineHeight: 1.6, color: C.gris, maxWidth: 480 }}>
-                Requiere el nombre del asesor, el del cliente y la contraseña.
+                Requiere el nombre del asesor y el del cliente.
               </p>
-
-              <div style={{ maxWidth: 260 }}>
-                <Campo label="Contraseña del asesor">
-                  <input
-                    style={inputBase}
-                    type="password"
-                    value={clave}
-                    onChange={(e) => { setClave(e.target.value); setError(""); }}
-                    onKeyDown={(e) => e.key === "Enter" && generar()}
-                    placeholder="••••"
-                  />
-                </Campo>
-              </div>
 
               {error && <div style={{ fontFamily: SANS, fontSize: 12, color: C.alerta, marginBottom: 18, maxWidth: 480, lineHeight: 1.5 }}>{error}</div>}
 

@@ -106,8 +106,10 @@ table.t input{padding:5px 8px;font-size:13px;text-align:right}
 .doc h3{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin:22px 0 7px;text-align:left}
 .doc p{margin:0 0 11px}
 .doc .rt{text-align:right}
-.doc ol{padding-left:20px;margin:0 0 11px}
-.doc ol li{margin-bottom:7px}
+.doc ol{padding-left:18px;margin:0 0 9px}
+.doc ol li{margin-bottom:4px;font-size:10.5px;line-height:1.38}
+.doc ol li small{font-size:inherit;line-height:inherit}
+.doc ol li b{font-weight:600}
 .doc table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px}
 .doc table td{padding:5px 0;border-bottom:1px solid #EDEBE9}
 .doc table td.n{text-align:right;font-variant-numeric:tabular-nums}
@@ -138,8 +140,17 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:38px 0 50px;l
   .doc{padding:0}
 }
 </style>
+<style>
+  #volver-portal{position:fixed;top:14px;left:16px;z-index:9999;
+    font:600 11.5px/1 'Hanken Grotesk',system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+    color:#5C5856;text-decoration:none;background:rgba(255,255,255,.92);padding:8px 12px;
+    border-radius:8px;border:1px solid #E4E1DF}
+  #volver-portal:hover{color:#000}
+  @media print{#volver-portal{display:none}}
+</style>
 </head>
 <body>
+<a id="volver-portal" href="portal.html">← Portal</a>
 
 <header>
   <div class="wrap bar">
@@ -799,12 +810,12 @@ function datosPlaza(){
 }
 function limitaciones(vig, tipoOp){
   return [
-    'No constituye avalúo. El presente documento es una opinión comercial de valor. No es un avalúo ni un dictamen valuatorio, no fue emitido por perito valuador con registro ante la Sociedad Hipotecaria Federal, el Instituto de Administración y Avalúos de Bienes Nacionales, autoridad catastral, colegio de valuadores ni institución de crédito, y carece de efectos fiscales, contables, crediticios, notariales, judiciales, sucesorios o de garantía.',
-    'Origen de la información. Se elaboró con la información proporcionada por el propietario y con datos de oferta pública disponibles a la fecha de emisión. No se practicó verificación registral, catastral, documental ni estructural, ni levantamiento topográfico o arquitectónico. Las superficies, la antigüedad y las características del inmueble son las manifestadas por el propietario y no fueron medidas ni certificadas por esta empresa. No se investigaron linderos, servidumbres, gravámenes, adeudos, restricciones de uso de suelo, licencias, vicios ocultos ni situación jurídica de la propiedad.',
-    'No es oferta ni garantía de precio. El presente no constituye oferta, promesa de compra o de venta, compromiso de comercialización, ni garantía de que el inmueble se ' + (tipoOp==='cv'?'venda':'arriende') + ' en la cantidad señalada o en plazo alguno. El precio lo determina libremente el propietario y el resultado depende de las condiciones de oferta y demanda vigentes al momento de la operación.',
-    'Vigencia. La presente opinión tiene una vigencia de ' + vig + ' días naturales contados a partir de su fecha de emisión. Transcurrido dicho plazo deberá solicitarse su actualización, pues las condiciones del mercado varían.',
-    'Uso y confidencialidad. Se emite para uso exclusivo del destinatario y para el fin aquí expresado. No podrá reproducirse, publicarse, citarse ni exhibirse ante terceros, institución o autoridad, total o parcialmente, sin autorización previa y por escrito.',
-    'Limitación de responsabilidad. La recepción y el uso de este documento implican la conformidad del destinatario con los alcances y limitaciones expresados. Ni HH Luxury Real Estate, ni la sociedad que la opera, ni el asesor que suscribe, asumen responsabilidad por las decisiones de contratación, inversión, financiamiento o disposición que el destinatario o terceros adopten con apoyo en esta opinión. Cuando el valor deba acreditarse ante institución financiera, notario público, autoridad fiscal o tribunal, se recomienda contratar un avalúo formal con perito valuador autorizado.'
+    'No constituye avalúo. Es una opinión comercial de valor, no un avalúo ni un dictamen valuatorio. No fue emitida por perito valuador con registro ante la Sociedad Hipotecaria Federal, el INDAABIN, autoridad catastral, colegio de valuadores ni institución de crédito, y carece de efectos fiscales, contables, crediticios, notariales, judiciales, sucesorios o de garantía.',
+    'Origen de la información. Se elaboró con lo informado por el propietario y con oferta pública a la fecha de emisión. No se verificó la situación registral, catastral, documental ni estructural, ni se midieron superficies. Superficies, antigüedad y características son las manifestadas. No se investigaron linderos, servidumbres, gravámenes, adeudos, uso de suelo, licencias ni vicios ocultos.',
+    'No es oferta ni garantía de precio. No constituye oferta, promesa de compra o de venta, compromiso de comercialización ni garantía de que el inmueble se ' + (tipoOp==='cv'?'venda':'arriende') + ' en esa cantidad o en algún plazo. El precio lo fija libremente el propietario y el resultado depende del mercado.',
+    'Vigencia. ' + vig + ' días naturales desde su emisión. Vencido el plazo debe solicitarse su actualización.',
+    'Uso y confidencialidad. Para uso exclusivo del destinatario y el fin aquí expresado. No puede reproducirse, citarse ni exhibirse ante terceros, institución o autoridad sin autorización previa por escrito.',
+    'Limitación de responsabilidad. Usar este documento implica aceptar estos alcances. HH Luxury Real Estate, la sociedad que la opera y el asesor que suscribe no responden por las decisiones de contratación, inversión, financiamiento o disposición que se tomen con apoyo en esta opinión. Si el valor debe acreditarse ante una institución financiera, notario, autoridad fiscal o tribunal, contrate un avalúo formal con perito valuador autorizado.'
   ];
 }
 
@@ -819,7 +830,7 @@ function cartaCV(){
   b.push({t:'h2', v:'Compraventa'});
   b.push({t:'p', v:pz.ciudad + ', a ' + fechaLarga($('#cv_fecha').value) + '.', align:'right'});
   b.push({t:'sp', h:4});
-  b.push({t:'p', v:'Sr(a). ' + ($('#cv_prop').value || '_______________________')});
+  b.push({t:'p', v:'Sr(a). ' + ($('#cv_prop').value || '_______________________'), bold:true});
   b.push({t:'p', v:'P r e s e n t e.'});
   b.push({t:'sp', h:3});
   b.push({t:'p', v:'Con motivo de la visita realizada al inmueble de su propiedad ubicado en ' + (dir||'_______________') + (edo?', en '+edo:'') + ', y a solicitud expresa de usted, HH Luxury Real Estate emite la presente opinión sobre el valor comercial del inmueble, con fines exclusivamente informativos y de orientación para su comercialización.'});
@@ -872,7 +883,7 @@ function cartaAR(){
   b.push({t:'h2', v:'Arrendamiento'});
   b.push({t:'p', v:pz.ciudad + ', a ' + fechaLarga($('#ar_fecha').value) + '.', align:'right'});
   b.push({t:'sp', h:4});
-  b.push({t:'p', v:'Sr(a). ' + ($('#ar_prop').value || '_______________________')});
+  b.push({t:'p', v:'Sr(a). ' + ($('#ar_prop').value || '_______________________'), bold:true});
   b.push({t:'p', v:'P r e s e n t e.'});
   b.push({t:'sp', h:3});
   b.push({t:'p', v:'Con motivo de la visita realizada al inmueble de su propiedad ubicado en ' + (dir||'_______________') + (edo?', en '+edo:'') + ', y a solicitud expresa de usted, HH Luxury Real Estate emite la presente opinión sobre la renta de mercado del inmueble, con fines exclusivamente informativos y de orientación para su comercialización.'});
@@ -910,10 +921,10 @@ function renderCarta(c){
     if(b.t==='h1') h += '<h1>'+esc(b.v)+'</h1>';
     else if(b.t==='h2') h += '<h2>'+esc(b.v)+'</h2>';
     else if(b.t==='h3') h += '<h3>'+esc(b.v)+'</h3>';
-    else if(b.t==='p') h += '<p'+(b.align==='right'?' class="rt"':'')+'>'+esc(b.v)+'</p>';
+    else if(b.t==='p') h += '<p'+(b.align==='right'?' class="rt"':'')+'>'+(b.bold?'<b>'+esc(b.v)+'</b>':esc(b.v))+'</p>';
     else if(b.t==='kv') h += '<table><tr><td>'+esc(b.l)+'</td><td class="n">'+esc(b.r)+'</td></tr></table>';
     else if(b.t==='tot') h += '<div class="tot"><span class="l">'+esc(b.l)+'</span><span class="r">'+esc(b.r)+'</span></div>';
-    else if(b.t==='ol') h += '<ol>'+b.items.map(i=>'<li><small>'+esc(i)+'</small></li>').join('')+'</ol>';
+    else if(b.t==='ol') h += '<ol>'+b.items.map(i=>{var c=i.indexOf('. '); var t=esc(i);if(c>0&&c<60) t='<b>'+esc(i.slice(0,c+1))+'</b>'+esc(i.slice(c+1));return '<li><small>'+t+'</small></li>';}).join('')+'</ol>';
     else if(b.t==='sp') h += '<div style="height:'+(b.h*2)+'px"></div>';
     else if(b.t==='firma') h += '<div class="firma"><div class="ln"></div>'+b.lines.map((l,i)=>'<div style="font-size:'+(i?11.5:13.5)+'px;'+(i?'color:#5C5856':'font-weight:600')+'">'+esc(l)+'</div>').join('')+'</div>';
     else if(b.t==='acuse') h += '<div style="margin-top:36px;border-top:1px solid #E4E1DF;padding-top:14px"><small>Recibí de conformidad el presente documento y manifiesto haber leído y aceptado los alcances y limitaciones contenidos en el apartado V.</small><div class="firma" style="margin-top:34px"><div class="ln"></div><div style="font-size:11.5px;color:#5C5856">Propietario · nombre y firma</div></div></div>';
@@ -970,7 +981,7 @@ function pdf(){
       doc.text(b.v.toUpperCase(), W/2, y, {align:'center', charSpace:1.6}); doc.setTextColor(35,31,32); y += 10; }
     else if(b.t==='h3'){ espacio(14); y += 4; doc.setFont('helvetica','bold'); doc.setFontSize(9);
       doc.text(b.v.toUpperCase(), ML, y, {charSpace:0.4}); y += 5.5; }
-    else if(b.t==='p'){ par(b.v, 10, 'normal', b.align); y += 2.2; }
+    else if(b.t==='p'){ par(b.v, 10, b.bold?'bold':'normal', b.align); y += 2.2; }
     else if(b.t==='kv'){ espacio(8); doc.setFont('helvetica','normal'); doc.setFontSize(9.5);
       doc.text(b.l, ML, y); doc.text(b.r, W-MR, y, {align:'right'});
       doc.setDrawColor(230,228,226); doc.line(ML, y+1.8, W-MR, y+1.8); y += 6.6; }
@@ -982,7 +993,7 @@ function pdf(){
     else if(b.t==='ol'){ b.items.forEach((it,i)=>{ espacio(10);
         doc.setFont('helvetica','bold'); doc.setFontSize(8);
         doc.text(String(i+1)+'.', ML, y);
-        par(it, 8, 'normal', null, 6); y += 2; }); }
+        par(it, 7.2, 'normal', null, 6); y += 1.2; }); }
     else if(b.t==='sp'){ y += b.h; }
     else if(b.t==='firma'){ espacio(42); y += 16;
       doc.setDrawColor(35,31,32); doc.line(W/2-35, y, W/2+35, y); y += 5;
