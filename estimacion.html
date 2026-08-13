@@ -1,426 +1,1195 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<title>Estimación de valor · hh Luxury Real Estate</title>
-<meta name="theme-color" content="#2d2d2d">
-<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HH Luxury Real Estate — Estimación de valor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --hh-almost:#2d2d2d; --hh-olive:#9e9683; --hh-beige:#e5e4df;
-    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6;
-    --ink:#22211E; --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84;
-    --line:#E3E1DA; --accent:#9e9683; --accent-text:#6B6455;
-    --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
-    --warn:#8A6D2F; --warn-bg:#F6EFDD;
-    --shadow-sm:0 1px 2px rgba(45,45,45,.05), 0 3px 12px rgba(45,45,45,.05);
-    --shadow-md:0 10px 28px rgba(45,45,45,.11);
-    --r:14px; --r-sm:10px;
-    --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
-    --serif:"Cormorant Garamond","Times New Roman",Times,serif;
-  }
-  @media (prefers-color-scheme:dark){
-    :root{
-      --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
-      --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
-      --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
-      --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
-      --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
-      --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
-    }
-  }
-  :root[data-theme="light"]{
-    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6; --ink:#22211E;
-    --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84; --line:#E3E1DA;
-    --accent:#9e9683; --accent-text:#6B6455; --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
-    --warn:#8A6D2F; --warn-bg:#F6EFDD;
-  }
-  :root[data-theme="dark"]{
-    --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917; --ink:#E9E7E1;
-    --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870; --line:#302F2B;
-    --accent:#B3AB95; --accent-text:#C4BCA6; --accent-tint:rgba(158,150,131,.16);
-    --accent-ink:#16150F; --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
-  }
+:root{
+  --ink:#231F20; --paper:#FFFFFF; --soft:#F7F6F5; --line:#E4E1DF;
+  --muted:#8C8785; --dim:#5C5856; --ok:#2E6B4F; --warn:#8A6212; --bad:#8C3A34;
+  --r:14px; --sh:0 1px 2px rgba(35,31,32,.04), 0 8px 28px rgba(35,31,32,.06);
+  --fs:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--fs);color:var(--ink);background:var(--soft);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
 
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);
-       -webkit-font-smoothing:antialiased;line-height:1.5}
-  a{color:inherit}
-  :focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:6px}
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px}
+.logo{height:30px}
+.logo img{height:100%;display:block}
+.plaza{display:flex;gap:2px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px}
+.plaza button{border:0;background:none;font:inherit;font-size:13px;letter-spacing:.02em;color:var(--dim);padding:6px 15px;border-radius:999px;cursor:pointer;transition:.18s}
+.plaza button.on{background:var(--ink);color:#fff}
 
-  .wrap{max-width:1000px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 80px}
+.hero{padding:46px 0 26px}
+.hero h1{font-weight:300;font-size:34px;letter-spacing:-.015em;margin:0 0 8px}
+.hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px}
 
-  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
-             flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
-  .mark .hh{font-family:var(--serif);font-size:38px;line-height:.85;color:var(--ink-strong)}
-  .mark .sub{margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
-  .volver{font-size:13px;font-weight:600;color:var(--accent-text);text-decoration:none}
-  .volver:hover{text-decoration:underline}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:26px;overflow-x:auto}
+.tabs button{border:0;background:none;font:inherit;font-size:14px;color:var(--muted);padding:11px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.18s}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
 
-  h1{margin:26px 0 4px;font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.02em;
-     color:var(--ink-strong)}
-  .lead{margin:0 0 24px;color:var(--muted);font-size:14.5px;max-width:62ch}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:16px;box-shadow:var(--sh)}
+.card h2{font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.card h3{font-weight:500;font-size:15px;margin:0 0 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.grid.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.field{display:flex;flex-direction:column;gap:6px}
+.lab{font-size:12px;color:var(--dim);letter-spacing:.02em}
+.hint{font-size:11.5px;color:var(--muted);line-height:1.4}
+input,select,textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:9px 11px;width:100%;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,31,32,.06)}
+select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='%238C8785' fill='none' stroke-width='1.4'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px}
+.money{position:relative}
+.money span{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
+.money input{padding-left:24px}
+.seg{display:flex;flex-wrap:wrap;gap:2px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{flex:1;min-width:auto;border:0;background:none;font:inherit;font-size:12.5px;color:var(--dim);padding:7px 9px;border-radius:8px;cursor:pointer;transition:.15s;white-space:nowrap}
+.seg button.on{background:var(--ink);color:#fff}
+.chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--dim);cursor:pointer}
+.chk input{width:15px;height:15px;accent-color:var(--ink);flex:0 0 auto}
 
-  fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
-           padding:20px;margin:0 0 16px;box-shadow:var(--shadow-sm)}
-  legend{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
-         color:var(--accent-text);padding:0 8px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
-  input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
-        background:var(--surface-2);color:var(--ink);font-family:var(--sans);font-size:14.5px}
-  input:focus,select:focus{outline:none;border-color:var(--accent)}
-  .ayuda{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.45}
+.btn{border:1px solid var(--ink);background:var(--ink);color:#fff;font:inherit;font-size:13.5px;padding:10px 20px;border-radius:999px;cursor:pointer;transition:.18s}
+.btn:hover{opacity:.86}
+.btn.ghost{background:none;color:var(--ink)}
+.btn.mini{padding:6px 13px;font-size:12.5px}
+.btn.line{background:none;color:var(--dim);border-color:var(--line)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 
-  .comp{border:1px dashed var(--line);border-radius:var(--r-sm);padding:15px;background:var(--surface-2)}
-  .comp h3{margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
-  .comps{display:grid;gap:12px}
-  .m2{font-size:12.5px;color:var(--accent-text);font-weight:600;margin-top:10px;
-      font-variant-numeric:tabular-nums}
+.comp{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;background:var(--paper)}
+.comp.off{opacity:.5}
+.comp .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.comp .num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.comp .res{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:18px;font-size:13px}
+.comp .res b{font-weight:600}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--dim);border:1px solid var(--line)}
+.tag.w{background:#FDF6E7;color:var(--warn);border-color:#F0E2BE}
+.tag.e{background:#FBEEED;color:var(--bad);border-color:#F0D5D2}
+.tag.g{background:#EDF5F0;color:var(--ok);border-color:#CFE5D9}
 
-  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
-  button{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:12px 22px;
-         border-radius:10px;border:1px solid var(--line);background:var(--surface);
-         color:var(--ink);cursor:pointer;transition:filter .14s}
-  button.primario{background:var(--accent);color:var(--accent-ink);border-color:transparent}
-  button:hover{filter:brightness(.94)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.out div{background:var(--paper);padding:16px}
+.out .k{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.out .v{font-size:21px;font-weight:300;letter-spacing:-.01em}
+.out .v small{font-size:12px;color:var(--muted);font-weight:400;letter-spacing:0}
+.out .big{font-size:27px}
 
-  .aviso{background:var(--warn-bg);color:var(--warn);border-radius:var(--r-sm);
-         padding:12px 15px;font-size:13px;font-weight:600;margin-bottom:16px}
-  .aviso[hidden]{display:none}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tr.grp td{background:var(--soft);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600}
+table.t input{padding:5px 8px;font-size:13px;text-align:right}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
-  /* ---- Carta ---- */
-  .carta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-         padding:clamp(22px,4vw,44px);box-shadow:var(--shadow-md);margin-top:26px}
-  .carta .encabezado{display:flex;justify-content:space-between;align-items:flex-start;
-        gap:20px;flex-wrap:wrap;padding-bottom:20px;border-bottom:2px solid var(--hh-almost)}
-  .carta h2{margin:22px 0 6px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
-        color:var(--accent-text);font-weight:700}
-  .carta p{margin:10px 0;font-size:14.5px;line-height:1.65}
-  .linea{display:flex;justify-content:space-between;gap:16px;padding:8px 0;
-         border-bottom:1px dotted var(--line);font-size:14.5px;font-variant-numeric:tabular-nums}
-  .linea span:last-child{font-weight:600;white-space:nowrap}
-  .total{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
-         margin-top:18px;padding:16px 18px;border-radius:var(--r-sm);background:var(--hh-almost)}
-  .total .et{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--hh-olive);font-weight:700}
-  .total .vl{font-size:clamp(22px,3.4vw,30px);font-weight:600;color:#F5F4F0;
-             font-variant-numeric:tabular-nums;white-space:nowrap}
-  .letras{margin-top:10px;font-size:13.5px;color:var(--muted);font-style:italic}
-  .nota{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
-        font-size:12px;color:var(--faint);line-height:1.6}
-  .firma{margin-top:26px;font-size:14px}
-  .firma b{display:block;margin-top:26px;color:var(--ink-strong)}
+.note{font-size:12.5px;color:var(--muted);line-height:1.6}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.opt{border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:.18s}
+.opt.on{border-color:var(--ink);box-shadow:0 0 0 2px rgba(35,31,32,.07)}
+.opt .t{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.opt .v{font-size:23px;font-weight:300}
 
-  @media print{
-    body{background:#fff}
-    .wrap{max-width:none;padding:0}
-    header.top,h1,.lead,fieldset,.acciones,.aviso,.noimp{display:none !important}
-    .carta{border:0;box-shadow:none;padding:0;margin:0}
-    .total{background:#2d2d2d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  }
+.modal{position:fixed;inset:0;background:rgba(35,31,32,.45);backdrop-filter:blur(3px);z-index:80;display:none;overflow:auto;padding:26px 14px}
+.modal.on{display:block}
+.sheet{background:#fff;max-width:816px;margin:0 auto;border-radius:6px;box-shadow:0 24px 70px rgba(0,0,0,.3);overflow:hidden}
+.sh-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:2}
+.doc{padding:44px 58px 30px;font-size:13.5px;line-height:1.72;text-align:justify}
+.doc .lg{height:34px;margin-bottom:26px}
+.doc .lg img{height:100%}
+.doc h1{font-size:16px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-align:center;margin:0 0 3px}
+.doc h2{font-size:12px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;text-align:center;color:var(--muted);margin:0 0 26px}
+.doc h3{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin:22px 0 7px;text-align:left}
+.doc p{margin:0 0 11px}
+.doc .rt{text-align:right}
+.doc ol{padding-left:20px;margin:0 0 11px}
+.doc ol li{margin-bottom:7px}
+.doc table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px}
+.doc table td{padding:5px 0;border-bottom:1px solid #EDEBE9}
+.doc table td.n{text-align:right;font-variant-numeric:tabular-nums}
+.doc .tot{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:11px 0;margin:16px 0;display:flex;justify-content:space-between;align-items:baseline}
+.doc .tot .l{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
+.doc .tot .r{font-size:22px;font-weight:400}
+.doc .firma{margin-top:44px;text-align:center}
+.doc .firma .ln{border-top:1px solid var(--ink);width:250px;margin:0 auto 6px}
+.doc small{font-size:11.5px;color:var(--dim);line-height:1.6;display:block;text-align:justify}
+.docfoot{background:var(--ink);color:#fff;font-size:11px;letter-spacing:.14em;padding:12px 58px;display:flex;justify-content:space-between}
+
+.hist{display:flex;flex-direction:column;gap:8px}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px}
+.hrow .m{color:var(--muted);font-size:12px}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:38px 0 50px;line-height:1.7}
+.hide{display:none!important}
+@media (max-width:640px){
+  .hero{padding:30px 0 18px}.hero h1{font-size:26px}
+  .doc{padding:28px 26px 20px}.docfoot{padding:10px 26px}
+  .card{padding:16px}
+}
+@media print{
+  header,.hero,.tabs,#panels,footer,.sh-bar{display:none!important}
+  body{background:#fff}
+  .modal{position:static;display:block;background:none;padding:0;overflow:visible}
+  .sheet{max-width:none;box-shadow:none;border-radius:0}
+  .doc{padding:0}
+}
 </style>
 </head>
 <body>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo"><img id="logoTop" alt="HH Luxury Real Estate"></div>
+    <div class="plaza" id="plazaSel">
+      <button class="on" data-v="mty">Monterrey</button>
+      <button data-v="pue">Puebla</button>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
+  <div class="hero">
+    <h1>Estimación de valor</h1>
+    <p>Herramienta interna de HH Luxury Real Estate para estimar el valor comercial de un inmueble en compraventa o la renta de mercado en arrendamiento, por análisis comparativo de mercado, y emitir la carta al propietario.</p>
+  </div>
 
-  <header class="top">
-    <div class="mark">
-      <div class="hh">hh</div>
-      <div class="sub">Luxury Real Estate</div>
-    </div>
-    <a class="volver" href="portal.html">← Volver al portal</a>
-  </header>
+  <div class="tabs" id="tabs">
+    <button class="on" data-t="cv">Compraventa</button>
+    <button data-t="ar">Arrendamiento</button>
+    <button data-t="tb">Valores unitarios</button>
+    <button data-t="pr">Parámetros</button>
+    <button data-t="hs">Estimaciones guardadas</button>
+  </div>
 
-  <h1>Estimación de valor</h1>
-  <p class="lead">
-    Captura los datos del inmueble y tres propiedades parecidas. La herramienta calcula el valor
-    comercial con el mismo método del formato de hh y arma la carta lista para entregar al propietario.
-  </p>
+  <div id="panels">
 
-  <div class="aviso" id="aviso" hidden></div>
-
-  <form id="f" autocomplete="off">
-
-    <fieldset>
-      <legend>Datos de la propiedad</legend>
+  <!-- ============ COMPRAVENTA ============ -->
+  <section id="pcv">
+    <div class="card">
+      <h2>Datos generales</h2>
       <div class="grid">
-        <div><label for="propietario">Propietario</label><input id="propietario" placeholder="Nombre completo"></div>
-        <div><label for="asesor">Asesor</label><input id="asesor" placeholder="Tu nombre"></div>
-        <div><label for="fecha">Fecha</label><input id="fecha" type="date"></div>
+        <label class="field"><span class="lab">Propietario</span><input id="cv_prop" placeholder="Nombre completo"></label>
+        <label class="field"><span class="lab">Asesor</span><input id="cv_ases" placeholder="Nombre del asesor"></label>
+        <label class="field"><span class="lab">Folio de asesor certificado</span><input id="cv_folio" placeholder="Ej. HH-0245"></label>
+        <label class="field"><span class="lab">Fecha de emisión</span><input id="cv_fecha" type="date"></label>
       </div>
-      <div class="grid" style="margin-top:14px">
-        <div><label for="calle">Calle y número</label><input id="calle"></div>
-        <div><label for="colonia">Colonia</label><input id="colonia"></div>
-        <div><label for="municipio">Municipio</label><input id="municipio"></div>
-        <div><label for="estado">Estado</label><input id="estado" value="Nuevo León"></div>
-      </div>
-      <div class="grid" style="margin-top:14px">
-        <div>
-          <label for="terreno">M² de terreno</label>
-          <input id="terreno" type="number" min="0" step="0.01" inputmode="decimal">
-          <p class="ayuda">Si es departamento, repite aquí los m² de construcción.</p>
-        </div>
-        <div>
-          <label for="constr">M² de construcción</label>
-          <input id="constr" type="number" min="0" step="0.01" inputmode="decimal">
-          <p class="ayuda">Si es terreno, repite aquí los m² de terreno.</p>
-        </div>
-        <div>
-          <label for="edad">Edad del inmueble (años)</label>
-          <input id="edad" type="number" min="0" max="70" step="1" inputmode="numeric">
-          <p class="ayuda">La construcción se deprecia a 70 años.</p>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Tipo de construcción</legend>
-      <label for="clase">Característica que más se parezca a la propiedad</label>
-      <select id="clase"></select>
-      <p class="ayuda">De aquí sale el precio por m² de construcción (tabla SHF del formato de hh).</p>
-      <p class="m2" id="m2clase">—</p>
-    </fieldset>
-
-    <fieldset>
-      <legend>Tres propiedades parecidas</legend>
-      <p class="ayuda" style="margin:0 0 14px">
-        Busca tres propiedades similares en zona, metraje, edad y áreas. Si la propiedad está
-        <b>publicada</b> (todavía no se vende), el método le descuenta 5% al precio.
-      </p>
-      <div class="comps" id="comps"></div>
-    </fieldset>
-
-    <div class="acciones">
-      <button type="submit" class="primario">Calcular valor</button>
-      <button type="button" id="imprimir" hidden>Guardar la carta en PDF</button>
-      <button type="button" id="limpiar">Limpiar</button>
     </div>
-  </form>
 
-  <div id="salida"></div>
+    <div class="card">
+      <h2>Inmueble</h2>
+      <div class="grid">
+        <label class="field"><span class="lab">Tipo de propiedad</span>
+          <select id="cv_tipo"></select>
+          <span class="hint" id="cv_modoHint"></span>
+        </label>
+        <label class="field"><span class="lab">Tipología constructiva (valor unitario)</span>
+          <select id="cv_tipol"></select>
+          <span class="hint" id="cv_vucHint"></span>
+        </label>
+        <label class="field"><span class="lab">Calle y número</span><input id="cv_calle"></label>
+        <label class="field"><span class="lab">Colonia</span><input id="cv_col"></label>
+        <label class="field"><span class="lab">Municipio</span><input id="cv_mun"></label>
+        <label class="field"><span class="lab">Estado</span><input id="cv_edo"></label>
+        <label class="field"><span class="lab">m² de terreno</span><input id="cv_mt" type="number" inputmode="decimal" min="0"></label>
+        <label class="field"><span class="lab">m² de construcción</span><input id="cv_mc" type="number" inputmode="decimal" min="0"></label>
+        <label class="field"><span class="lab">Antigüedad (años)</span><input id="cv_edad" type="number" inputmode="numeric" min="0" max="120" value="0"></label>
+        <label class="field"><span class="lab">Estado de conservación</span><select id="cv_cons"></select></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Comparables de mercado</h2>
+      <p class="note" style="margin-top:-8px;margin-bottom:16px">Mínimo 3, máximo 5. Investiga inmuebles semejantes en zona, superficie, antigüedad y áreas. Registra la fuente: es lo que sostiene la estimación si alguien la cuestiona.</p>
+      <div id="cv_comps"></div>
+      <div class="actions">
+        <button class="btn line mini" id="cv_add">Agregar comparable</button>
+        <span class="note" id="cv_compMsg"></span>
+      </div>
+    </div>
+
+    <div class="card" id="cv_suelBox">
+      <h2>Valor del suelo — los dos métodos</h2>
+      <div class="split">
+        <div class="opt on" id="optA" data-m="res">
+          <div class="t">A · Residual de comparables</div>
+          <div class="v" id="cv_vsA">—</div>
+          <div class="hint" style="margin-top:6px">Al precio de cada comparable se le resta su construcción depreciada; el remanente se divide entre su terreno.</div>
+        </div>
+        <div class="opt" id="optB" data-m="tab">
+          <div class="t">B · Tabla propia por colonia</div>
+          <div class="v" id="cv_vsB">—</div>
+          <div class="field" style="margin-top:10px"><span class="lab">Valor de suelo $/m² para esta colonia</span>
+            <div class="money"><span>$</span><input id="cv_vsMan" type="text" inputmode="numeric" data-money placeholder="0"></div>
+          </div>
+          <div class="hint" style="margin-top:6px">Se guarda por colonia y plaza; la próxima vez se carga solo.</div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:14px">Selecciona el método que alimenta la carta. Si ambos difieren más de 15%, revisa los comparables antes de emitir.</p>
+    </div>
+
+    <div class="card">
+      <h2>Resultado</h2>
+      <div class="out" id="cv_out"></div>
+      <div class="grid" style="margin-top:16px;max-width:420px">
+        <label class="field"><span class="lab">Porcentaje sugerido de salida (3% a 8%)</span>
+          <input id="cv_pct" type="number" min="3" max="8" step="0.5" value="5">
+        </label>
+      </div>
+      <div id="cv_alerts" style="margin-top:14px"></div>
+      <div class="actions" style="margin-top:18px">
+        <button class="btn" id="cv_ver">Ver carta</button>
+        <button class="btn ghost" id="cv_save">Guardar estimación</button>
+        <button class="btn line" id="cv_reset">Limpiar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARRENDAMIENTO ============ -->
+  <section id="par" class="hide">
+    <div class="card">
+      <h2>Datos generales</h2>
+      <div class="grid">
+        <label class="field"><span class="lab">Propietario</span><input id="ar_prop" placeholder="Nombre completo"></label>
+        <label class="field"><span class="lab">Asesor</span><input id="ar_ases" placeholder="Nombre del asesor"></label>
+        <label class="field"><span class="lab">Folio de asesor certificado</span><input id="ar_folio" placeholder="Ej. HH-0245"></label>
+        <label class="field"><span class="lab">Fecha de emisión</span><input id="ar_fecha" type="date"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Inmueble</h2>
+      <div class="grid">
+        <label class="field"><span class="lab">Tipo de propiedad</span>
+          <select id="ar_tipo">
+            <option value="casa">Casa</option>
+            <option value="coto">Casa en coto o condominio</option>
+            <option value="depto" selected>Departamento</option>
+            <option value="local">Local comercial</option>
+            <option value="ofi">Oficina</option>
+            <option value="bod">Bodega o nave</option>
+          </select>
+        </label>
+        <label class="field"><span class="lab">Calle y número</span><input id="ar_calle"></label>
+        <label class="field"><span class="lab">Colonia o torre</span><input id="ar_col"></label>
+        <label class="field"><span class="lab">Municipio</span><input id="ar_mun"></label>
+        <label class="field"><span class="lab">Estado</span><input id="ar_edo"></label>
+        <label class="field"><span class="lab">m² de construcción</span><input id="ar_mc" type="number" inputmode="decimal" min="0"></label>
+        <label class="field"><span class="lab">Recámaras</span><input id="ar_rec" type="number" inputmode="numeric" min="0" max="9" value="2"></label>
+        <label class="field"><span class="lab">Cajones de estacionamiento</span><input id="ar_est" type="number" inputmode="numeric" min="0" max="9" value="1"></label>
+        <label class="field"><span class="lab">Antigüedad (años)</span><input id="ar_edad" type="number" inputmode="numeric" min="0" max="99" value="0"></label>
+        <label class="field"><span class="lab">Nivel o piso</span><input id="ar_niv" type="number" inputmode="numeric" min="0" max="60" value="0"></label>
+        <label class="field"><span class="lab">Amueblado</span>
+          <div class="seg" id="ar_amu"><button class="on" data-v="0">Sin amueblar</button><button data-v="1">Amueblado</button></div>
+        </label>
+      </div>
+      <div style="margin-top:16px">
+        <span class="lab">Amenidades del inmueble o del desarrollo</span>
+        <div class="grid" style="margin-top:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))" id="ar_amen"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Comparables de renta</h2>
+      <p class="note" style="margin-top:-8px;margin-bottom:16px">Mínimo 3, máximo 5. Preferentemente en la misma torre o colonia.</p>
+      <div id="ar_comps"></div>
+      <div class="actions">
+        <button class="btn line mini" id="ar_add">Agregar comparable</button>
+        <span class="note" id="ar_compMsg"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Resultado</h2>
+      <div class="out" id="ar_out"></div>
+      <div class="grid" style="margin-top:16px;max-width:640px">
+        <label class="field"><span class="lab">Porcentaje sugerido de salida (3% a 8%)</span>
+          <input id="ar_pct" type="number" min="3" max="8" step="0.5" value="5">
+        </label>
+        <label class="field"><span class="lab">Valor comercial del inmueble (para rentabilidad)</span>
+          <div class="money"><span>$</span><input id="ar_valor" type="text" inputmode="numeric" data-money placeholder="0"></div>
+          <button class="btn line mini" id="ar_traer" style="align-self:flex-start;margin-top:4px">Traer valor de la estimación de compraventa</button>
+        </label>
+      </div>
+      <div id="ar_alerts" style="margin-top:14px"></div>
+      <div class="actions" style="margin-top:18px">
+        <button class="btn" id="ar_ver">Ver carta</button>
+        <button class="btn ghost" id="ar_save">Guardar estimación</button>
+        <button class="btn line" id="ar_reset">Limpiar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TABLA DE VALORES ============ -->
+  <section id="ptb" class="hide">
+    <div class="card">
+      <h2>Valores unitarios de construcción · 1S 2026</h2>
+      <p class="note" style="margin-top:-8px">
+        Base: costos paramétricos Bimsa Reports por clase SHF (2022), escalados con el Índice Nacional de Precios Productor
+        de construcción residencial del INEGI: +3.94% (2023), +3.46% (2024), +4.52% (2025) y +2.40% (enero a junio 2026).
+        Factor acumulado <b id="tb_fesc">1.1509</b>. Sobre el costo directo se aplica el factor de reposición
+        <b id="tb_frep">1.20</b> (indirectos, utilidad y proyecto) y el factor de plaza
+        (Monterrey <b id="tb_fmty">1.08</b> · Puebla <b id="tb_fpue">1.00</b>).
+        Cifras en pesos por m², sin IVA. Editables: lo que cambies aquí queda guardado.
+      </p>
+      <div class="scroll" style="margin-top:16px">
+        <table class="t" id="tb_tabla">
+          <thead><tr>
+            <th>Tipología</th><th style="text-align:right">Directo 2026</th>
+            <th style="text-align:right">Reposición nuevo</th>
+            <th style="text-align:right">Aplicado en <span id="tb_plaza">Monterrey</span></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="actions" style="margin-top:16px">
+        <button class="btn line mini" id="tb_restore">Restaurar valores originales</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARÁMETROS ============ -->
+  <section id="ppr" class="hide">
+    <div class="card">
+      <h2>Método de valuación</h2>
+      <div class="grid">
+        <label class="field"><span class="lab">Depreciación de la construcción</span>
+          <div class="seg" id="pr_dep"><button class="on" data-v="rh">Ross-Heidecke</button><button data-v="ln">Lineal</button></div>
+          <span class="hint">Ross-Heidecke combina antigüedad con estado de conservación. Lineal es el método del archivo anterior.</span>
+        </label>
+        <label class="field"><span class="lab">Vida útil total (años)</span><input id="pr_vu" type="number" min="30" max="100" value="70"></label>
+        <label class="field"><span class="lab">Valor residual mínimo (%)</span><input id="pr_res" type="number" min="0" max="50" value="20"></label>
+        <label class="field"><span class="lab">Factor de reposición (indirectos y utilidad)</span><input id="pr_frep" type="number" step="0.01" min="1" max="2" value="1.20"></label>
+        <label class="field"><span class="lab">Factor de plaza Monterrey</span><input id="pr_fmty" type="number" step="0.01" min="0.5" max="2" value="1.08"></label>
+        <label class="field"><span class="lab">Factor de plaza Puebla</span><input id="pr_fpue" type="number" step="0.01" min="0.5" max="2" value="1.00"></label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Homologación de comparables</h2>
+      <div class="grid">
+        <label class="field"><span class="lab">Factor de negociación sobre precio publicado</span><input id="pr_fneg" type="number" step="0.01" min="0.7" max="1" value="0.95"></label>
+        <label class="field"><span class="lab">Exponente del factor de superficie</span><input id="pr_expsup" type="number" step="0.005" min="0" max="0.5" value="0.125">
+          <span class="hint">0 desactiva el ajuste por superficie.</span></label>
+        <label class="field"><span class="lab">Umbral de comparable atípico (%)</span><input id="pr_atip" type="number" min="5" max="60" value="20"></label>
+        <label class="field"><span class="lab">Factor amueblado (comparable sin amueblar)</span><input id="pr_famu" type="number" step="0.01" min="1" max="1.6" value="1.15"></label>
+        <label class="field"><span class="lab">Factor sin amueblar (comparable amueblado)</span><input id="pr_fdes" type="number" step="0.01" min="0.4" max="1" value="0.75"></label>
+        <label class="field"><span class="lab">Valor mensual por cajón de estacionamiento</span>
+          <div class="money"><span>$</span><input id="pr_cajon" type="text" inputmode="numeric" data-money value="1500"></div></label>
+        <label class="field"><span class="lab">Ajuste por año de antigüedad en renta (%)</span><input id="pr_fant" type="number" step="0.1" min="0" max="3" value="0.5"></label>
+        <label class="field"><span class="lab">Ajuste por amenidad de diferencia (%)</span><input id="pr_famen" type="number" step="0.1" min="0" max="10" value="2"></label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Datos de las plazas</h2>
+      <div class="grid g2">
+        <label class="field"><span class="lab">Domicilio Monterrey</span><input id="pr_dmty" placeholder="Calle, número, colonia, C.P., Monterrey, N.L."></label>
+        <label class="field"><span class="lab">Teléfono Monterrey</span><input id="pr_tmty" value="T. (81) 1246 1540"></label>
+        <label class="field"><span class="lab">Domicilio Puebla</span><input id="pr_dpue" placeholder="Calle, número, colonia, C.P., Puebla, Pue."></label>
+        <label class="field"><span class="lab">Teléfono Puebla</span><input id="pr_tpue" value="T. 222 290 2990"></label>
+        <label class="field"><span class="lab">Sitio web</span><input id="pr_web" value="hhre.mx"></label>
+        <label class="field"><span class="lab">Vigencia de la estimación (días)</span><input id="pr_vig" type="number" min="30" max="365" value="90"></label>
+      </div>
+      <label class="chk" style="margin-top:16px"><input type="checkbox" id="pr_acuse" checked> Incluir acuse de recibo del propietario al pie de la carta</label>
+    </div>
+  </section>
+
+  <!-- ============ HISTORIAL ============ -->
+  <section id="phs" class="hide">
+    <div class="card">
+      <h2>Estimaciones guardadas</h2>
+      <div class="hist" id="hs_list"></div>
+    </div>
+  </section>
+
+  </div>
 </div>
 
-<script>
-// ===== Tabla de costo por m² de construcción (formato hh, base SHF) =====
-const CLASES = [
-  ["CASA Clase 4 SHF Media 80 m²", 13256.40],
-  ["CASA Clase 5 SHF semilujo 108 m² unifamiliar", 18459.53],
-  ["CONDOMINIO Horizontal 150 m²", 20616.00],
-  ["CASA Clase 6 SHF Residencial, 349 m² unifamiliar", 20734.79],
-  ["CASA Clase 7 SHF Residencial-Plus, 696 m² unifamiliar", 29970.02],
-  ["DEPTO Clase 2 SHF económica, 1-4 niveles, 43 m² (sin estacionamiento)", 6943.93],
-  ["DÚPLEX Clase 3 SHF interés social, 53 m², 2 niveles (sin estacionamiento)", 8848.74],
-  ["DEPTO Clase 4 SHF, 76 m², 1-4 niveles (sin estacionamiento)", 13677.79],
-  ["DEPTO Clase 5 SHF, 1-4 niveles, 91 m² (sin estacionamiento)", 18162.80],
-  ["DEPTO Clase 5 SHF, 14-18 niveles, 91 m²", 19784.74],
-  ["DEPTO Clase 6 SHF Residencial, 209 m², 1-4 niveles", 24083.94],
-  ["DEPTO Clase 7 SHF Residencial Plus, 375 m², 1-4 niveles", 28132.90],
-  ["LOCAL comercial categoría popular, 8 m²", 9765.60],
-  ["LOCAL comercial categoría media, 98 m²", 20819.56],
-  ["LOCAL comercial categoría selecta / semilujo, 162 m²", 25286.48],
-  ["EDIFICIO oficinas categoría económica, 4,860 m², 1 elevador", 12959.11],
-  ["EDIFICIO oficinas categoría comercial, 4,860 m², 8 niveles", 18531.47],
-  ["EDIFICIO oficinas categoría media, 4,860 m²", 18990.38],
-  ["EDIFICIO oficinas semilujo, 30,540 m² cubiertos", 27535.88],
-  ["EDIFICIO oficinas categoría lujo, 1,936 m²", 41006.90],
-  ["EDIFICIO oficinas con cimentación de pilotes", 24714.65],
-  ["EDIFICIO oficinas 1,080 m², 2 niveles, media", 15275.41]
-];
+<footer>
+  HH Luxury Real Estate · Herramienta interna de estimación de valor<br>
+  Uso exclusivo de asesores certificados. No sustituye un avalúo emitido por perito valuador autorizado.
+</footer>
 
-const VIDA_UTIL = 70;                       // años, igual que el formato
-const CASTIGO_PUBLICADO = 0.95;             // 5% si aún está publicada
-
-const $ = id => document.getElementById(id);
-const num = id => { const v = parseFloat($(id).value); return isNaN(v) ? null : v; };
-const mxn = n => n.toLocaleString("es-MX", {style:"currency", currency:"MXN", maximumFractionDigits:2});
-
-// costo por m² de construcción ya depreciado por la edad
-const valorM2Constr = (costoM2, edad) => costoM2 / VIDA_UTIL * (VIDA_UTIL - edad);
-
-// ---- Armado del formulario ----
-CLASES.forEach(([n, c], i) => {
-  const o = document.createElement("option");
-  o.value = i; o.textContent = n;
-  $("clase").appendChild(o);
-});
-$("comps").innerHTML = [1,2,3].map(i => `
-  <div class="comp">
-    <h3>Propiedad ${i}</h3>
-    <div class="grid">
-      <div><label for="p${i}precio">Precio</label>
-        <input id="p${i}precio" type="number" min="0" step="1" inputmode="decimal"></div>
-      <div><label for="p${i}terreno">M² de terreno</label>
-        <input id="p${i}terreno" type="number" min="0" step="0.01" inputmode="decimal"></div>
-      <div><label for="p${i}constr">M² de construcción</label>
-        <input id="p${i}constr" type="number" min="0" step="0.01" inputmode="decimal"></div>
-      <div><label for="p${i}edad">Edad (años)</label>
-        <input id="p${i}edad" type="number" min="0" max="70" step="1" inputmode="numeric"></div>
-      <div><label for="p${i}estado">¿Publicada o vendida?</label>
-        <select id="p${i}estado">
-          <option value="vendido">Vendida</option>
-          <option value="publicado">Publicada</option>
-        </select></div>
+<!-- ============ CARTA ============ -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <div class="sh-bar">
+      <span class="note" id="sh_tit">Carta al propietario</span>
+      <div class="actions">
+        <button class="btn mini" id="sh_pdf">Descargar PDF</button>
+        <button class="btn line mini" id="sh_close">Cerrar</button>
+      </div>
     </div>
-    <p class="m2" id="p${i}res">Precio por m² de terreno: —</p>
-  </div>`).join("");
+    <div class="doc" id="doc"></div>
+    <div class="docfoot"><span id="df_tel"></span><span id="df_web"></span></div>
+  </div>
+</div>
 
-$("fecha").valueAsDate = new Date();
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+"use strict";
+const LOGO = "data:image/png;base64,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";
+const LOGO_RATIO = 2.559;
 
-const costoClase = () => CLASES[+$("clase").value][1];
-const pintaClase = () => $("m2clase").textContent =
-  `Precio por m² de construcción: ${mxn(costoClase())}`;
-$("clase").addEventListener("change", pintaClase);
-pintaClase();
+/* ============ CATÁLOGOS ============ */
+const TIPOS = [
+  {id:'casa',  n:'Casa',                        m:'sc'},
+  {id:'coto',  n:'Casa en coto o condominio',   m:'sc'},
+  {id:'depto', n:'Departamento',                m:'un'},
+  {id:'terreno',n:'Terreno',                    m:'te'},
+  {id:'local', n:'Local comercial con terreno', m:'sc'},
+  {id:'localpz',n:'Local en plaza comercial',   m:'un'},
+  {id:'ofi',   n:'Oficina en corporativo',      m:'un'},
+  {id:'edif',  n:'Edificio completo',           m:'sc'},
+  {id:'bod',   n:'Bodega o nave industrial',    m:'sc'}
+];
+const MODOS = {
+  sc:'Se valúa suelo más construcción depreciada.',
+  un:'Se valúa por valor unitario de m² vendible; no se separa terreno.',
+  te:'Solo suelo; no se computa construcción.'
+};
+const TIPOL = [
+  {id:'c4', g:'Casas',                 n:'Casa Clase 4 — Media, ≈80 m²',                      d:12710, t:['casa','coto']},
+  {id:'c5', g:'Casas',                 n:'Casa Clase 5 — Semilujo, ≈108 m²',                  d:17700, t:['casa','coto']},
+  {id:'ch', g:'Casas',                 n:'Condominio horizontal — ≈150 m²',                   d:19770, t:['coto','casa']},
+  {id:'c6', g:'Casas',                 n:'Casa Clase 6 — Residencial, ≈349 m²',               d:23400, t:['casa','coto']},
+  {id:'c7', g:'Casas',                 n:'Casa Clase 7 — Residencial Plus, ≈696 m²',          d:28750, t:['casa','coto']},
+  {id:'d2', g:'Departamentos',         n:'Depto. Clase 2 — Económica, ≈43 m²',                d:6660,  t:['depto']},
+  {id:'d3', g:'Departamentos',         n:'Dúplex Clase 3 — Interés social, ≈53 m²',           d:8490,  t:['depto','casa']},
+  {id:'d4', g:'Departamentos',         n:'Depto. Clase 4 — ≈76 m², 1 a 4 niveles',            d:13120, t:['depto']},
+  {id:'d5a',g:'Departamentos',         n:'Depto. Clase 5 — ≈91 m², 1 a 4 niveles',            d:17420, t:['depto']},
+  {id:'d5b',g:'Departamentos',         n:'Depto. Clase 5 — ≈91 m², 14 a 18 niveles',          d:18980, t:['depto']},
+  {id:'d6', g:'Departamentos',         n:'Depto. Clase 6 — Residencial, ≈209 m²',             d:23100, t:['depto']},
+  {id:'d7', g:'Departamentos',         n:'Depto. Clase 7 — Residencial Plus, ≈375 m²',        d:26980, t:['depto']},
+  {id:'lp', g:'Locales',               n:'Local comercial — Categoría popular',               d:9370,  t:['local','localpz']},
+  {id:'lm', g:'Locales',               n:'Local comercial — Categoría media',                 d:19970, t:['local','localpz']},
+  {id:'ls', g:'Locales',               n:'Local comercial — Selecto o semilujo',              d:24250, t:['local','localpz']},
+  {id:'oe', g:'Oficinas y edificios',  n:'Oficinas — Categoría económica',                    d:12430, t:['ofi','edif']},
+  {id:'oc', g:'Oficinas y edificios',  n:'Oficinas — Categoría comercial, 8 niveles',         d:17770, t:['ofi','edif']},
+  {id:'om', g:'Oficinas y edificios',  n:'Oficinas — Categoría media',                        d:18210, t:['ofi','edif']},
+  {id:'os', g:'Oficinas y edificios',  n:'Oficinas — Semilujo',                               d:26410, t:['ofi','edif']},
+  {id:'ol', g:'Oficinas y edificios',  n:'Oficinas — Categoría lujo',                         d:39330, t:['ofi','edif']},
+  {id:'op', g:'Oficinas y edificios',  n:'Oficinas — Cimentación de pilotes',                 d:23700, t:['edif']},
+  {id:'o2', g:'Oficinas y edificios',  n:'Oficinas — 1,080 m², 2 niveles, categoría media',   d:14650, t:['ofi','edif']},
+  {id:'nv', g:'Industrial',            n:'Bodega o nave industrial — Estándar',               d:10900, t:['bod']},
+  {id:'tr', g:'Sin construcción',      n:'Terreno — sin construcción',                        d:0,     t:['terreno']}
+];
+const CONS = {opt:0, bueno:0.0252, regular:0.1810, malo:0.5260, ruin:1};
+const CONS_N = {opt:'Óptimo o nuevo', bueno:'Bueno — requiere reparaciones simples', regular:'Regular — requiere reparaciones sencillas', malo:'Malo — requiere reparaciones importantes', ruin:'Ruinoso'};
+const AMEN = ['Alberca','Gimnasio','Roof garden','Salón de eventos','Seguridad 24 h','Coworking','Pet friendly','Elevador'];
+const F_REC = {'-4':0.55,'-3':0.60,'-2':0.70,'-1':0.85,'0':1,'1':1.15,'2':1.30,'3':1.40,'4':1.45};
 
-// ---- Número a letras ----
-function enLetras(n){
-  const U=["","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez","once","doce",
-    "trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve","veinte"];
-  const D=["","","veinti","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
-  const C=["","ciento","doscientos","trescientos","cuatrocientos","quinientos","seiscientos",
-    "setecientos","ochocientos","novecientos"];
-  function hasta999(x){
-    if(x===0) return "";
-    if(x===100) return "cien";
-    let t="";
-    const c=Math.floor(x/100), r=x%100;
-    if(c) t=C[c];
-    if(r){
-      if(t) t+=" ";
-      if(r<=20) t+=U[r];
-      else{
-        const d=Math.floor(r/10), u=r%10;
-        t += d===2 ? "veinti"+U[u] : D[d]+(u?" y "+U[u]:"");
-      }
+/* ============ ESTADO ============ */
+const DEF_P = {dep:'rh', vu:70, res:20, frep:1.20, fmty:1.08, fpue:1.00,
+  fneg:0.95, expsup:0.125, atip:20, famu:1.15, fdes:0.75, cajon:1500, fant:0.5, famen:2,
+  dmty:'', tmty:'T. (81) 1246 1540', dpue:'', tpue:'T. 222 290 2990', web:'hhre.mx', vig:90, acuse:true};
+let P = Object.assign({}, DEF_P);
+let VU_TABLA = {};            // id -> costo directo editado
+let SUELO = {};               // "plaza|colonia" -> $/m2
+let plaza = 'mty';
+let cvComps = [], arComps = [];
+let cvMetodo = 'res';
+let lastCV = null, lastAR = null, cartaActual = null;
+
+/* ============ UTILIDADES ============ */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const num = v => {const n = parseFloat(String(v).replace(/,/g,'')); return isFinite(n) ? n : 0;};
+const mx = n => new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',minimumFractionDigits:0,maximumFractionDigits:0}).format(Math.round(n||0));
+const mx2 = n => new Intl.NumberFormat('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0}).format(Math.round(n||0));
+const pct = n => (n*100).toFixed(1).replace('.0','')+'%';
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const med = a => {const b=a.slice().sort((x,y)=>x-y); const m=Math.floor(b.length/2); return b.length? (b.length%2?b[m]:(b[m-1]+b[m])/2) : 0;};
+const prom = a => a.length ? a.reduce((s,x)=>s+x,0)/a.length : 0;
+const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+function moneyFmt(el){
+  if(!el || el.dataset.money === undefined) return;
+  const raw = el.value, sel = el.selectionStart == null ? raw.length : el.selectionStart;
+  const antes = raw.slice(0, sel).replace(/\D/g,'').length;
+  let dig = raw.replace(/\D/g,'').replace(/^0+(?=\d)/,'');
+  if(!dig){ el.value = ''; return; }
+  const out = Number(dig).toLocaleString('es-MX');
+  el.value = out;
+  let c = 0, pos = out.length;
+  if(antes === 0) pos = 0;
+  else for(let i=0;i<out.length;i++){ if(/\d/.test(out[i])) c++; if(c === antes){ pos = i+1; break; } }
+  try{ el.setSelectionRange(pos,pos); }catch(e){}
+}
+function moneyAll(root){ (root||document).querySelectorAll('[data-money]').forEach(moneyFmt); }
+
+function fechaLarga(iso){
+  if(!iso) return '';
+  const M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const p = iso.split('-'); const d = new Date(+p[0], +p[1]-1, +p[2]);
+  return d.getDate()+' de '+M[d.getMonth()]+' de '+d.getFullYear();
+}
+function hoyISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+/* --- número a letras --- */
+const UNI=['','UNO','DOS','TRES','CUATRO','CINCO','SEIS','SIETE','OCHO','NUEVE','DIEZ','ONCE','DOCE','TRECE','CATORCE','QUINCE','DIECISÉIS','DIECISIETE','DIECIOCHO','DIECINUEVE','VEINTE'];
+const DEC=['','','VEINTI','TREINTA','CUARENTA','CINCUENTA','SESENTA','SETENTA','OCHENTA','NOVENTA'];
+const CEN=['','CIENTO','DOSCIENTOS','TRESCIENTOS','CUATROCIENTOS','QUINIENTOS','SEISCIENTOS','SETECIENTOS','OCHOCIENTOS','NOVECIENTOS'];
+function centenas(n){
+  if(n===0) return '';
+  if(n===100) return 'CIEN';
+  let s='', c=Math.floor(n/100), r=n%100;
+  if(c) s+=CEN[c];
+  if(r){ if(s) s+=' ';
+    if(r<=20) s+=UNI[r];
+    else{const d=Math.floor(r/10), u=r%10;
+      if(d===2) s+= u? 'VEINTI'+UNI[u].toLowerCase().toUpperCase() : 'VEINTE';
+      else s+= DEC[d]+(u?' Y '+UNI[u]:'');}
+  }
+  return s;
+}
+function numLetras(n){
+  n = Math.round(Math.abs(n));
+  const ent = Math.floor(n), cts = Math.round((n-ent)*100);
+  let t='';
+  if(ent===0) t='CERO';
+  else{
+    const mill=Math.floor(ent/1000000), mil=Math.floor((ent%1000000)/1000), res=ent%1000;
+    if(mill) t += (mill===1?'UN MILLÓN':centenas(mill)+' MILLONES');
+    if(mil){ t += (t?' ':'') + (mil===1?'MIL':centenas(mil)+' MIL'); }
+    if(res){ t += (t?' ':'') + centenas(res); }
+  }
+  if(/\bUNO$/.test(t)) t = t.replace(/UNO$/, 'UN');
+  return t + ' PESOS ' + String(cts).padStart(2,'0') + '/100 M.N.';
+}
+
+/* ============ ALMACENAMIENTO ============ */
+async function sGet(k){ try{const r=await window.storage.get(k); return r? JSON.parse(r.value): null;}catch(e){return null;} }
+async function sSet(k,v){ try{await window.storage.set(k, JSON.stringify(v));}catch(e){} }
+
+async function cargar(){
+  const p = await sGet('hhev:params'); if(p) P = Object.assign({}, DEF_P, p);
+  const t = await sGet('hhev:tabla');  if(t) VU_TABLA = t;
+  const s = await sGet('hhev:suelo');  if(s) SUELO = s;
+}
+async function guardarP(){ await sSet('hhev:params', P); }
+
+/* ============ CÁLCULO BASE ============ */
+function fplaza(){ return plaza==='mty' ? P.fmty : P.fpue; }
+function directo(id){ return VU_TABLA[id] != null ? VU_TABLA[id] : (TIPOL.find(x=>x.id===id)||{d:0}).d; }
+function vrn(id){ return directo(id) * P.frep * fplaza(); }
+function remanente(edad, cons){
+  const x = clamp(num(edad)/P.vu, 0, 1);
+  let d;
+  if(P.dep === 'rh'){ const dr = 0.5*(x + x*x); const c = CONS[cons] != null ? CONS[cons] : 0; d = dr + c*(1-dr); }
+  else { d = x; }
+  return Math.max(1-d, P.res/100);
+}
+
+/* ============ COMPRAVENTA ============ */
+function modoCV(){ const t = TIPOS.find(x=>x.id===$('#cv_tipo').value); return t? t.m : 'sc'; }
+
+function nuevoCompCV(){ return {col:'',precio:'',mt:'',mc:'',edad:'',cons:'bueno',est:'pub',fuente:'',fub:1,inc:true}; }
+function nuevoCompAR(){ return {col:'',renta:'',mc:'',rec:'',est:'',edad:'',niv:'',amu:0,amen:'',fuente:'',fub:1,inc:true}; }
+
+function pintaCompsCV(){
+  const modo = modoCV();
+  $('#cv_comps').innerHTML = cvComps.map((c,i)=>`
+  <div class="comp ${c.inc?'':'off'}" data-i="${i}">
+    <div class="top">
+      <span class="num">Comparable ${i+1}</span>
+      <div class="actions">
+        <label class="chk"><input type="checkbox" data-f="inc" ${c.inc?'checked':''}> Incluir</label>
+        ${cvComps.length>3?'<button class="btn line mini" data-del="'+i+'">Quitar</button>':''}
+      </div>
+    </div>
+    <div class="grid">
+      <label class="field"><span class="lab">Colonia o desarrollo</span><input data-f="col" value="${esc(c.col)}"></label>
+      <label class="field"><span class="lab">Precio</span><div class="money"><span>$</span><input data-f="precio" type="text" inputmode="numeric" data-money value="${esc(c.precio)}"></div></label>
+      <label class="field"><span class="lab">Situación</span>
+        <div class="seg" data-seg="est"><button data-v="pub" class="${c.est==='pub'?'on':''}">Publicado</button><button data-v="ven" class="${c.est==='ven'?'on':''}">Vendido</button></div></label>
+      <label class="field ${modo==='un'?'hide':''}"><span class="lab">m² de terreno</span><input data-f="mt" type="number" inputmode="decimal" value="${esc(c.mt)}"></label>
+      <label class="field ${modo==='te'?'hide':''}"><span class="lab">m² de construcción</span><input data-f="mc" type="number" inputmode="decimal" value="${esc(c.mc)}"></label>
+      <label class="field ${modo==='te'?'hide':''}"><span class="lab">Antigüedad (años)</span><input data-f="edad" type="number" inputmode="numeric" value="${esc(c.edad)}"></label>
+      <label class="field ${modo==='te'?'hide':''}"><span class="lab">Conservación</span>
+        <select data-f="cons">${Object.keys(CONS_N).map(k=>`<option value="${k}" ${c.cons===k?'selected':''}>${CONS_N[k].split(' —')[0]}</option>`).join('')}</select></label>
+      <label class="field"><span class="lab">Factor de ubicación</span><input data-f="fub" type="number" step="0.01" min="0.6" max="1.5" value="${esc(c.fub)}"></label>
+      <label class="field" style="grid-column:1/-1"><span class="lab">Fuente y fecha de consulta</span><input data-f="fuente" value="${esc(c.fuente)}" placeholder="Ej. portal, folio o contacto, 12/07/2026"></label>
+    </div>
+    <div class="res" id="cvres${i}"></div>
+  </div>`).join('');
+  $('#cv_compMsg').textContent = cvComps.length>=5 ? 'Máximo alcanzado: 5 comparables.' : cvComps.length+' de 5 registrados. Mínimo 3.';
+  $('#cv_add').disabled = cvComps.length>=5;
+}
+
+function calcCV(){
+  const modo = modoCV(), tipol = $('#cv_tipol').value;
+  const mtS = num($('#cv_mt').value), mcS = num($('#cv_mc').value);
+  const edadS = num($('#cv_edad').value), consS = $('#cv_cons').value;
+  const V = vrn(tipol), remS = remanente(edadS, consS);
+  const unidades = [];
+
+  cvComps.forEach((c,i)=>{
+    const box = $('#cvres'+i); if(!box) return;
+    const precio = num(c.precio), pr = precio * (c.est==='pub' ? P.fneg : 1);
+    let unit = 0, detalle = '', mal = '';
+    if(modo === 'un'){
+      const mc = num(c.mc);
+      if(precio>0 && mc>0){
+        const remC = remanente(num(c.edad), c.cons);
+        const fedad = remC>0 ? remS/remC : 1;
+        const fsup = mc>0 && mcS>0 ? Math.pow(mc/mcS, P.expsup) : 1;
+        unit = (pr/mc) * fedad * fsup * num(c.fub||1);
+        detalle = `Unitario bruto <b>${mx(pr/mc)}</b> · f. antigüedad <b>${fedad.toFixed(3)}</b> · f. superficie <b>${fsup.toFixed(3)}</b>`;
+      } else mal = 'Faltan precio o m² de construcción.';
+    } else {
+      const mt = num(c.mt), mc = modo==='te' ? 0 : num(c.mc);
+      if(precio>0 && mt>0){
+        const constr = mc * V * remanente(num(c.edad), c.cons);
+        const resid = pr - constr;
+        const fsup = mtS>0 ? Math.pow(mt/mtS, P.expsup) : 1;
+        unit = (resid/mt) * fsup * num(c.fub||1);
+        detalle = `Construcción depreciada <b>${mx(constr)}</b> · residual de suelo <b>${mx(resid)}</b> · f. superficie <b>${fsup.toFixed(3)}</b>`;
+        if(resid <= 0) mal = 'El residual de suelo salió negativo: el precio no alcanza a cubrir la construcción. Revisa la tipología o el metraje.';
+      } else mal = 'Faltan precio o m² de terreno.';
     }
-    return t;
-  }
-  const entero=Math.floor(n), cent=Math.round((n-entero)*100);
-  let t="";
-  const mill=Math.floor(entero/1e6), miles=Math.floor((entero%1e6)/1000), resto=entero%1000;
-  if(mill) t += (mill===1?"un millón":hasta999(mill)+" millones")+" ";
-  if(miles) t += (miles===1?"mil":hasta999(miles)+" mil")+" ";
-  if(resto) t += hasta999(resto);
-  t = (t.trim()||"cero");
-  return t.charAt(0).toUpperCase()+t.slice(1)+` pesos ${String(cent).padStart(2,"0")}/100 M.N.`;
-}
-
-// ---- Cálculo ----
-function comparables(costoM2){
-  const out=[];
-  for(const i of [1,2,3]){
-    const precio=num(`p${i}precio`), terr=num(`p${i}terreno`),
-          cons=num(`p${i}constr`), ed=num(`p${i}edad`);
-    if(precio===null||terr===null||cons===null||ed===null){ out.push(null); continue; }
-    if(terr<=0){ out.push(NaN); continue; }
-    const ajuste = $(`p${i}estado`).value==="publicado" ? CASTIGO_PUBLICADO : 1;
-    out.push(((precio - cons*valorM2Constr(costoM2, ed)) / terr) * ajuste);
-  }
-  return out;
-}
-
-function avisa(msg){
-  const a=$("aviso");
-  if(!msg){ a.hidden=true; return; }
-  a.hidden=false; a.textContent=msg;
-  a.scrollIntoView({behavior:"smooth", block:"center"});
-}
-
-$("f").addEventListener("submit", e => {
-  e.preventDefault();
-  const costoM2=costoClase();
-  const terreno=num("terreno"), constr=num("constr"), edad=num("edad");
-
-  if(terreno===null||constr===null||edad===null)
-    return avisa("Faltan los metros de terreno, los de construcción o la edad del inmueble.");
-  if(terreno<=0) return avisa("Los m² de terreno tienen que ser mayores a cero.");
-  if(edad>VIDA_UTIL) return avisa(`La edad no puede pasar de ${VIDA_UTIL} años: es la vida útil que usa el método.`);
-
-  const c=comparables(costoM2);
-  c.forEach((v,i)=>{
-    $(`p${i+1}res`).textContent = v===null ? "Precio por m² de terreno: —"
-      : isNaN(v) ? "Revisa los m² de terreno"
-      : `Precio por m² de terreno: ${mxn(v)}`;
+    c._u = (mal || unit<=0) ? 0 : unit;
+    box.innerHTML = mal
+      ? `<span class="tag e">${esc(mal)}</span>`
+      : `<span>${detalle}</span><span><b>${mx(unit)}</b> / m² homologado</span><span class="tag" id="cvtag${i}"></span>`;
   });
-  const validos=c.filter(v=>v!==null&&!isNaN(v));
-  if(validos.length<3) return avisa("Captura las tres propiedades parecidas: el método promedia las tres.");
-  if(validos.some(v=>v<=0))
-    return avisa("Una propiedad da un valor de terreno negativo. Revisa su precio, sus metros o su edad.");
 
-  avisa(null);
+  const inc = cvComps.filter(c=>c.inc && c._u>0);
+  const us = inc.map(c=>c._u);
+  const m = med(us);
+  cvComps.forEach((c,i)=>{
+    const t = $('#cvtag'+i); if(!t) return;
+    if(!c._u || !m){ t.className='tag'; t.textContent=''; return; }
+    const dv = Math.abs(c._u-m)/m;
+    if(dv > P.atip/100){ t.className='tag w'; t.textContent='Atípico: '+pct(dv)+' respecto de la mediana'; }
+    else { t.className='tag g'; t.textContent='Dentro de rango'; }
+  });
 
-  const m2Terreno = validos.reduce((a,b)=>a+b,0)/3;
-  const m2Constr  = valorM2Constr(costoM2, edad);
-  const vTerreno  = terreno*m2Terreno;
-  const vConstr   = constr*m2Constr;
-  const total     = vTerreno+vConstr;
+  const vsA = prom(us);
+  const key = plaza+'|'+($('#cv_col').value||'').trim().toLowerCase();
+  const vsB = num($('#cv_vsMan').value);
+  $('#cv_vsA').textContent = vsA ? mx(vsA)+' /m²' : '—';
+  $('#cv_vsB').textContent = vsB ? mx(vsB)+' /m²' : '—';
+  const vs = cvMetodo === 'tab' ? vsB : vsA;
 
-  const dir=[ $("calle").value, $("colonia").value, $("municipio").value ].filter(Boolean).join(", ");
-  const estado=$("estado").value.trim();
-  const fecha=$("fecha").valueAsDate
-    ? $("fecha").valueAsDate.toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"})
-    : "";
+  let vT = 0, vC = 0;
+  if(modo === 'un'){ vC = mcS * vs; }
+  else if(modo === 'te'){ vT = mtS * vs; }
+  else { vT = mtS * vs; vC = mcS * V * remS; }
+  const VC = vT + vC;
+  const pc = clamp(num($('#cv_pct').value)||5, 3, 8);
+  const salida = VC * (1 + pc/100);
 
-  $("salida").innerHTML = `
-    <div class="carta">
-      <div class="encabezado">
-        <div class="mark">
-          <div class="hh" style="font-family:var(--serif);font-size:38px;line-height:.85">hh</div>
-          <div class="sub" style="margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)">Luxury Real Estate</div>
-        </div>
-        <div style="text-align:right;font-size:13px;color:var(--muted)">
-          ${estado ? `En ${estado}, a` : "A"} ${fecha}
-        </div>
+  $('#cv_out').innerHTML =
+    (modo==='un'
+      ? `<div><div class="k">Valor unitario aplicado</div><div class="v">${mx(vs)}<small> /m²</small></div></div>
+         <div><div class="k">Superficie vendible</div><div class="v">${mx2(mcS)}<small> m²</small></div></div>`
+      : `<div><div class="k">Terreno · ${mx2(mtS)} m²</div><div class="v">${mx(vT)}<small> · ${mx(vs)}/m²</small></div></div>` +
+        (modo==='te' ? '' : `<div><div class="k">Construcción · ${mx2(mcS)} m²</div><div class="v">${mx(vC)}<small> · ${mx(V*remS)}/m²</small></div></div>`)) +
+    `<div><div class="k">Valor comercial estimado</div><div class="v big">${mx(VC)}</div></div>
+     <div><div class="k">Precio de salida · +${pc}%</div><div class="v big">${mx(salida)}</div></div>`;
+
+  const al = [];
+  if(inc.length < 3) al.push(['e','Se requieren al menos 3 comparables válidos e incluidos. Hoy hay '+inc.length+'.']);
+  if(vsA && vsB && Math.abs(vsA-vsB)/Math.max(vsA,vsB) > 0.15) al.push(['w','Los dos métodos de suelo difieren '+pct(Math.abs(vsA-vsB)/Math.max(vsA,vsB))+'. Revisa los comparables antes de emitir la carta.']);
+  if(edadS > P.vu) al.push(['w','La antigüedad supera la vida útil configurada; la construcción quedó en el valor residual mínimo de '+P.res+'%.']);
+  if(modo==='sc' && mcS>0 && mtS>0 && vC/Math.max(VC,1) > 0.85) al.push(['w','La construcción representa más del 85% del valor: verifica el valor de suelo.']);
+  if(!VC) al.push(['e','Faltan datos para calcular el valor comercial.']);
+  $('#cv_alerts').innerHTML = al.map(a=>`<div style="margin-bottom:6px"><span class="tag ${a[0]}">${esc(a[1])}</span></div>`).join('');
+
+  if(vsB) SUELO[key] = vsB;
+  lastCV = {modo, tipol, mtS, mcS, edadS, consS, V, remS, vs, vsA, vsB, vT, vC, VC, salida, pc, inc:inc.length, unit: modo==='un'? vs : 0};
+  $('#cv_vucHint').textContent = tipol==='tr' ? 'Terreno: sin valor de construcción.' :
+    'Reposición nuevo '+mx(V)+' /m² · depreciado '+mx(V*remS)+' /m² ('+pct(1-remS)+' de demérito).';
+}
+
+/* ============ ARRENDAMIENTO ============ */
+function pintaCompsAR(){
+  $('#ar_comps').innerHTML = arComps.map((c,i)=>`
+  <div class="comp ${c.inc?'':'off'}" data-i="${i}">
+    <div class="top">
+      <span class="num">Comparable ${i+1}</span>
+      <div class="actions">
+        <label class="chk"><input type="checkbox" data-f="inc" ${c.inc?'checked':''}> Incluir</label>
+        ${arComps.length>3?'<button class="btn line mini" data-del="'+i+'">Quitar</button>':''}
       </div>
+    </div>
+    <div class="grid">
+      <label class="field"><span class="lab">Colonia o torre</span><input data-f="col" value="${esc(c.col)}"></label>
+      <label class="field"><span class="lab">Renta mensual</span><div class="money"><span>$</span><input data-f="renta" type="text" inputmode="numeric" data-money value="${esc(c.renta)}"></div></label>
+      <label class="field"><span class="lab">m² de construcción</span><input data-f="mc" type="number" inputmode="decimal" value="${esc(c.mc)}"></label>
+      <label class="field"><span class="lab">Recámaras</span><input data-f="rec" type="number" inputmode="numeric" value="${esc(c.rec)}"></label>
+      <label class="field"><span class="lab">Cajones</span><input data-f="est" type="number" inputmode="numeric" value="${esc(c.est)}"></label>
+      <label class="field"><span class="lab">Antigüedad (años)</span><input data-f="edad" type="number" inputmode="numeric" value="${esc(c.edad)}"></label>
+      <label class="field"><span class="lab">Nivel o piso</span><input data-f="niv" type="number" inputmode="numeric" value="${esc(c.niv)}"></label>
+      <label class="field"><span class="lab">Amenidades (número)</span><input data-f="amen" type="number" inputmode="numeric" min="0" max="12" value="${esc(c.amen)}"></label>
+      <label class="field"><span class="lab">Amueblado</span>
+        <div class="seg" data-seg="amu"><button data-v="0" class="${!+c.amu?'on':''}">No</button><button data-v="1" class="${+c.amu?'on':''}">Sí</button></div></label>
+      <label class="field"><span class="lab">Factor de ubicación</span><input data-f="fub" type="number" step="0.01" min="0.6" max="1.5" value="${esc(c.fub)}"></label>
+      <label class="field" style="grid-column:1/-1"><span class="lab">Fuente y fecha de consulta</span><input data-f="fuente" value="${esc(c.fuente)}" placeholder="Ej. portal, folio o contacto, 12/07/2026"></label>
+    </div>
+    <div class="res" id="arres${i}"></div>
+  </div>`).join('');
+  $('#ar_compMsg').textContent = arComps.length>=5 ? 'Máximo alcanzado: 5 comparables.' : arComps.length+' de 5 registrados. Mínimo 3.';
+  $('#ar_add').disabled = arComps.length>=5;
+}
 
-      <p><b>Sr(a). ${$("propietario").value || "________________"}</b><br>Presente.—</p>
-      <p>Con referencia a la visita efectuada al inmueble de su propiedad ubicado en:
-         <b>${dir || "________________"}${estado ? ", "+estado : ""}</b>, a continuación le damos
-         nuestra opinión respecto al <b>valor comercial</b> de su propiedad.</p>
+function calcAR(){
+  const mcS = num($('#ar_mc').value), recS = num($('#ar_rec').value), estS = num($('#ar_est').value);
+  const edadS = num($('#ar_edad').value), nivS = num($('#ar_niv').value);
+  const amuS = $('#ar_amu').querySelector('.on').dataset.v === '1' ? 1 : 0;
+  const amenS = $$('#ar_amen input:checked').length;
 
-      <h2>1. Terreno</h2>
-      <div class="linea"><span>Superficie total</span><span>${terreno.toLocaleString("es-MX")} m²</span></div>
-      <div class="linea"><span>Valor actual por m²</span><span>${mxn(m2Terreno)}</span></div>
-      <div class="linea"><span>Total</span><span>${mxn(vTerreno)}</span></div>
+  arComps.forEach((c,i)=>{
+    const box = $('#arres'+i); if(!box) return;
+    const renta = num(c.renta);
+    if(renta<=0){ c._r = 0; box.innerHTML = '<span class="tag e">Falta la renta del comparable.</span>'; return; }
+    const amuC = +c.amu ? 1 : 0;
+    const fAmu = amuC === amuS ? 1 : (amuS===1 ? P.famu : P.fdes);
+    const d = clamp(recS - num(c.rec), -4, 4);
+    const fRec = num(c.rec)>0 && recS>0 ? F_REC[String(d)] : 1;
+    const fSup = (mcS>0 && num(c.mc)>0) ? clamp(Math.pow(mcS/num(c.mc), 0.35), 0.85, 1.20) : 1;
+    const fAnt = clamp(1 - (P.fant/100)*(edadS - num(c.edad)), 0.70, 1.30);
+    const fAme = clamp(1 + (P.famen/100)*(amenS - num(c.amen)), 0.80, 1.25);
+    const fNiv = clamp(1 + 0.004*(nivS - num(c.niv)), 0.90, 1.15);
+    const fUb  = num(c.fub||1);
+    const ajEst = (estS - num(c.est)) * P.cajon;
+    const r = renta * fAmu * fRec * fSup * fAnt * fAme * fNiv * fUb + ajEst;
+    c._r = Math.max(r, 0);
+    box.innerHTML = `<span>Amueblado <b>${fAmu.toFixed(2)}</b> · recámaras <b>${fRec.toFixed(2)}</b> · superficie <b>${fSup.toFixed(2)}</b> · antigüedad <b>${fAnt.toFixed(2)}</b> · amenidades <b>${fAme.toFixed(2)}</b> · nivel <b>${fNiv.toFixed(2)}</b> · cajones <b>${ajEst>=0?'+':''}${mx(ajEst)}</b></span><span><b>${mx(c._r)}</b> homologada</span><span class="tag" id="artag${i}"></span>`;
+  });
 
-      <h2>2. Construcción</h2>
-      <div class="linea"><span>Superficie total</span><span>${constr.toLocaleString("es-MX")} m²</span></div>
-      <div class="linea"><span>Valor actual por m² (${edad} ${edad===1?"año":"años"} de antigüedad)</span><span>${mxn(m2Constr)}</span></div>
-      <div class="linea"><span>Total</span><span>${mxn(vConstr)}</span></div>
+  const inc = arComps.filter(c=>c.inc && c._r>0);
+  const rs = inc.map(c=>c._r), m = med(rs);
+  arComps.forEach((c,i)=>{
+    const t = $('#artag'+i); if(!t) return;
+    if(!c._r || !m){ t.className='tag'; t.textContent=''; return; }
+    const dv = Math.abs(c._r-m)/m;
+    if(dv > P.atip/100){ t.className='tag w'; t.textContent='Atípico: '+pct(dv)+' respecto de la mediana'; }
+    else { t.className='tag g'; t.textContent='Dentro de rango'; }
+  });
 
-      <div class="total">
-        <span class="et">Valor total comercial</span>
-        <span class="vl">${mxn(total)}</span>
-      </div>
-      <p class="letras">${enLetras(total)}</p>
-      <p>Dicho valor comercial sería el piso para recibir ofertas.</p>
+  const R = prom(rs);
+  const pc = clamp(num($('#ar_pct').value)||5, 3, 8);
+  const salida = R * (1 + pc/100);
+  const valor = num($('#ar_valor').value);
+  const yieldB = valor>0 ? (R*12)/valor : 0;
 
-      <div class="firma">
-        Atentamente:
-        <b>${$("asesor").value || "________________"}</b>
-        <span style="font-size:12px;color:var(--muted)">Asesor inmobiliario y colaborador · hh Luxury Real Estate</span>
-      </div>
+  $('#ar_out').innerHTML =
+    `<div><div class="k">Renta de mercado estimada</div><div class="v big">${mx(R)}</div></div>
+     <div><div class="k">Renta de salida · +${pc}%</div><div class="v big">${mx(salida)}</div></div>
+     <div><div class="k">Renta por m²</div><div class="v">${mcS>0?mx(R/mcS):'—'}<small> /m²</small></div></div>
+     <div><div class="k">Rentabilidad bruta anual</div><div class="v">${yieldB?pct(yieldB):'—'}</div></div>`;
 
-      <p class="nota">
-        La presente opinión de valor tiene carácter informativo y <b>carece de validez legal</b>.
-        Se realizó con base en tres propiedades comparables de la zona y en el costo de construcción
-        por m² del tipo seleccionado, depreciado a ${VIDA_UTIL} años de vida útil.
-        No sustituye un avalúo practicado por perito valuador.
-      </p>
-    </div>`;
+  const al = [];
+  if(inc.length < 3) al.push(['e','Se requieren al menos 3 comparables válidos e incluidos. Hoy hay '+inc.length+'.']);
+  if(yieldB && (yieldB < 0.04 || yieldB > 0.08)) al.push(['w','La rentabilidad bruta ('+pct(yieldB)+') queda fuera del rango habitual de 4% a 8%. Revisa la renta o el valor comercial: una de las dos estimaciones está desalineada.']);
+  if(!R) al.push(['e','Faltan datos para calcular la renta.']);
+  $('#ar_alerts').innerHTML = al.map(a=>`<div style="margin-bottom:6px"><span class="tag ${a[0]}">${esc(a[1])}</span></div>`).join('');
 
-  $("imprimir").hidden=false;
-  $("salida").scrollIntoView({behavior:"smooth", block:"start"});
-});
+  lastAR = {mcS, recS, estS, edadS, nivS, amuS, amenS, R, salida, pc, valor, yieldB, inc:inc.length};
+}
 
-$("imprimir").addEventListener("click", ()=>window.print());
-$("limpiar").addEventListener("click", ()=>{
-  $("f").reset(); $("salida").innerHTML=""; $("imprimir").hidden=true;
-  avisa(null); $("fecha").valueAsDate=new Date(); pintaClase();
-  [1,2,3].forEach(i=>$(`p${i}res`).textContent="Precio por m² de terreno: —");
-});
+/* ============ CARTA ============ */
+function datosPlaza(){
+  return plaza==='mty'
+    ? {ciudad:'Monterrey, Nuevo León', dom:P.dmty, tel:P.tmty}
+    : {ciudad:'Puebla, Puebla',        dom:P.dpue, tel:P.tpue};
+}
+function limitaciones(vig, tipoOp){
+  return [
+    'No constituye avalúo. El presente documento es una opinión comercial de valor. No es un avalúo ni un dictamen valuatorio, no fue emitido por perito valuador con registro ante la Sociedad Hipotecaria Federal, el Instituto de Administración y Avalúos de Bienes Nacionales, autoridad catastral, colegio de valuadores ni institución de crédito, y carece de efectos fiscales, contables, crediticios, notariales, judiciales, sucesorios o de garantía.',
+    'Origen de la información. Se elaboró con la información proporcionada por el propietario y con datos de oferta pública disponibles a la fecha de emisión. No se practicó verificación registral, catastral, documental ni estructural, ni levantamiento topográfico o arquitectónico. Las superficies, la antigüedad y las características del inmueble son las manifestadas por el propietario y no fueron medidas ni certificadas por esta empresa. No se investigaron linderos, servidumbres, gravámenes, adeudos, restricciones de uso de suelo, licencias, vicios ocultos ni situación jurídica de la propiedad.',
+    'No es oferta ni garantía de precio. El presente no constituye oferta, promesa de compra o de venta, compromiso de comercialización, ni garantía de que el inmueble se ' + (tipoOp==='cv'?'venda':'arriende') + ' en la cantidad señalada o en plazo alguno. El precio lo determina libremente el propietario y el resultado depende de las condiciones de oferta y demanda vigentes al momento de la operación.',
+    'Vigencia. La presente opinión tiene una vigencia de ' + vig + ' días naturales contados a partir de su fecha de emisión. Transcurrido dicho plazo deberá solicitarse su actualización, pues las condiciones del mercado varían.',
+    'Uso y confidencialidad. Se emite para uso exclusivo del destinatario y para el fin aquí expresado. No podrá reproducirse, publicarse, citarse ni exhibirse ante terceros, institución o autoridad, total o parcialmente, sin autorización previa y por escrito.',
+    'Limitación de responsabilidad. La recepción y el uso de este documento implican la conformidad del destinatario con los alcances y limitaciones expresados. Ni HH Luxury Real Estate, ni la sociedad que la opera, ni el asesor que suscribe, asumen responsabilidad por las decisiones de contratación, inversión, financiamiento o disposición que el destinatario o terceros adopten con apoyo en esta opinión. Cuando el valor deba acreditarse ante institución financiera, notario público, autoridad fiscal o tribunal, se recomienda contratar un avalúo formal con perito valuador autorizado.'
+  ];
+}
+
+function cartaCV(){
+  if(!lastCV) calcCV();
+  const d = lastCV, pz = datosPlaza();
+  const dir = [$('#cv_calle').value, $('#cv_col').value, $('#cv_mun').value].filter(Boolean).join(', ');
+  const edo = $('#cv_edo').value;
+  const cols = cvComps.filter(c=>c.inc && c._u>0).map(c=>c.col).filter(Boolean);
+  const b = [];
+  b.push({t:'h1', v:'Estimación de valor comercial'});
+  b.push({t:'h2', v:'Compraventa'});
+  b.push({t:'p', v:pz.ciudad + ', a ' + fechaLarga($('#cv_fecha').value) + '.', align:'right'});
+  b.push({t:'sp', h:4});
+  b.push({t:'p', v:'Sr(a). ' + ($('#cv_prop').value || '_______________________')});
+  b.push({t:'p', v:'P r e s e n t e.'});
+  b.push({t:'sp', h:3});
+  b.push({t:'p', v:'Con motivo de la visita realizada al inmueble de su propiedad ubicado en ' + (dir||'_______________') + (edo?', en '+edo:'') + ', y a solicitud expresa de usted, HH Luxury Real Estate emite la presente opinión sobre el valor comercial del inmueble, con fines exclusivamente informativos y de orientación para su comercialización.'});
+  b.push({t:'h3', v:'I. Inmueble considerado'});
+  if(d.modo === 'un'){
+    b.push({t:'kv', l:'Superficie vendible', r:mx2(d.mcS)+' m²'});
+  } else {
+    b.push({t:'kv', l:'Superficie de terreno', r:mx2(d.mtS)+' m²'});
+    if(d.modo!=='te') b.push({t:'kv', l:'Superficie de construcción', r:mx2(d.mcS)+' m²'});
+  }
+  if(d.modo!=='te'){
+    b.push({t:'kv', l:'Antigüedad', r:mx2(d.edadS)+' años'});
+    b.push({t:'kv', l:'Estado de conservación', r:CONS_N[d.consS].split(' —')[0]});
+  }
+  b.push({t:'h3', v:'II. Criterio empleado'});
+  b.push({t:'p', v:'La estimación se obtuvo por el método de análisis comparativo de mercado, con ' + d.inc + ' inmuebles de características semejantes en zona, superficie, antigüedad y áreas' + (cols.length?' (' + [...new Set(cols)].join(', ') + ')':'') + ', homologados entre sí por superficie, ubicación, antigüedad y estado de conservación, y ajustados por el factor de negociación que corresponde a los inmuebles que se encuentran en oferta.'});
+  if(d.modo!=='te' && d.modo!=='un'){
+    b.push({t:'p', v:'El valor de la construcción se determinó a partir de valores unitarios de reposición de referencia del sector, publicados por Bimsa Reports y el Centro Nacional de Ingeniería de Costos de la CMIC, actualizados con el Índice Nacional de Precios Productor de la construcción residencial del INEGI, y deméritados conforme a la antigüedad y al estado de conservación del inmueble.'});
+  }
+  b.push({t:'h3', v:'III. Resultado'});
+  if(d.modo === 'un'){
+    b.push({t:'kv', l:'Superficie vendible · ' + mx2(d.mcS) + ' m² a ' + mx(d.vs) + ' /m²', r:mx(d.vC)});
+  } else {
+    b.push({t:'kv', l:'1. Terreno · ' + mx2(d.mtS) + ' m² a ' + mx(d.vs) + ' /m²', r:mx(d.vT)});
+    if(d.modo!=='te') b.push({t:'kv', l:'2. Construcción · ' + mx2(d.mcS) + ' m² a ' + mx(d.V*d.remS) + ' /m²', r:mx(d.vC)});
+  }
+  b.push({t:'tot', l:'Valor comercial estimado', r:mx(d.VC)});
+  b.push({t:'p', v:'Cantidad con letra: ' + numLetras(d.VC)});
+  b.push({t:'h3', v:'IV. Recomendación de comercialización'});
+  b.push({t:'p', v:'El valor comercial antes señalado constituye el piso sugerido para recibir ofertas. A fin de contar con margen de negociación frente a las propuestas del mercado, se sugiere promover la propiedad en venta en ' + mx(d.salida) + ' (' + numLetras(d.salida) + '), equivalente a un ' + d.pc + '% sobre el valor comercial estimado.'});
+  b.push({t:'h3', v:'V. Alcances y limitaciones'});
+  b.push({t:'ol', items:limitaciones(P.vig, 'cv')});
+  b.push({t:'sp', h:6});
+  b.push({t:'p', v:'Quedamos a sus órdenes para cualquier aclaración.'});
+  b.push({t:'firma', lines:[$('#cv_ases').value || '_______________________',
+    'Asesor certificado' + ($('#cv_folio').value ? ' · Folio ' + $('#cv_folio').value : ''),
+    'HH Luxury Real Estate' + (pz.dom ? ' · ' + pz.dom : '')]});
+  if(P.acuse) b.push({t:'acuse'});
+  return {blocks:b, titulo:'Estimación de valor · Compraventa', archivo:'Estimacion_valor_compraventa'};
+}
+
+function cartaAR(){
+  if(!lastAR) calcAR();
+  const d = lastAR, pz = datosPlaza();
+  const dir = [$('#ar_calle').value, $('#ar_col').value, $('#ar_mun').value].filter(Boolean).join(', ');
+  const edo = $('#ar_edo').value;
+  const cols = arComps.filter(c=>c.inc && c._r>0).map(c=>c.col).filter(Boolean);
+  const b = [];
+  b.push({t:'h1', v:'Estimación de renta de mercado'});
+  b.push({t:'h2', v:'Arrendamiento'});
+  b.push({t:'p', v:pz.ciudad + ', a ' + fechaLarga($('#ar_fecha').value) + '.', align:'right'});
+  b.push({t:'sp', h:4});
+  b.push({t:'p', v:'Sr(a). ' + ($('#ar_prop').value || '_______________________')});
+  b.push({t:'p', v:'P r e s e n t e.'});
+  b.push({t:'sp', h:3});
+  b.push({t:'p', v:'Con motivo de la visita realizada al inmueble de su propiedad ubicado en ' + (dir||'_______________') + (edo?', en '+edo:'') + ', y a solicitud expresa de usted, HH Luxury Real Estate emite la presente opinión sobre la renta de mercado del inmueble, con fines exclusivamente informativos y de orientación para su comercialización.'});
+  b.push({t:'h3', v:'I. Inmueble considerado'});
+  b.push({t:'kv', l:'Superficie de construcción', r:mx2(d.mcS)+' m²'});
+  b.push({t:'kv', l:'Recámaras', r:mx2(d.recS)});
+  b.push({t:'kv', l:'Cajones de estacionamiento', r:mx2(d.estS)});
+  b.push({t:'kv', l:'Antigüedad', r:mx2(d.edadS)+' años'});
+  b.push({t:'kv', l:'Condición', r:d.amuS ? 'Amueblado' : 'Sin amueblar'});
+  b.push({t:'h3', v:'II. Criterio empleado'});
+  b.push({t:'p', v:'La estimación se obtuvo por el método de análisis comparativo de mercado, con ' + d.inc + ' inmuebles en renta de características semejantes' + (cols.length?' (' + [...new Set(cols)].join(', ') + ')':'') + ', homologados entre sí por superficie, número de recámaras, cajones de estacionamiento, antigüedad, nivel, amenidades y condición de amueblado.'});
+  b.push({t:'h3', v:'III. Resultado'});
+  b.push({t:'kv', l:'Renta mensual de mercado estimada', r:mx(d.R)});
+  if(d.mcS>0) b.push({t:'kv', l:'Renta por metro cuadrado', r:mx(d.R/d.mcS)+' /m²'});
+  b.push({t:'tot', l:'Renta mensual sugerida de salida · +' + d.pc + '%', r:mx(d.salida)});
+  b.push({t:'p', v:'Cantidad con letra: ' + numLetras(d.salida)});
+  b.push({t:'h3', v:'IV. Recomendación de comercialización'});
+  b.push({t:'p', v:'Se sugiere promover el inmueble en ' + mx(d.salida) + ' mensuales, conservando como piso de negociación la renta de mercado estimada de ' + mx(d.R) + '. Las cantidades señaladas no incluyen depósito en garantía, servicios, cuotas de mantenimiento ni el impuesto al valor agregado cuando resulte aplicable.'});
+  b.push({t:'h3', v:'V. Alcances y limitaciones'});
+  b.push({t:'ol', items:limitaciones(P.vig, 'ar')});
+  b.push({t:'sp', h:6});
+  b.push({t:'p', v:'Quedamos a sus órdenes para cualquier aclaración.'});
+  b.push({t:'firma', lines:[$('#ar_ases').value || '_______________________',
+    'Asesor certificado' + ($('#ar_folio').value ? ' · Folio ' + $('#ar_folio').value : ''),
+    'HH Luxury Real Estate' + (pz.dom ? ' · ' + pz.dom : '')]});
+  if(P.acuse) b.push({t:'acuse'});
+  return {blocks:b, titulo:'Estimación de valor · Arrendamiento', archivo:'Estimacion_valor_arrendamiento'};
+}
+
+function renderCarta(c){
+  cartaActual = c;
+  const pz = datosPlaza();
+  let h = '<div class="lg"><img src="'+LOGO+'" alt="HH"></div>';
+  c.blocks.forEach(b=>{
+    if(b.t==='h1') h += '<h1>'+esc(b.v)+'</h1>';
+    else if(b.t==='h2') h += '<h2>'+esc(b.v)+'</h2>';
+    else if(b.t==='h3') h += '<h3>'+esc(b.v)+'</h3>';
+    else if(b.t==='p') h += '<p'+(b.align==='right'?' class="rt"':'')+'>'+esc(b.v)+'</p>';
+    else if(b.t==='kv') h += '<table><tr><td>'+esc(b.l)+'</td><td class="n">'+esc(b.r)+'</td></tr></table>';
+    else if(b.t==='tot') h += '<div class="tot"><span class="l">'+esc(b.l)+'</span><span class="r">'+esc(b.r)+'</span></div>';
+    else if(b.t==='ol') h += '<ol>'+b.items.map(i=>'<li><small>'+esc(i)+'</small></li>').join('')+'</ol>';
+    else if(b.t==='sp') h += '<div style="height:'+(b.h*2)+'px"></div>';
+    else if(b.t==='firma') h += '<div class="firma"><div class="ln"></div>'+b.lines.map((l,i)=>'<div style="font-size:'+(i?11.5:13.5)+'px;'+(i?'color:#5C5856':'font-weight:600')+'">'+esc(l)+'</div>').join('')+'</div>';
+    else if(b.t==='acuse') h += '<div style="margin-top:36px;border-top:1px solid #E4E1DF;padding-top:14px"><small>Recibí de conformidad el presente documento y manifiesto haber leído y aceptado los alcances y limitaciones contenidos en el apartado V.</small><div class="firma" style="margin-top:34px"><div class="ln"></div><div style="font-size:11.5px;color:#5C5856">Propietario · nombre y firma</div></div></div>';
+  });
+  $('#doc').innerHTML = h;
+  $('#sh_tit').textContent = c.titulo;
+  $('#df_tel').textContent = pz.tel;
+  $('#df_web').textContent = P.web;
+  $('#modal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+/* ============ PDF ============ */
+function pdf(){
+  if(!cartaActual) return;
+  const {jsPDF} = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'letter'});
+  const W = 215.9, H = 279.4, ML = 22, MR = 22, AW = W - ML - MR;
+  const pz = datosPlaza();
+  let y = 0, pg = 0;
+
+  function pie(){
+    doc.setFillColor(35,31,32); doc.rect(0, H-13, W, 13, 'F');
+    doc.setTextColor(255,255,255); doc.setFontSize(7.5); doc.setFont('helvetica','normal');
+    doc.text(pz.tel, ML, H-5.4);
+    doc.text(P.web, W-MR, H-5.4, {align:'right'});
+    doc.setTextColor(35,31,32);
+  }
+  function nuevaPag(conLogo){
+    doc.addPage(); pg++; pie(); y = 20;
+    if(conLogo){ const w=30; doc.addImage(LOGO,'PNG',ML,y,w,w/LOGO_RATIO); y += w/LOGO_RATIO + 8; }
+  }
+  function espacio(n){ if(y + n > H - 22){ nuevaPag(false); } }
+  function par(txt, size, style, align, indent){
+    doc.setFont('helvetica', style||'normal'); doc.setFontSize(size||10);
+    const w = AW - (indent||0);
+    const ls = doc.splitTextToSize(txt, w);
+    ls.forEach(l=>{
+      espacio(6);
+      if(align==='center') doc.text(l, W/2, y, {align:'center'});
+      else if(align==='right') doc.text(l, W-MR, y, {align:'right'});
+      else doc.text(l, ML + (indent||0), y);
+      y += (size||10) * 0.46 + 1.6;
+    });
+  }
+
+  pie(); y = 20;
+  const lw = 30; doc.addImage(LOGO,'PNG',ML,y,lw,lw/LOGO_RATIO); y += lw/LOGO_RATIO + 10;
+
+  cartaActual.blocks.forEach(b=>{
+    if(b.t==='h1'){ espacio(12); doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      doc.text(b.v.toUpperCase(), W/2, y, {align:'center', charSpace:0.6}); y += 6; }
+    else if(b.t==='h2'){ doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(140,135,133);
+      doc.text(b.v.toUpperCase(), W/2, y, {align:'center', charSpace:1.6}); doc.setTextColor(35,31,32); y += 10; }
+    else if(b.t==='h3'){ espacio(14); y += 4; doc.setFont('helvetica','bold'); doc.setFontSize(9);
+      doc.text(b.v.toUpperCase(), ML, y, {charSpace:0.4}); y += 5.5; }
+    else if(b.t==='p'){ par(b.v, 10, 'normal', b.align); y += 2.2; }
+    else if(b.t==='kv'){ espacio(8); doc.setFont('helvetica','normal'); doc.setFontSize(9.5);
+      doc.text(b.l, ML, y); doc.text(b.r, W-MR, y, {align:'right'});
+      doc.setDrawColor(230,228,226); doc.line(ML, y+1.8, W-MR, y+1.8); y += 6.6; }
+    else if(b.t==='tot'){ espacio(36); y += 4; doc.setLineWidth(0.5); doc.setDrawColor(35,31,32);
+      doc.line(ML, y, W-MR, y); y += 7;
+      doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.text(b.l.toUpperCase(), ML, y, {charSpace:0.5});
+      doc.setFont('helvetica','normal'); doc.setFontSize(14); doc.text(b.r, W-MR, y+1, {align:'right'});
+      y += 4; doc.line(ML, y, W-MR, y); doc.setLineWidth(0.2); y += 7; }
+    else if(b.t==='ol'){ b.items.forEach((it,i)=>{ espacio(10);
+        doc.setFont('helvetica','bold'); doc.setFontSize(8);
+        doc.text(String(i+1)+'.', ML, y);
+        par(it, 8, 'normal', null, 6); y += 2; }); }
+    else if(b.t==='sp'){ y += b.h; }
+    else if(b.t==='firma'){ espacio(42); y += 16;
+      doc.setDrawColor(35,31,32); doc.line(W/2-35, y, W/2+35, y); y += 5;
+      b.lines.forEach((l,i)=>{ doc.setFont('helvetica', i?'normal':'bold'); doc.setFontSize(i?8:9.5);
+        if(i) doc.setTextColor(92,88,86);
+        doc.text(l, W/2, y, {align:'center'}); doc.setTextColor(35,31,32); y += i?4.2:5; }); }
+    else if(b.t==='acuse'){ espacio(46); y += 10;
+      doc.setDrawColor(228,225,223); doc.line(ML, y, W-MR, y); y += 6;
+      par('Recibí de conformidad el presente documento y manifiesto haber leído y aceptado los alcances y limitaciones contenidos en el apartado V.', 8, 'normal');
+      y += 18; doc.setDrawColor(35,31,32); doc.line(W/2-35, y, W/2+35, y); y += 5;
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(92,88,86);
+      doc.text('Propietario · nombre y firma', W/2, y, {align:'center'}); doc.setTextColor(35,31,32); }
+  });
+
+  const prop = (($('#cv_prop').value || $('#ar_prop').value || '').trim().replace(/[^\wáéíóúñÁÉÍÓÚÑ ]/g,'').replace(/\s+/g,'_'));
+  doc.save(cartaActual.archivo + (prop?'_'+prop:'') + '.pdf');
+}
+
+/* ============ TABLA DE VALORES ============ */
+function pintaTabla(){
+  const tb = $('#tb_tabla').querySelector('tbody');
+  let h = '', g = '';
+  TIPOL.forEach(t=>{
+    if(t.g !== g){ g = t.g; h += '<tr class="grp"><td colspan="4">'+esc(g)+'</td></tr>'; }
+    const d = directo(t.id), r = d*P.frep, a = r*fplaza();
+    h += `<tr><td>${esc(t.n)}</td>
+      <td class="n"><input data-tid="${t.id}" type="number" value="${Math.round(d)}" style="width:112px"></td>
+      <td class="n">${d?mx(r):'—'}</td><td class="n"><b>${d?mx(a):'—'}</b></td></tr>`;
+  });
+  tb.innerHTML = h;
+  $('#tb_plaza').textContent = plaza==='mty' ? 'Monterrey' : 'Puebla';
+  $('#tb_frep').textContent = P.frep.toFixed(2);
+  $('#tb_fmty').textContent = (+P.fmty).toFixed(2);
+  $('#tb_fpue').textContent = (+P.fpue).toFixed(2);
+  tb.querySelectorAll('input').forEach(i=>{
+    i.addEventListener('input', ()=>{ VU_TABLA[i.dataset.tid] = num(i.value); sSet('hhev:tabla', VU_TABLA); pintaTabla(); calcCV(); });
+  });
+}
+
+/* ============ HISTORIAL ============ */
+async function guardarEst(tipo){
+  const h = (await sGet('hhev:hist')) || [];
+  const d = tipo==='cv' ? lastCV : lastAR;
+  if(!d) return;
+  h.unshift({tipo, ts:Date.now(), plaza,
+    prop: tipo==='cv' ? $('#cv_prop').value : $('#ar_prop').value,
+    dir:  tipo==='cv' ? [$('#cv_calle').value,$('#cv_col').value].filter(Boolean).join(', ')
+                      : [$('#ar_calle').value,$('#ar_col').value].filter(Boolean).join(', '),
+    monto: tipo==='cv' ? d.VC : d.R,
+    salida: d.salida});
+  await sSet('hhev:hist', h.slice(0,60));
+  pintaHist();
+  const b = tipo==='cv' ? $('#cv_save') : $('#ar_save');
+  const o = b.textContent; b.textContent = 'Guardada'; setTimeout(()=>b.textContent=o, 1600);
+}
+async function pintaHist(){
+  const h = (await sGet('hhev:hist')) || [];
+  $('#hs_list').innerHTML = h.length ? h.map(e=>`
+    <div class="hrow"><div><b>${esc(e.prop||'Sin propietario')}</b><div class="m">${esc(e.dir||'—')} · ${e.tipo==='cv'?'Compraventa':'Arrendamiento'} · ${e.plaza==='mty'?'Monterrey':'Puebla'} · ${new Date(e.ts).toLocaleDateString('es-MX')}</div></div>
+    <div style="text-align:right"><b>${mx(e.monto)}</b><div class="m">salida ${mx(e.salida)}</div></div></div>`).join('')
+    : '<p class="note">Aún no hay estimaciones guardadas.</p>';
+}
+
+/* ============ INTERFAZ ============ */
+function llenaSelects(){
+  $('#cv_tipo').innerHTML = TIPOS.map(t=>`<option value="${t.id}">${t.n}</option>`).join('');
+  $('#cv_cons').innerHTML = Object.keys(CONS_N).map(k=>`<option value="${k}" ${k==='bueno'?'selected':''}>${CONS_N[k]}</option>`).join('');
+  $('#ar_amen').innerHTML = AMEN.map((a,i)=>`<label class="chk"><input type="checkbox" data-a="${i}"> ${a}</label>`).join('');
+  filtraTipologias();
+}
+function filtraTipologias(){
+  const tipo = $('#cv_tipo').value, prev = $('#cv_tipol').value;
+  const ok = TIPOL.filter(t=>t.t.indexOf(tipo)>=0);
+  const lista = ok.length ? ok : TIPOL;
+  $('#cv_tipol').innerHTML = lista.map(t=>`<option value="${t.id}">${t.n}</option>`).join('');
+  if(lista.some(t=>t.id===prev)) $('#cv_tipol').value = prev;
+  const m = modoCV();
+  $('#cv_modoHint').textContent = MODOS[m];
+  $('#cv_suelBox').querySelector('h2').textContent = m==='un'
+    ? 'Valor unitario de mercado — los dos métodos' : 'Valor del suelo — los dos métodos';
+  $('#optA').querySelector('.t').textContent = m==='un' ? 'A · Promedio de comparables' : 'A · Residual de comparables';
+  $('#optB').querySelector('.t').textContent = m==='un' ? 'B · Valor de referencia propio' : 'B · Tabla propia por colonia';
+  $('#cv_tipol').disabled = (m==='te');
+}
+function seg(el, cb){
+  el.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    el.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); cb(b.dataset.v);
+  });
+}
+function bindComps(cont, arr, pinta, calc){
+  cont.addEventListener('input', e=>{
+    const w = e.target.closest('.comp'); if(!w) return;
+    const i = +w.dataset.i, f = e.target.dataset.f; if(f==null) return;
+    moneyFmt(e.target);
+    arr[i][f] = e.target.type==='checkbox' ? e.target.checked : e.target.value;
+    if(f==='inc'){ w.classList.toggle('off', !e.target.checked); }
+    calc();
+  });
+  cont.addEventListener('change', e=>{
+    const w = e.target.closest('.comp'); if(!w) return;
+    const i = +w.dataset.i, f = e.target.dataset.f; if(f==null) return;
+    arr[i][f] = e.target.type==='checkbox' ? e.target.checked : e.target.value; calc();
+  });
+  cont.addEventListener('click', e=>{
+    const w = e.target.closest('.comp'); if(!w) return;
+    const i = +w.dataset.i;
+    const del = e.target.closest('[data-del]');
+    if(del){ arr.splice(+del.dataset.del,1); pinta(); calc(); return; }
+    const sg = e.target.closest('[data-seg]');
+    if(sg){ const b = e.target.closest('button'); if(!b) return;
+      sg.querySelectorAll('button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+      arr[i][sg.dataset.seg] = b.dataset.v; calc(); }
+  });
+}
+function bindParams(){
+  const map = {pr_vu:'vu', pr_res:'res', pr_frep:'frep', pr_fmty:'fmty', pr_fpue:'fpue', pr_fneg:'fneg',
+    pr_expsup:'expsup', pr_atip:'atip', pr_famu:'famu', pr_fdes:'fdes', pr_cajon:'cajon', pr_fant:'fant',
+    pr_famen:'famen', pr_dmty:'dmty', pr_tmty:'tmty', pr_dpue:'dpue', pr_tpue:'tpue', pr_web:'web', pr_vig:'vig'};
+  Object.keys(map).forEach(id=>{
+    const el = $('#'+id); if(!el) return;
+    const k = map[id];
+    el.value = P[k];
+    el.addEventListener('input', ()=>{ P[k] = (el.type==='number') ? num(el.value) : el.value; guardarP(); pintaTabla(); calcCV(); calcAR(); });
+  });
+  $('#pr_acuse').checked = !!P.acuse;
+  $('#pr_acuse').addEventListener('change', ()=>{ P.acuse = $('#pr_acuse').checked; guardarP(); });
+  seg($('#pr_dep'), v=>{ P.dep = v; guardarP(); calcCV(); });
+  $('#pr_dep').querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.v===P.dep));
+}
+
+function init(){
+  $('#logoTop').src = LOGO;
+  llenaSelects();
+  document.addEventListener('input', e=>{ if(e.target && e.target.dataset && e.target.dataset.money !== undefined && !e.target.closest('.comp')) moneyFmt(e.target); }, true);
+  $('#cv_fecha').value = hoyISO();
+  $('#ar_fecha').value = hoyISO();
+  for(let i=0;i<3;i++){ cvComps.push(nuevoCompCV()); arComps.push(nuevoCompAR()); }
+  pintaCompsCV(); pintaCompsAR(); pintaTabla(); bindParams(); pintaHist();
+
+  seg($('#plazaSel'), v=>{ plaza = v; P.cajon = (v==='mty'?1500:1000); $('#pr_cajon').value = P.cajon; moneyFmt($('#pr_cajon')); guardarP(); pintaTabla(); calcCV(); calcAR(); });
+
+  $('#tabs').addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    $$('#tabs button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    ['cv','ar','tb','pr','hs'].forEach(t=>$('#p'+t).classList.toggle('hide', t!==b.dataset.t));
+    if(b.dataset.t==='hs') pintaHist();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  ['cv_tipo'].forEach(id=>$('#'+id).addEventListener('change', ()=>{ filtraTipologias(); pintaCompsCV(); calcCV(); }));
+  ['cv_tipol','cv_mt','cv_mc','cv_edad','cv_cons','cv_pct','cv_vsMan','cv_col'].forEach(id=>{
+    $('#'+id).addEventListener('input', ()=>{
+      if(id==='cv_col'){ const k = plaza+'|'+$('#cv_col').value.trim().toLowerCase();
+        if(SUELO[k] && !num($('#cv_vsMan').value)) $('#cv_vsMan').value = SUELO[k]; }
+      calcCV(); });
+    $('#'+id).addEventListener('change', calcCV);
+  });
+  ['ar_mc','ar_rec','ar_est','ar_edad','ar_niv','ar_pct','ar_valor'].forEach(id=>$('#'+id).addEventListener('input', calcAR));
+  $('#ar_amen').addEventListener('change', calcAR);
+  $('#ar_traer').addEventListener('click', ()=>{
+    calcCV();
+    if(lastCV && lastCV.VC){ $('#ar_valor').value = Math.round(lastCV.VC).toLocaleString('es-MX'); calcAR(); }
+    else { $('#ar_alerts').innerHTML = '<span class="tag w">Aún no hay una estimación de compraventa calculada.</span>'; }
+  });
+  seg($('#ar_amu'), ()=>calcAR());
+
+  bindComps($('#cv_comps'), cvComps, pintaCompsCV, calcCV);
+  bindComps($('#ar_comps'), arComps, pintaCompsAR, calcAR);
+  $('#cv_add').addEventListener('click', ()=>{ if(cvComps.length<5){ cvComps.push(nuevoCompCV()); pintaCompsCV(); calcCV(); } });
+  $('#ar_add').addEventListener('click', ()=>{ if(arComps.length<5){ arComps.push(nuevoCompAR()); pintaCompsAR(); calcAR(); } });
+
+  $$('#cv_suelBox .opt').forEach(o=>o.addEventListener('click', e=>{
+    if(e.target.tagName==='INPUT') return;
+    cvMetodo = o.dataset.m;
+    $$('#cv_suelBox .opt').forEach(x=>x.classList.toggle('on', x===o));
+    calcCV();
+  }));
+
+  $('#cv_ver').addEventListener('click', ()=>{ calcCV(); renderCarta(cartaCV()); });
+  $('#ar_ver').addEventListener('click', ()=>{ calcAR(); renderCarta(cartaAR()); });
+  $('#cv_save').addEventListener('click', ()=>{ calcCV(); guardarEst('cv'); });
+  $('#ar_save').addEventListener('click', ()=>{ calcAR(); guardarEst('ar'); });
+  $('#sh_pdf').addEventListener('click', pdf);
+  $('#sh_close').addEventListener('click', ()=>{ $('#modal').classList.remove('on'); document.body.style.overflow=''; });
+  $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal'){ $('#modal').classList.remove('on'); document.body.style.overflow=''; } });
+  $('#tb_restore').addEventListener('click', ()=>{ VU_TABLA = {}; sSet('hhev:tabla', VU_TABLA); pintaTabla(); calcCV(); });
+
+  $('#cv_reset').addEventListener('click', ()=>{
+    ['cv_prop','cv_calle','cv_col','cv_mun','cv_edo','cv_mt','cv_mc','cv_vsMan'].forEach(id=>$('#'+id).value='');
+    $('#cv_edad').value = 0; $('#cv_pct').value = 5; $('#cv_fecha').value = hoyISO();
+    cvComps = [nuevoCompCV(), nuevoCompCV(), nuevoCompCV()]; pintaCompsCV(); moneyAll(); calcCV();
+  });
+  $('#ar_reset').addEventListener('click', ()=>{
+    ['ar_prop','ar_calle','ar_col','ar_mun','ar_edo','ar_mc','ar_valor'].forEach(id=>$('#'+id).value='');
+    $('#ar_rec').value = 2; $('#ar_est').value = 1; $('#ar_edad').value = 0; $('#ar_niv').value = 0;
+    $('#ar_pct').value = 5; $('#ar_fecha').value = hoyISO();
+    $$('#ar_amen input').forEach(c=>c.checked=false);
+    arComps = [nuevoCompAR(), nuevoCompAR(), nuevoCompAR()]; pintaCompsAR(); moneyAll(); calcAR();
+  });
+
+  moneyAll();
+  calcCV(); calcAR();
+}
+
+cargar().then(init);
 </script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Costos de adquisición · Puebla · hh Luxury Real Estate</title>
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#fff}
+  #volver{position:fixed;top:14px;left:16px;z-index:9999;font:600 12px/1 'Jost',system-ui,sans-serif;
+    letter-spacing:.06em;text-transform:uppercase;color:#8A8A88;text-decoration:none;
+    background:rgba(255,255,255,.9);padding:8px 12px;border-radius:8px;border:1px solid #E2E0DC}
+  #volver:hover{color:#0A0A0A}
+  #cargando{font:400 14px/1.6 'Jost',system-ui,sans-serif;color:#8A8A88;padding:60px 24px;text-align:center}
+  @media print{#volver{display:none}}
+</style>
+</head>
+<body>
+<a id="volver" href="portal.html">← Portal</a>
+<div id="root"><div id="cargando">Cargando la calculadora…</div></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const src = await (await fetch("app-costos-pue.jsx")).text();
+      const out = Babel.transform(src, { presets: [["react", { runtime: "classic" }]] }).code;
+      const fn = new Function("React", "useState", "useMemo", out + "; return CalculadoraHH;");
+      const Comp = fn(React, React.useState, React.useMemo);
+      ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Comp));
+    } catch (e) {
+      document.getElementById("cargando").textContent =
+        "No se pudo cargar la calculadora. Revisa tu conexión y vuelve a intentar.";
+      console.error(e);
+    }
+  });
+</script>
+</body>
+</html>
