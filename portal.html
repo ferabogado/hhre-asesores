@@ -173,8 +173,21 @@
   .pill{font-size:10px;font-weight:700;letter-spacing:.06em;padding:3px 7px;border-radius:5px;
         background:var(--surface-2);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
   .pill.acc{background:var(--accent-tint);color:var(--accent-text);border-color:transparent}
-  a.pill.lk{cursor:pointer;transition:background .14s,color .14s}
-  a.pill.lk:hover{background:var(--accent);color:var(--accent-ink)}
+  /* En "Todas" cada versión lleva su botón, para que se vea que ahí se pica */
+  a.pill.lk{cursor:pointer;background:var(--accent);color:var(--accent-ink);border-color:transparent;
+            transition:filter .14s}
+  a.pill.lk:hover{filter:brightness(.88)}
+  .rtxt .hint{display:block;margin-top:5px;font-size:11.5px;font-weight:600;color:var(--accent-text)}
+  .row.sin-liga{cursor:default}
+
+  /* Pasos de arriba */
+  .pasos{display:flex;flex-wrap:wrap;gap:8px 22px;margin:-10px 0 0;padding:0;
+         font-size:12.5px;color:var(--muted)}
+  .pasos span{display:inline-flex;align-items:center;gap:7px}
+  .pasos b{width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+           display:grid;place-items:center;font-size:11px;font-weight:700;flex:none}
+  .pasos b.ciudad{width:auto;height:auto;border-radius:0;background:none;color:var(--ink);
+           display:inline;font-size:inherit;font-weight:700}
   a.row .rtxt .t{text-decoration:underline;text-decoration-color:transparent;
                  text-underline-offset:3px;transition:text-decoration-color .15s}
   a.row:hover .rtxt .t{text-decoration-color:var(--accent)}
@@ -274,6 +287,11 @@
         <input type="search" id="q" placeholder="Buscar un formato… (ej. exclusividad, buró, recibo)" aria-label="Buscar documentos">
       </label>
     </div>
+
+    <p class="pasos" id="pasos">
+      <span><b>1</b> Elige tu ciudad aquí arriba.</span>
+      <span><b>2</b> Da clic en cualquier documento y se abre.</span>
+    </p>
 
     <div class="hero">
       <div>
@@ -513,33 +531,36 @@
     return id ? `https://drive.google.com/file/d/${id}/view` : null;
   };
 
-  // Con una plaza elegida el renglón entero es la liga.
-  // Con "Todas", un documento que existe en ambas ofrece las dos versiones.
+  // La etiqueta refleja la ciudad que está elegida ahora, no las que existen.
+  // Con "Todas" hay dos versiones posibles, así que cada una lleva su botón.
   function badges(d){
     const rol = `<span class="pill">${esc(d.para)}</span>`;
     if (plaza === "all" && d.p === "both"){
       const a = liga(d, "mty"), b = liga(d, "pue");
       return rol +
-        (a ? `<a class="pill acc lk" href="${a}" target="_blank" rel="noopener">MTY</a>` : "") +
-        (b ? `<a class="pill acc lk" href="${b}" target="_blank" rel="noopener">PUE</a>` : "");
+        (a ? `<a class="pill lk" href="${a}" target="_blank" rel="noopener">Monterrey</a>` : "") +
+        (b ? `<a class="pill lk" href="${b}" target="_blank" rel="noopener">Puebla</a>` : "");
     }
-    if (d.p === "both") return rol + '<span class="pill">MTY · PUE</span>';
-    return rol + `<span class="pill acc">Solo ${d.p === "mty" ? "MTY" : "PUE"}</span>`;
+    if (plaza === "mty") return rol + '<span class="pill acc">Monterrey</span>';
+    if (plaza === "pue") return rol + '<span class="pill acc">Puebla</span>';
+    return rol + `<span class="pill acc">Solo ${d.p === "mty" ? "Monterrey" : "Puebla"}</span>`;
   }
 
   function fila(d){
     const pl = plaza !== "all" ? plaza : (d.p === "both" ? null : d.p);
     const href = pl ? liga(d, pl) : null;
+    const aviso = href ? "" : '<span class="hint">Elige tu ciudad para abrirlo →</span>';
     const cuerpo = `
       <span class="rico">${ICON}</span>
       <span class="rtxt">
         <span class="t">${esc(d.t)}</span>
         <span class="d">${esc(d.d)}</span>
+        ${aviso}
       </span>
       <span class="badges">${badges(d)}</span>`;
     return href
       ? `<a class="row" href="${href}" target="_blank" rel="noopener">${cuerpo}</a>`
-      : `<div class="row">${cuerpo}</div>`;
+      : `<div class="row sin-liga">${cuerpo}</div>`;
   }
 
   function render(){
@@ -551,6 +572,11 @@
 
     countEl.textContent = visibles.length;
     emptyEl.hidden = visibles.length > 0;
+
+    document.getElementById("pasos").innerHTML = plaza === "all"
+      ? '<span><b>1</b> Elige tu ciudad aquí arriba.</span>' +
+        '<span><b>2</b> Da clic en cualquier documento y se abre.</span>'
+      : `<span><b>✓</b> Estás viendo los documentos de <b class="ciudad">${plaza === "mty" ? "Monterrey" : "Puebla"}</b>. Da clic en cualquiera para abrirlo.</span>`;
 
     groupsEl.innerHTML = ORDEN.map(cat => {
       const items = visibles.filter(d => d.c === cat);
