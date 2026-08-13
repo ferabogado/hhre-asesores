@@ -297,7 +297,7 @@
       <div>
         <div class="eyebrow">Todo en un solo lugar</div>
         <h1>Los formatos que usas todos los días, siempre en la versión vigente.</h1>
-        <p>Elige tu plaza arriba y el portal te muestra únicamente lo que aplica en tu ciudad.</p>
+        <p>Cada documento abre la versión que aplica en tu ciudad. Se guarda tu elección, no tienes que volver a marcarla.</p>
       </div>
       <div class="stat">
         <div class="n" id="count">25</div>
@@ -576,7 +576,7 @@
     document.getElementById("pasos").innerHTML = plaza === "all"
       ? '<span><b>1</b> Elige tu ciudad aquí arriba.</span>' +
         '<span><b>2</b> Da clic en cualquier documento y se abre.</span>'
-      : `<span><b>✓</b> Estás viendo los documentos de <b class="ciudad">${plaza === "mty" ? "Monterrey" : "Puebla"}</b>. Da clic en cualquiera para abrirlo.</span>`;
+      : `<span><b>✓</b><span>Estás viendo los documentos de <b class="ciudad">${plaza === "mty" ? "Monterrey" : "Puebla"}</b>. Da clic en cualquiera para abrirlo.</span></span>`;
 
     groupsEl.innerHTML = ORDEN.map(cat => {
       const items = visibles.filter(d => d.c === cat);
