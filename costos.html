@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Costos de adquisición · hh Luxury Real Estate</title>
+<meta name="theme-color" content="#2d2d2d">
+<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<style>
+  :root{
+    --hh-almost:#2d2d2d; --hh-olive:#9e9683;
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6;
+    --ink:#22211E; --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84;
+    --line:#E3E1DA; --accent:#9e9683; --accent-text:#6B6455;
+    --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD; --alerta:#9A3412;
+    --shadow-sm:0 1px 2px rgba(45,45,45,.05), 0 3px 12px rgba(45,45,45,.05);
+    --shadow-md:0 10px 28px rgba(45,45,45,.11);
+    --r:14px; --r-sm:10px;
+    --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+    --serif:"Cormorant Garamond","Times New Roman",Times,serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
+      --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
+      --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
+      --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
+      --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15); --alerta:#E0A080;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6; --ink:#22211E;
+    --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84; --line:#E3E1DA;
+    --accent:#9e9683; --accent-text:#6B6455; --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD; --alerta:#9A3412;
+  }
+  :root[data-theme="dark"]{
+    --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917; --ink:#E9E7E1;
+    --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870; --line:#302F2B;
+    --accent:#B3AB95; --accent-text:#C4BCA6; --accent-tint:rgba(158,150,131,.16);
+    --accent-ink:#16150F; --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15); --alerta:#E0A080;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:6px}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 80px}
+
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+             flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .mark .hh{font-family:var(--serif);font-size:38px;line-height:.85;color:var(--ink-strong)}
+  .mark .sub{margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  .volver{font-size:13px;font-weight:600;color:var(--accent-text);text-decoration:none}
+  .volver:hover{text-decoration:underline}
+
+  h1{margin:26px 0 4px;font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.02em;color:var(--ink-strong)}
+  .lead{margin:0 0 20px;color:var(--muted);font-size:14.5px;max-width:62ch}
+
+  .plaza{display:inline-flex;gap:3px;background:var(--surface);border:1px solid var(--line);
+         border-radius:11px;padding:3px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+  .pbtn{border:0;background:none;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--muted);
+        padding:9px 18px;border-radius:8px;font-family:var(--sans)}
+  .pbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+
+  fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+           padding:20px;margin:0 0 16px;box-shadow:var(--shadow-sm)}
+  legend{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+         color:var(--accent-text);padding:0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
+        background:var(--surface-2);color:var(--ink);font-family:var(--sans);font-size:14.5px}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .ayuda{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.45}
+
+  .toggle{display:flex;align-items:center;gap:11px;background:var(--surface-2);border:1px solid var(--line);
+          border-radius:var(--r-sm);padding:13px 15px;margin-top:14px;cursor:pointer}
+  .toggle input{width:auto;flex:none}
+  .toggle b{font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .toggle span{display:block;font-size:12px;color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0}
+
+  details.param{margin-top:14px}
+  details.param summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--accent-text);
+        letter-spacing:.08em;text-transform:uppercase;padding:8px 0}
+  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+  button{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:12px 22px;border-radius:10px;
+         border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+  button.primario{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  button:hover{filter:brightness(.94)}
+
+  /* ---- Reporte ---- */
+  .rep{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+       padding:clamp(22px,4vw,44px);box-shadow:var(--shadow-md);margin-top:26px}
+  .rep .cab{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;
+            padding-bottom:18px;border-bottom:2px solid var(--hh-almost)}
+  .rep .cab .der{text-align:right;font-size:12.5px;color:var(--muted);line-height:1.7}
+  .datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0 6px}
+  .datos div span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .datos div b{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .bloque{margin-top:22px}
+  .bloque h2{margin:0 0 6px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+             color:var(--accent-text);font-weight:700}
+  .ren{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dotted var(--line);
+       font-size:14px;font-variant-numeric:tabular-nums;align-items:baseline}
+  .ren .cc{flex:1}
+  .ren .dd{display:block;font-size:11.5px;color:var(--faint)}
+  .ren .mm{font-weight:600;white-space:nowrap}
+  .ren.tenue{opacity:.55}
+  .subt{display:flex;justify-content:space-between;padding:10px 0 0;font-size:13px;font-weight:700;
+       color:var(--accent-text);font-variant-numeric:tabular-nums}
+  .total{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:22px;
+         padding:18px 20px;border-radius:var(--r-sm);background:var(--hh-almost)}
+  .total .et{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--hh-olive);font-weight:700}
+  .total .vl{font-size:clamp(22px,3.4vw,30px);font-weight:600;color:#F5F4F0;
+             font-variant-numeric:tabular-nums;white-space:nowrap}
+  .resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+  .resumen div{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:13px}
+  .resumen span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .resumen b{font-size:16px;font-variant-numeric:tabular-nums}
+  .alerta{margin-top:16px;background:var(--warn-bg);color:var(--warn);border-radius:var(--r-sm);
+          padding:12px 15px;font-size:13px;font-weight:600}
+  .notas{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;
+         color:var(--faint);line-height:1.65}
+  .notas li{margin-bottom:6px}
+  .pie{margin-top:20px;font-size:12px;color:var(--muted);line-height:1.7}
+
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    header.top,h1,.lead,.plaza,form,.acciones{display:none !important}
+    .rep{border:0;box-shadow:none;padding:0;margin:0}
+    .total{background:#2d2d2d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark"><div class="hh">hh</div><div class="sub">Luxury Real Estate</div></div>
+    <a class="volver" href="portal.html">← Volver al portal</a>
+  </header>
+
+  <h1>Costos de adquisición</h1>
+  <p class="lead">Lo que un comprador desembolsa al escriturar: impuestos, derechos y gastos.
+     Elige la plaza, captura el monto y entrega el desglose al cliente.</p>
+
+  <div class="plaza" role="group" aria-label="Plaza">
+    <button class="pbtn" type="button" data-p="nl" aria-pressed="true">Nuevo León</button>
+    <button class="pbtn" type="button" data-p="pue" aria-pressed="false">Puebla</button>
+  </div>
+
+  <form id="f" autocomplete="off">
+    <fieldset>
+      <legend>Datos de la operación</legend>
+      <div class="grid">
+        <div><label for="asesor">Asesor</label><input id="asesor" placeholder="Nombre del asesor"></div>
+        <div><label for="cliente">Cliente</label><input id="cliente" placeholder="Nombre del comprador"></div>
+        <div><label for="municipio">Municipio</label><select id="municipio"></select></div>
+        <div><label for="tipo">Tipo de inmueble</label>
+          <select id="tipo">
+            <option value="">Selecciona el tipo</option>
+            <option value="casa">Casa habitación</option>
+            <option value="comercial">Comercial o mixto</option>
+            <option value="terreno">Terreno</option>
+          </select></div>
+      </div>
+      <div class="grid" style="margin-top:14px">
+        <div><label for="precio">Monto de compraventa</label>
+          <input id="precio" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></div>
+        <div><label for="catastral">Valor catastral <span style="font-weight:400">(opcional)</span></label>
+          <input id="catastral" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></div>
+        <div><label for="avaluo">Avalúo <span style="font-weight:400">(opcional)</span></label>
+          <input id="avaluo" type="number" min="0" step="1" inputmode="decimal" placeholder="0"></div>
+      </div>
+      <p class="ayuda">La base gravable es el <b>valor más alto</b> de los tres.</p>
+
+      <label class="toggle" for="concredito">
+        <input type="checkbox" id="concredito">
+        <span><b>Crédito hipotecario</b><span>Agrega el registro de la hipoteca y los gastos bancarios.</span></span>
+      </label>
+      <div id="wcredito" hidden style="margin-top:14px">
+        <label for="credito">Monto del crédito</label>
+        <input id="credito" type="number" min="0" step="1" inputmode="decimal" placeholder="0">
+      </div>
+
+      <details class="param">
+        <summary>Ajustar parámetros</summary>
+        <div class="grid" id="params" style="margin-top:12px"></div>
+      </details>
+    </fieldset>
+
+    <div class="acciones">
+      <button type="submit" class="primario">Calcular</button>
+      <button type="button" id="imprimir" hidden>Guardar en PDF</button>
+      <button type="button" id="limpiar">Limpiar</button>
+    </div>
+  </form>
+
+  <div id="salida"></div>
+</div>
+
+<script>
+/* =====================================================================
+   Lógica tomada de las calculadoras que Fernando ya validó:
+     · "Calculadora HH costos de adquisicion NL v2.jsx"
+     · "Calculadora HH costos de adquisicion Puebla.jsx"
+   Las tasas, cuotas y textos son los mismos.
+   ===================================================================== */
+
+const UMA_2026 = 117.31, ALERTA_UMAS = 5;
+
+const PLAZAS = {
+  nl: {
+    nombre: "Nuevo León",
+    sitio: "sanpedro.hhre.mx", tel: "+52 81 1246 1540", wa: "https://wa.me/528112461540",
+    municipios: ["Monterrey","San Pedro Garza García","San Nicolás de los Garza","Guadalupe",
+      "Apodaca","General Escobedo","Santa Catarina","Juárez","García","Santiago",
+      "Allende","Cadereyta Jiménez","Montemorelos","Salinas Victoria","Pesquería"],
+    params: [
+      ["isai","Tasa ISAI %","3"],
+      ["millar","Derechos de registro %","0.5","0.5% equivale a 5 al millar"],
+      ["pctConstruccion","% de construcción (para IVA)","70"],
+      ["notarial","Honorarios notariales %","","Vacío = tabla por monto"],
+      ["avaluoMillar","Avalúo al millar","3.5"],
+      ["avaluoMin","Avalúo mínimo","5800"],
+      ["avaluoOverride","Avalúo fijo","","Si lo llenas, ignora el cálculo"],
+      ["gestoria","Gestoría, copias y testimonios","8000"],
+      ["libertad","Certificado de libertad de gravamen","1500"],
+      ["alerta","Alerta inmobiliaria",(UMA_2026*ALERTA_UMAS).toFixed(2),"5 UMA. UMA 2026: $"+UMA_2026],
+      ["avisos","Avisos preventivos","1000"],
+      ["apertura","Comisión de apertura %","1"],
+      ["investigacion","Investigación y buró","1500"]
+    ],
+    notas: [
+      "Estimación con base en la normativa vigente en 2026. No sustituye la cotización de la notaría, del banco ni de la autoridad fiscal.",
+      "La base gravable es el valor mayor entre el de operación y el catastral. El ISAI del 3% es igual en todo el estado.",
+      "No se aplican subsidios ni tarifas especiales por interés social, primera vivienda, jubilados, herencia, donación o adjudicación.",
+      "Honorarios notariales, avalúo y gastos bancarios varían por notaría e institución. Se usó un criterio conservador.",
+      "No se incluyen las constancias de no adeudo, que corresponden al vendedor, ni los seguros del crédito, que se pagan dentro de la mensualidad."
+    ]
+  },
+  pue: {
+    nombre: "Puebla",
+    sitio: "lomas.hhre.mx", tel: "+52 222 290 2990", wa: "https://wa.me/522222902990",
+    municipios: ["Puebla","San Andrés Cholula","San Pedro Cholula","Cuautlancingo","Amozoc",
+      "Coronango","Ocoyucan","Atlixco","San Martín Texmelucan","Tehuacán",
+      "Teziutlán","Huauchinango","Tepeaca","Otro municipio de Puebla"],
+    params: [
+      ["pctConstruccion","% de construcción (para IVA)","70"],
+      ["notarial","Honorarios notariales %","1.0"],
+      ["avaluoCatastral","Avalúo catastral","3500"],
+      ["gestoria","Gestoría y gastos de protocolo","3000"],
+      ["inspeccion","Inspección catastral","600"],
+      ["derCompraventa","Derechos de inscripción","4975","Cuota fija, Ley de Ingresos 2026"],
+      ["derHipoteca","Inscripción de hipoteca","3580"],
+      ["avisos","Avisos preventivos y certificado","1330"],
+      ["apertura","Comisión de apertura %","1"],
+      ["investigacion","Investigación y buró","750"],
+      ["spei","SPEI / transferencia","128"],
+      ["avaluoBanco","Avalúo bancario","7000"]
+    ],
+    notas: [
+      "Estimación con base en la normativa vigente en 2026 (Ley de Ingresos del Estado y de los municipios de Puebla). No sustituye la cotización de la notaría, del banco ni de la autoridad fiscal.",
+      "El ISABI se causa a la tasa del 2% en la mayoría de los municipios; en el municipio de Puebla capital aplica tarifa progresiva (0% hasta $500,000, 1.8% hasta $3,000,000 y 3% por encima).",
+      "La base del ISABI es el valor catastral que determine Catastro. Si el valor catastral resulta mayor, el impuesto se recalcula y el comprador cubre la diferencia.",
+      "No se aplican subsidios ni exenciones por vivienda de interés social, primera vivienda, centro histórico ni regularización de la tenencia de la tierra.",
+      "Honorarios notariales y gastos bancarios varían por notaría e institución. El ISR de enajenación y la manifestación de construcción corresponden al vendedor."
+    ]
+  }
+};
+const DER_AVISO_HIP = 855;   // Puebla: aviso preventivo del crédito
+
+const $ = id => document.getElementById(id);
+const num = v => { const n = parseFloat(String(v).replace(/,/g,"")); return isFinite(n) ? n : 0; };
+const mxn = n => new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",minimumFractionDigits:2})
+                  .format(isFinite(n) ? n : 0);
+
+const tasaNotarialNL = base =>
+  base <=  1_500_000 ? 2.0 :
+  base <=  3_000_000 ? 1.8 :
+  base <=  6_000_000 ? 1.5 :
+  base <= 12_000_000 ? 1.3 : 1.1;
+
+const costoAvaluoNL = (base, millar, minimo) => Math.max(minimo, base * (millar/1000));
+
+const calcularISABI = (base, municipio) => {
+  if (municipio === "Puebla"){
+    if (base <=   500_000) return 0;
+    if (base <= 3_000_000) return base * 0.018;
+    return base * 0.03;
+  }
+  return base * 0.02;
+};
+const tasaISABItxt = (base, municipio) => {
+  if (municipio === "Puebla"){
+    if (base <=   500_000) return "0% (exento hasta $500,000)";
+    if (base <= 3_000_000) return "1.8% sobre el valor";
+    return "3% sobre el valor";
+  }
+  return "2% sobre el valor";
+};
+
+let plaza = (localStorage.getItem("hh-plaza") === "pue") ? "pue" : "nl";
+const P = () => PLAZAS[plaza];
+const par = k => $("par_"+k) ? $("par_"+k).value : "";
+
+function pintaPlaza(){
+  document.querySelectorAll(".pbtn").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.p === plaza)));
+  $("municipio").innerHTML = '<option value="">Selecciona el municipio</option>' +
+    P().municipios.map(m => `<option>${m}</option>`).join("");
+  $("params").innerHTML = P().params.map(([k,l,d,h]) => `
+    <div><label for="par_${k}">${l}</label>
+      <input id="par_${k}" value="${d}" inputmode="decimal">
+      ${h ? `<p class="ayuda">${h}</p>` : ""}</div>`).join("");
+  $("salida").innerHTML = ""; $("imprimir").hidden = true;
+}
+
+document.querySelectorAll(".pbtn").forEach(b => b.addEventListener("click", () => {
+  plaza = b.dataset.p; localStorage.setItem("hh-plaza", plaza); pintaPlaza();
+}));
+$("concredito").addEventListener("change", e => $("wcredito").hidden = !e.target.checked);
+pintaPlaza();
+
+function calcula(){
+  const V  = num($("precio").value);
+  const CT = num($("catastral").value);
+  const AV = num($("avaluo").value);
+  const CR = $("concredito").checked ? num($("credito").value) : 0;
+  const base = Math.max(V, CT, AV);
+  const tipo = $("tipo").value, municipio = $("municipio").value;
+
+  const gravaIVA = tipo === "comercial";
+  const baseIVA  = gravaIVA ? base * (num(par("pctConstruccion"))/100) : 0;
+  const iva      = baseIVA * 0.16;
+  const excede   = AV > 0 && AV > V * 1.1;
+  const isr      = excede ? (AV - V) * 0.2 : 0;
+
+  const imp = [], der = [], gas = [];
+  let tImp, tDer, tGas, tn;
+
+  if (plaza === "nl"){
+    const isai = base * (num(par("isai"))/100);
+    imp.push({c:"ISAI — Impuesto Sobre Adquisición de Inmuebles", d:`${par("isai")}% sobre la base gravable`, m:isai});
+    imp.push(gravaIVA ? {c:"IVA sobre la construcción", d:`16% sobre ${mxn(baseIVA)}`, m:iva}
+                      : {c:"IVA", d:"Exento", m:0, tenue:true});
+    if (excede) imp.push({c:"ISR por adquisición", d:"20% sobre la diferencia entre avalúo y precio", m:isr});
+
+    const mill = num(par("millar"))/100;
+    const regCompra = base * mill, regHip = CR * mill;
+    const libertad = num(par("libertad")), alerta = num(par("alerta")), avisos = num(par("avisos"));
+    der.push({c:"Inscripción de la compraventa", d:`${par("millar")}% sobre la base gravable`, m:regCompra});
+    if (CR > 0) der.push({c:"Inscripción de la hipoteca", d:`${par("millar")}% sobre el crédito`, m:regHip});
+    der.push({c:"Certificado de libertad de gravamen", d:"", m:libertad});
+    der.push({c:"Alerta inmobiliaria", d:"5 UMA, vigencia de un año", m:alerta});
+    der.push({c:"Avisos preventivos", d:"Primero y segundo", m:avisos});
+
+    tn = par("notarial") !== "" ? num(par("notarial")) : tasaNotarialNL(base);
+    const hon = base * (tn/100), ivaHon = hon * 0.16;
+    const avaluoAuto = costoAvaluoNL(base, num(par("avaluoMillar")), num(par("avaluoMin")));
+    const avaluo = par("avaluoOverride") !== "" ? num(par("avaluoOverride")) : avaluoAuto;
+    const gestoria = num(par("gestoria"));
+    const apertura = CR * (num(par("apertura"))/100);
+    const investigacion = CR > 0 ? num(par("investigacion")) : 0;
+    gas.push({c:"Honorarios notariales", d:`${tn}% sobre la base gravable`, m:hon});
+    gas.push({c:"IVA sobre honorarios", d:"16%", m:ivaHon});
+    gas.push({c:"Avalúo", d: par("avaluoOverride") !== "" ? "" :
+      `${par("avaluoMillar")} al millar, mínimo ${mxn(num(par("avaluoMin")))}`, m:avaluo});
+    gas.push({c:"Gestoría, copias y testimonios", d:"", m:gestoria});
+    if (CR > 0){
+      gas.push({c:"Comisión bancaria por apertura", d:`${par("apertura")}% sobre el crédito`, m:apertura});
+      gas.push({c:"Investigación y consulta de buró", d:"", m:investigacion});
+    }
+    tImp = isai + iva + isr;
+    tDer = regCompra + regHip + libertad + alerta + avisos;
+    tGas = hon + ivaHon + avaluo + gestoria + apertura + investigacion;
+
+  } else {
+    const isabi = calcularISABI(base, municipio);
+    imp.push({c:"ISABI — Impuesto Sobre Adquisición de Bienes Inmuebles", d:tasaISABItxt(base, municipio), m:isabi});
+    imp.push(gravaIVA ? {c:"IVA sobre la construcción", d:`16% sobre ${mxn(baseIVA)}`, m:iva}
+                      : {c:"IVA", d:"Exento", m:0, tenue:true});
+    if (excede) imp.push({c:"ISR por adquisición", d:"20% sobre la diferencia entre avalúo y precio", m:isr});
+
+    const regCompra = num(par("derCompraventa"));
+    const regHip = CR > 0 ? num(par("derHipoteca")) : 0;
+    const avisos = num(par("avisos"));
+    const avisosHip = CR > 0 ? DER_AVISO_HIP : 0;
+    der.push({c:"Derechos de inscripción (traslado de dominio)", d:"Cuota fija, RPP de Puebla", m:regCompra});
+    if (CR > 0) der.push({c:"Inscripción de la hipoteca", d:"Cuota fija por el crédito", m:regHip});
+    der.push({c:"Avisos preventivos y certificado de gravamen", d:"Primero y segundo aviso", m:avisos});
+    if (CR > 0) der.push({c:"Aviso preventivo del crédito", d:"", m:avisosHip});
+
+    tn = num(par("notarial"));
+    const hon = base * (tn/100), ivaHon = hon * 0.16;
+    const avaluoCat = num(par("avaluoCatastral")), gestoria = num(par("gestoria")),
+          inspeccion = num(par("inspeccion"));
+    const apertura = CR * (num(par("apertura"))/100);
+    const investigacion = CR > 0 ? num(par("investigacion")) : 0;
+    const spei = CR > 0 ? num(par("spei")) : 0;
+    const avaluoBanco = CR > 0 ? num(par("avaluoBanco")) : 0;
+    gas.push({c:"Honorarios notariales", d:`${tn}% sobre la base gravable`, m:hon});
+    gas.push({c:"IVA sobre honorarios", d:"16%", m:ivaHon});
+    gas.push({c:"Avalúo catastral", d:"", m:avaluoCat});
+    gas.push({c:"Gestoría y gastos de protocolo", d:"", m:gestoria});
+    gas.push({c:"Inspección catastral", d:"", m:inspeccion});
+    if (CR > 0){
+      gas.push({c:"Comisión bancaria por apertura", d:`${par("apertura")}% sobre el crédito`, m:apertura});
+      gas.push({c:"Investigación y consulta de buró", d:"", m:investigacion});
+      gas.push({c:"SPEI / transferencia", d:"", m:spei});
+      gas.push({c:"Avalúo bancario", d:"Requerido por la institución", m:avaluoBanco});
+    }
+    tImp = isabi + iva + isr;
+    tDer = regCompra + regHip + avisos + avisosHip;
+    tGas = hon + ivaHon + avaluoCat + gestoria + inspeccion + apertura + investigacion + spei + avaluoBanco;
+  }
+
+  const total = tImp + tDer + tGas;
+  return { V, CR, base, excede, total, tImp, tDer, tGas,
+           enganche: Math.max(V - CR, 0), pct: V > 0 ? (total/V)*100 : 0,
+           secciones: [{titulo:"Impuestos", subtotal:tImp, filas:imp},
+                       {titulo:"Derechos",  subtotal:tDer, filas:der},
+                       {titulo:"Gastos",    subtotal:tGas, filas:gas}] };
+}
+
+$("f").addEventListener("submit", e => {
+  e.preventDefault();
+  if (num($("precio").value) <= 0) return alert("Captura el monto de compraventa.");
+  if (!$("municipio").value)        return alert("Elige el municipio.");
+  if (!$("tipo").value)             return alert("Elige el tipo de inmueble.");
+
+  const r = calcula();
+  const hoy = new Date().toLocaleDateString("es-MX",{day:"2-digit",month:"long",year:"numeric"});
+  const nombreTipo = {casa:"Casa habitación", comercial:"Comercial o mixto", terreno:"Terreno"}[$("tipo").value];
+
+  $("salida").innerHTML = `
+    <div class="rep">
+      <div class="cab">
+        <div class="mark">
+          <div class="hh" style="font-family:var(--serif);font-size:38px;line-height:.85">hh</div>
+          <div class="sub" style="margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)">Luxury Real Estate</div>
+        </div>
+        <div class="der">Costos de adquisición · ${P().nombre}<br>${hoy}</div>
+      </div>
+
+      <div class="datos">
+        <div><span>Cliente</span><b>${$("cliente").value || "—"}</b></div>
+        <div><span>Asesor</span><b>${$("asesor").value || "—"}</b></div>
+        <div><span>Municipio</span><b>${$("municipio").value}</b></div>
+        <div><span>Tipo</span><b>${nombreTipo}</b></div>
+        <div><span>Monto de compraventa</span><b>${mxn(r.V)}</b></div>
+        <div><span>Base gravable</span><b>${mxn(r.base)}</b></div>
+      </div>
+
+      ${r.secciones.map(s => `
+        <div class="bloque">
+          <h2>${s.titulo}</h2>
+          ${s.filas.map(f => `
+            <div class="ren${f.tenue ? " tenue" : ""}">
+              <span class="cc">${f.c}${f.d ? `<span class="dd">${f.d}</span>` : ""}</span>
+              <span class="mm">${mxn(f.m)}</span>
+            </div>`).join("")}
+          <div class="subt"><span>Subtotal</span><span>${mxn(s.subtotal)}</span></div>
+        </div>`).join("")}
+
+      <div class="total">
+        <span class="et">Total de gastos de escrituración</span>
+        <span class="vl">${mxn(r.total)}</span>
+      </div>
+
+      <div class="resumen">
+        <div><span>Equivale al</span><b>${r.pct.toFixed(2)}%</b></div>
+        ${r.CR > 0 ? `<div><span>Enganche</span><b>${mxn(r.enganche)}</b></div>
+                      <div><span>Crédito</span><b>${mxn(r.CR)}</b></div>` : ""}
+        <div><span>Desembolso total</span><b>${mxn(r.enganche + r.total)}</b></div>
+      </div>
+
+      ${r.excede ? `<p class="alerta">El avalúo supera en más de 10% el precio de operación:
+        se estimó ISR por adquisición sobre la diferencia.</p>` : ""}
+
+      <ul class="notas">${P().notas.map(n => `<li>${n}</li>`).join("")}</ul>
+
+      <p class="pie"><b>hh Luxury Real Estate</b> · ${P().sitio} · ${P().tel}</p>
+    </div>`;
+
+  $("imprimir").hidden = false;
+  $("salida").scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+$("imprimir").addEventListener("click", () => window.print());
+$("limpiar").addEventListener("click", () => {
+  $("f").reset(); $("wcredito").hidden = true; pintaPlaza();
+});
+</script>
+</body>
+</html>
