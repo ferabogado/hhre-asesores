@@ -11,22 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="hh Asesores">
 <meta name="application-name" content="hh Asesores">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <style>
-  /* ===== Hanken Grotesk — tipografía oficial de la marca hh ===== */
-  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-300.woff2") format("woff2");
-             font-weight:300;font-style:normal;font-display:swap}
-  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-400.woff2") format("woff2");
-             font-weight:400;font-style:normal;font-display:swap}
-  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-500.woff2") format("woff2");
-             font-weight:500;font-style:normal;font-display:swap}
-  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-600.woff2") format("woff2");
-             font-weight:600;font-style:normal;font-display:swap}
-  @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-700.woff2") format("woff2");
-             font-weight:700;font-style:normal;font-display:swap}
   :root{
     /* ===== Marca hh (tomada del CSS real de hhre.mx) ===== */
     --hh-black:#000000;
@@ -106,14 +91,9 @@
         display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
   @media (max-width:860px){.rail{display:none}}
   .mark{padding:0 10px}
-  .logo{width:74px;height:auto;display:block}
-  .logo.dk{display:none}
-  @media (prefers-color-scheme:dark){.logo.lt{display:none}.logo.dk{display:block}}
-  :root[data-theme="dark"] .logo.lt{display:none}
-  :root[data-theme="dark"] .logo.dk{display:block}
-  :root[data-theme="light"] .logo.lt{display:block}
-  :root[data-theme="light"] .logo.dk{display:none}
-  .mark .sub{margin-top:11px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;
+  .mark .hh{font-family:var(--serif);font-size:42px;line-height:.85;font-weight:400;
+            color:var(--ink-strong);letter-spacing:-.02em}
+  .mark .sub{margin-top:7px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;
              color:var(--muted);line-height:1.7}
   nav{display:flex;flex-direction:column;gap:2px}
   .nav-h{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
@@ -129,8 +109,8 @@
 
   .mobmark{display:none}
   @media (max-width:860px){
-    .mobmark{display:flex;align-items:center;gap:13px;padding-bottom:4px}
-    .mobmark .logo{width:48px}
+    .mobmark{display:flex;align-items:baseline;gap:12px;padding-bottom:4px}
+    .mobmark .hh{font-family:var(--serif);font-size:32px;line-height:1;color:var(--ink-strong)}
     .mobmark .sub{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
   }
 
@@ -193,6 +173,13 @@
   .pill{font-size:10px;font-weight:700;letter-spacing:.06em;padding:3px 7px;border-radius:5px;
         background:var(--surface-2);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
   .pill.acc{background:var(--accent-tint);color:var(--accent-text);border-color:transparent}
+  a.pill.lk{cursor:pointer;transition:background .14s,color .14s}
+  a.pill.lk:hover{background:var(--accent);color:var(--accent-ink)}
+  a.row .rtxt .t{text-decoration:underline;text-decoration-color:transparent;
+                 text-underline-offset:3px;transition:text-decoration-color .15s}
+  a.row:hover .rtxt .t{text-decoration-color:var(--accent)}
+  a.row:hover .rico{background:var(--accent)}
+  a.row:hover .rico svg{stroke:var(--accent-ink)}
   .pill.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
   @media (max-width:600px){
     .rtxt .d{-webkit-line-clamp:3}
@@ -244,8 +231,7 @@
 <div class="app">
   <aside class="rail">
     <div class="mark">
-      <img class="logo lt" src="logo-hh-negro.png" alt="hh Hache Hache" width="520" height="505">
-      <img class="logo dk" src="logo-hh-blanco.png" alt="hh Hache Hache" width="520" height="504">
+      <div class="hh">hh</div>
       <div class="sub">Luxury Real Estate<br>Portal de asesores</div>
     </div>
 
@@ -273,8 +259,7 @@
 
   <main>
     <div class="mobmark">
-      <img class="logo lt" src="logo-hh-negro.png" alt="hh Hache Hache" width="520" height="505">
-      <img class="logo dk" src="logo-hh-blanco.png" alt="hh Hache Hache" width="520" height="504">
+      <span class="hh">hh</span>
       <span class="sub">Portal de asesores</span>
     </div>
 
@@ -393,72 +378,121 @@
     </section>
 
     <footer>
-      Documentos: bases <em>Documentos Luxury Properties — SP</em> (Monterrey) y <em>— LA</em> (Puebla) de Notion.
-      Contactos: Directorio de Equipo hh + página de contacto de hhre.mx.<br>
-      Falta: conectar las ligas de descarga y resolver los 3 documentos que Monterrey no tiene.
+      Cada documento abre la versión de tu plaza. Si tienes elegido <em>Todas</em>, el renglón te ofrece las dos.<br>
+      Si un formato cambió y aquí sigue el viejo, avísale al gerente de tu ciudad.
     </footer>
   </main>
 </div>
 
 <script>
   const DOCS = [
-    {c:"Comercial", t:"Presentación de los servicios LP", p:"both", para:"Propietario",
+    {c:"Comercial", t:"Presentación de los servicios LP", f:"Presentación de los servicios LP.pdf", p:"both", para:"Propietario",
      d:"Documento comercial con los servicios de intermediación, asesoría y gestión que ofrece Luxury Properties al propietario."},
-    {c:"Comercial", t:"Portales donde se publican las propiedades", p:"both", para:"Propietario",
+    {c:"Comercial", t:"Portales donde se publican las propiedades", f:"Portales donde se publican las propiedades.pdf", p:"both", para:"Propietario",
      d:"Listado de plataformas y portales donde hh publica y promociona las propiedades en venta o renta."},
 
-    {c:"Contratos y convenios de captación", t:"Contrato de intermediación con Exclusividad", p:"both", para:"Propietario",
+    {c:"Contratos y convenios de captación", t:"Contrato de intermediación con Exclusividad", f:"Contrato de intermediación con Exclusividad.pdf", p:"both", para:"Propietario",
      d:"El propietario concede a hh la exclusividad para promover, intermediar y negociar. Fija comisiones, vigencia y obligaciones."},
-    {c:"Contratos y convenios de captación", t:"Contrato de intermediación sin Exclusividad", p:"both", para:"Propietario",
+    {c:"Contratos y convenios de captación", t:"Contrato de intermediación sin Exclusividad", f:"Contrato de intermediación sin Exclusividad.pdf", p:"both", para:"Propietario",
      d:"Faculta a hh a promover e intermediar el inmueble permitiendo al propietario trabajar con otros intermediarios."},
-    {c:"Contratos y convenios de captación", t:"Autorización para intermediar Inmueble", p:"both", para:"Propietario",
+    {c:"Contratos y convenios de captación", t:"Autorización para intermediar Inmueble", f:"Autorización para intermediar Inmueble.pdf", p:"both", para:"Propietario",
      d:"Para cuando no te firmaron el contrato de intermediación de entrada. Autoriza a promover, gestionar propuestas y recibir depósitos."},
-    {c:"Contratos y convenios de captación", t:"Carta de cancelación de operación en venta o renta", p:"both", para:"Cliente",
+    {c:"Contratos y convenios de captación", t:"Carta de cancelación de operación en venta o renta", f:"Carta de cancelación de operación en venta o renta.pdf", p:"both", para:"Cliente",
      d:"Acredita la devolución del depósito y confirma que la cancelación fue decisión del propietario."},
 
-    {c:"Datos bancarios", t:"Datos bancarios para separaciones e investigaciones", p:"both", para:"Cliente",
-     d:"Cuentas de hh para separaciones o apartados. El monto es más IVA."},
-    {c:"Datos bancarios", t:"Datos bancarios para pago de comisiones (honorarios)", p:"pue", para:"Propietario",
-     d:"Cuentas de hh para el pago de comisiones u honorarios. El monto es más IVA."},
+    {c:"Datos bancarios", t:"Datos bancarios", p:"both", para:"Cliente", f:"Datos bancarios hh.png",
+     d:"Las dos cuentas de hh: apartados e investigaciones, y servicios y honorarios. Todo depósito genera IVA y se factura."},
 
-    {c:"Formatos de arrendamiento", t:"Persona Física — Solicitud Inquilino y Garante", p:"both", para:"Cliente",
+    {c:"Formatos de arrendamiento", t:"Persona Física — Solicitud Inquilino y Garante", f:"Persona Física - Solicitud Inquilino y Garante.pdf", p:"both", para:"Cliente",
      d:"Solicitud para personas físicas que requieren Garantía Jurídica como inquilinos o garantes."},
-    {c:"Formatos de arrendamiento", t:"Persona Moral — Solicitud Inquilino y Garante", p:"both", para:"Cliente",
+    {c:"Formatos de arrendamiento", t:"Persona Moral — Solicitud Inquilino y Garante", f:"Persona Moral - Solicitud Inquilino y Garante.pdf", p:"both", para:"Cliente",
      d:"Solicitud para personas morales que requieren Garantía Jurídica, con datos de la empresa y representantes legales."},
-    {c:"Formatos de arrendamiento", t:"Persona Física — Solicitud Propietario", p:"both", para:"Propietario",
+    {c:"Formatos de arrendamiento", t:"Persona Física — Solicitud Propietario", f:"Persona Física - Solicitud Propietario.pdf", p:"both", para:"Propietario",
      d:"Para personas físicas propietarias que quieren ofrecer su inmueble en arrendamiento con Garantía Jurídica."},
-    {c:"Formatos de arrendamiento", t:"Persona Moral — Solicitud Propietario", p:"both", para:"Propietario",
+    {c:"Formatos de arrendamiento", t:"Persona Moral — Solicitud Propietario", f:"Persona Moral - Solicitud Propietario.pdf", p:"both", para:"Propietario",
      d:"Para personas morales propietarias que quieren ofrecer su inmueble en arrendamiento con Garantía Jurídica."},
-    {c:"Formatos de arrendamiento", t:"Autorización para consulta de Buró de Crédito", p:"both", para:"Asesor",
+    {c:"Formatos de arrendamiento", t:"Autorización para consulta de Buró de Crédito", f:"Formato de Autorizacion PF.pdf", p:"both", para:"Asesor",
      d:"Autorización firmada que permite a hh consultar el historial crediticio del solicitante."},
 
-    {c:"Formatos de compraventa", t:"Persona Física — Solicitud de Comprador", p:"both", para:"Cliente",
+    {c:"Formatos de compraventa", t:"Persona Física — Solicitud de Comprador", f:"Persona Física - Solicitud de Comprador.pdf", p:"both", para:"Cliente",
      d:"Datos personales, del inmueble, servicios, fechas y condiciones para elaborar el contrato."},
-    {c:"Formatos de compraventa", t:"Persona Moral — Solicitud de Vendedor", p:"both", para:"Propietario",
+    {c:"Formatos de compraventa", t:"Persona Moral — Solicitud de Vendedor", f:"Persona Moral - Solicitud de Vendedor.pdf", p:"both", para:"Propietario",
      d:"Información legal y corporativa de la entidad propietaria más los datos del inmueble."},
-    {c:"Formatos de compraventa", t:"Checklist de compraventa", p:"both", para:"Cliente",
+    {c:"Formatos de compraventa", t:"Checklist de compraventa", f:"Checklist de compraventa.pdf", p:"both", para:"Cliente",
      d:"Documentos del comprador y del vendedor que se van a requerir para la escrituración."},
-    {c:"Formatos de compraventa", t:"Checklist de promesa de compraventa", p:"both", para:"Cliente",
+    {c:"Formatos de compraventa", t:"Checklist de promesa de compraventa", f:"Checklist de promesa de compraventa.pdf", p:"both", para:"Cliente",
      d:"Documentos mínimos y datos para elaborar el contrato de promesa."},
 
-    {c:"Recibos", t:"Recibo de servicios por intermediación", p:"both", para:"Asesor",
+    {c:"Recibos", t:"Recibo de servicios por intermediación", f:"Recibo de servicios por intermediación.pdf", p:"both", para:"Asesor",
      d:"Acredita el pago que recibe el colaborador de hh por los servicios de intermediación de un inmueble."},
-    {c:"Recibos", t:"Recibo de separación de hh con cliente", p:"both", para:"Cliente",
+    {c:"Recibos", t:"Recibo de separación de hh con cliente", f:"Recibo de separación de hh con cliente.pdf", p:"both", para:"Cliente",
      d:"Acredita el depósito entregado a hh para asegurar una operación: condiciones, plazos y reglas de devolución."},
-    {c:"Recibos", t:"Recibo de separación entre propietario y cliente", p:"both", para:"Propietario",
+    {c:"Recibos", t:"Recibo de separación entre propietario y cliente", f:"Recibo de separación entre propietario y cliente.pdf", p:"both", para:"Propietario",
      d:"Confirma que el propietario recibe el depósito del prospecto y autoriza a hh a gestionar la documentación."},
 
-    {c:"Recursos adicionales", t:"Ejemplo de contrato de arrendamiento", p:"both", para:"Asesor",
+    {c:"Recursos adicionales", t:"Ejemplo de contrato de arrendamiento", f:"Ejemplo de contrato de arrendamiento.pdf", p:"both", para:"Asesor",
      d:"Modelo de contrato de arrendamiento habitacional con Garantía Jurídica, como referencia."},
-    {c:"Recursos adicionales", t:"Ejemplo de promesa de compraventa", p:"pue", para:"Asesor",
+    {c:"Recursos adicionales", t:"Ejemplo de promesa de compraventa", f:"Ejemplo de promesa de compraventa.pdf", p:"pue", para:"Asesor",
      d:"Modelo de contrato de promesa, como referencia para asesores y clientes."},
-    {c:"Recursos adicionales", t:"Propuesta de operación / Oferta de compra o arrendamiento", p:"pue", para:"Asesor",
+    {c:"Recursos adicionales", t:"Propuesta de operación / Oferta de compra o arrendamiento", f:"Propuesta de operación - Oferta de compra o arrendamiento.pdf", p:"pue", para:"Asesor",
      d:"Formato para hacerle una propuesta formal de compra o arrendamiento al propietario."},
-    {c:"Recursos adicionales", t:"Aviso de privacidad", p:"both", para:"Asesor",
+    {c:"Recursos adicionales", t:"Aviso de privacidad", f:"Aviso de privacidad.pdf", p:"both", para:"Asesor",
      d:"Informa al titular cómo hh trata, usa, transfiere y resguarda sus datos personales (LFPDPPP)."},
-    {c:"Recursos adicionales", t:"Guía de estacionamiento", p:"mty", para:"Cliente",
+    {c:"Recursos adicionales", t:"Guía de estacionamiento", f:"Guía de estacionamiento.pdf", p:"mty", para:"Cliente",
      d:"Dónde se estacionan los clientes y visitantes que llegan a la oficina."}
   ];
+
+  const IDS = {
+  "mty": {
+    "Autorización para intermediar Inmueble.pdf": "1ZujFXQINwyjQtLaRUn6IVHeRQrUCERbq",
+    "Aviso de privacidad.pdf": "1iQXA6xOEK_VltXGAcILhQUTrkDr7VO2X",
+    "Carta de cancelación de operación en venta o renta.pdf": "1Sg1XUD-T0CoLM472iqPLJhgkW5bq3oH4",
+    "Checklist de compraventa.pdf": "1bKGNAIIJ6o-LOhtPQrXQHSKIER1wfo0o",
+    "Checklist de promesa de compraventa.pdf": "1QO64qM_-cD08fKLB7qtNQGR78DMlhMJy",
+    "Contrato de intermediación con Exclusividad.pdf": "1X1nc7Y7O9ZdWkhosReFYz0ucpIpTAku4",
+    "Contrato de intermediación sin Exclusividad.pdf": "1p4_WEX_45UW5ZHCR2HJ9in7pT0dsb7zB",
+    "Datos bancarios hh.png": "1UaZlOVUJenRGM7V_w2RvFIaJccPigXr6",
+    "Ejemplo de contrato de arrendamiento.pdf": "1l_eHgOiIXngPJB_0gRiKOOMf65TlS0FW",
+    "Formato de Autorizacion PF.pdf": "1irU7Q-bf0KMA2TS6jE9F9IoGJUr33Qtt",
+    "Guía de estacionamiento.pdf": "1gM9aToUcsE4podoB0DmKr_hqn6VOiP0O",
+    "Persona Física - Solicitud de Comprador.pdf": "1u5FJpAb7BjOC2obnxfQDzqhdlRQBwl4B",
+    "Persona Física - Solicitud Inquilino y Garante.pdf": "1Z1CYGHHT6MHvp_WTYhVEc3XTo7y-7EKr",
+    "Persona Física - Solicitud Propietario.pdf": "1pDSQxIth7JnGvLjVcmceisCtEJik6N8s",
+    "Persona Moral - Solicitud de Vendedor.pdf": "1N2dXY6G8v-5cIHhIYTwrjf6uu7yX7fOZ",
+    "Persona Moral - Solicitud Inquilino y Garante.pdf": "1v6ZkdcxX1TqaomDdlbUxyK121LohFHsi",
+    "Persona Moral - Solicitud Propietario.pdf": "1mZ1rW5fl9sMgwBhjyFNtk86BLfxvHH5M",
+    "Portales donde se publican las propiedades.pdf": "1NlAU2z6SO_zENJZCO5oU_Kbw1WOBEEUj",
+    "Presentación de los servicios LP.pdf": "1tqKwRBqfBV49zj5jXqtrMGgdM6TxV96W",
+    "Recibo de separación de hh con cliente.pdf": "1mX_zvql01aR4DOv1dXbAMyMdCNuLsgWr",
+    "Recibo de separación entre propietario y cliente.pdf": "1yo0Q375MrqcDMK5XsP92_iYI6CLOVa5o",
+    "Recibo de servicios por intermediación.pdf": "1i2rSzrTU6CfnfRycBTjJNUGrIfxmboaI"
+  },
+  "pue": {
+    "Autorización para intermediar Inmueble.pdf": "1DkO-VYp0Je-xcRzyLXRLSscrrUhlY3Fp",
+    "Aviso de privacidad.pdf": "1VKnClDBF2dV8NCjYPf0Jp6Qx8PPuRrBy",
+    "Carta de cancelación de operación en venta o renta.pdf": "1mXQllTNupOeVQbZTIO4BnU07c45mcv_7",
+    "Checklist de compraventa.pdf": "1IuU-sSzx0hBgmDAe7IBQslLwTSqH6oUr",
+    "Checklist de promesa de compraventa.pdf": "1xuhVhPn5MjD7Yue-MkqDtgAKUreXCpHb",
+    "Contrato de intermediación con Exclusividad.pdf": "1RMs97_iVD-tr5YcetqgX8PAAU-pNIvNe",
+    "Contrato de intermediación sin Exclusividad.pdf": "1XxbOe5t4-aJkHxe1vJJq3rN--ZstRkoj",
+    "Datos bancarios hh.png": "1GpuT_tlMsOwCLrWK2z--_CFfkxXfsN2T",
+    "Ejemplo de contrato de arrendamiento.pdf": "1DkfV-JA-Btn3XohdtcUulK0JsSXy9QDE",
+    "Ejemplo de promesa de compraventa.pdf": "1qj-_ernp0Zo1c2UhAxK0FSXkfpdoJxEz",
+    "Formato de Autorizacion PF.pdf": "12ztZCirNJMDTx3iOWW9osAk-05CgpOYX",
+    "Persona Física - Solicitud de Comprador.pdf": "13nTdOpuC38ApNU4FCiRSIwAfzKH2R0qO",
+    "Persona Física - Solicitud Inquilino y Garante.pdf": "19aAZPCPXn-QzI9ujgUvwixlBRYzFCCGj",
+    "Persona Física - Solicitud Propietario.pdf": "1PEYlU07vxITgOy3c7RYTfYjnK2fWCr81",
+    "Persona Moral - Solicitud de Vendedor.pdf": "1jMqPvBgGFUrWky0iP-gaycq3N0hk1oF-",
+    "Persona Moral - Solicitud Inquilino y Garante.pdf": "14iit7I3VZQsc7IbR1MG6z8VKjafnDi4H",
+    "Persona Moral - Solicitud Propietario.pdf": "1_xsBapzEISwEy6g-WvHcpAkC3WgiJSPE",
+    "Portales donde se publican las propiedades.pdf": "1xkFmUR6Vt5E5s0egGJOzJuhnsNcGxHAI",
+    "Presentación de los servicios LP.pdf": "12FPeSj9HfaPFjxOOkPWlSrj2m--s5knN",
+    "Propuesta de operación - Oferta de compra o arrendamiento.pdf": "1hxAlLBKZkYzI_vjjMsTAQ2M5Bn7L2ykB",
+    "Recibo de separación de hh con cliente.pdf": "1Q239jrnKI1pqUTKiumaEJ-QsApSa0GY6",
+    "Recibo de separación entre propietario y cliente.pdf": "1pWOJDLtAFrHz0FSbaPK6Lk_8Pz0wbyCU",
+    "Recibo de servicios por intermediación.pdf": "1xZ_C7Nnl51tQHJUi14nDk_a7rZTmNIna"
+  }
+};
 
   const ORDEN = ["Comercial","Contratos y convenios de captación","Datos bancarios",
                  "Formatos de arrendamiento","Formatos de compraventa","Recibos","Recursos adicionales"];
@@ -474,10 +508,38 @@
 
   const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-  function plazaPill(p){
-    if (p === "both") return '<span class="pill">MTY · PUE</span>';
-    if (p === "mty")  return '<span class="pill acc">Solo MTY</span>';
-    return '<span class="pill acc">Solo PUE</span>';
+  const liga = (d, pl) => {
+    const id = (pl === "mty" ? IDS.mty : IDS.pue)[d.f.normalize("NFC")];
+    return id ? `https://drive.google.com/file/d/${id}/view` : null;
+  };
+
+  // Con una plaza elegida el renglón entero es la liga.
+  // Con "Todas", un documento que existe en ambas ofrece las dos versiones.
+  function badges(d){
+    const rol = `<span class="pill">${esc(d.para)}</span>`;
+    if (plaza === "all" && d.p === "both"){
+      const a = liga(d, "mty"), b = liga(d, "pue");
+      return rol +
+        (a ? `<a class="pill acc lk" href="${a}" target="_blank" rel="noopener">MTY</a>` : "") +
+        (b ? `<a class="pill acc lk" href="${b}" target="_blank" rel="noopener">PUE</a>` : "");
+    }
+    if (d.p === "both") return rol + '<span class="pill">MTY · PUE</span>';
+    return rol + `<span class="pill acc">Solo ${d.p === "mty" ? "MTY" : "PUE"}</span>`;
+  }
+
+  function fila(d){
+    const pl = plaza !== "all" ? plaza : (d.p === "both" ? null : d.p);
+    const href = pl ? liga(d, pl) : null;
+    const cuerpo = `
+      <span class="rico">${ICON}</span>
+      <span class="rtxt">
+        <span class="t">${esc(d.t)}</span>
+        <span class="d">${esc(d.d)}</span>
+      </span>
+      <span class="badges">${badges(d)}</span>`;
+    return href
+      ? `<a class="row" href="${href}" target="_blank" rel="noopener">${cuerpo}</a>`
+      : `<div class="row">${cuerpo}</div>`;
   }
 
   function render(){
@@ -499,17 +561,7 @@
           <h3>${esc(cat)}</h3>
           <span class="ct">${items.length}</span>
         </div>
-        ${items.map(d => `<div class="row">
-          <span class="rico">${ICON}</span>
-          <span class="rtxt">
-            <span class="t">${esc(d.t)}</span>
-            <span class="d">${esc(d.d)}</span>
-          </span>
-          <span class="badges">
-            <span class="pill">${esc(d.para)}</span>
-            ${plazaPill(d.p)}
-          </span>
-        </div>`).join("")}
+        ${items.map(fila).join("")}
       </div>`;
     }).join("");
 
