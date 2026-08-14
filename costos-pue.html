@@ -12,16 +12,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;padding:0;background:#fff}
-  #volver{position:fixed;top:14px;left:16px;z-index:9999;font:600 12px/1 'Jost',system-ui,sans-serif;
-    letter-spacing:.06em;text-transform:uppercase;color:#8A8A88;text-decoration:none;
-    background:rgba(255,255,255,.9);padding:8px 12px;border-radius:8px;border:1px solid #E2E0DC}
-  #volver:hover{color:#0A0A0A}
   #cargando{font:400 14px/1.6 'Jost',system-ui,sans-serif;color:#8A8A88;padding:60px 24px;text-align:center}
-  @media print{#volver{display:none}}
+  @media print{}
+  #volver-portal{position:fixed;top:14px;left:16px;z-index:9999;
+    font:600 12px/1 'Hanken Grotesk','Jost',-apple-system,system-ui,sans-serif;
+    letter-spacing:.08em;text-transform:uppercase;color:#5f5c57;text-decoration:none;
+    background:rgba(255,255,255,.92);padding:9px 13px;border-radius:9px;border:1px solid #E3E1DA}
+  #volver-portal:hover{color:#000}
+  @media print{#volver-portal{display:none}}
 </style>
 </head>
 <body>
-<a id="volver" href="portal.html">← Portal</a>
+<a id="volver-portal" href="portal.html">← Portal</a>
 <div id="root"><div id="cargando">Cargando la calculadora…</div></div>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>

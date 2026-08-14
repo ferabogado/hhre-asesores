@@ -55,8 +55,6 @@
              flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
   .mark .hh{font-family:var(--serif);font-size:38px;line-height:.85;color:var(--ink-strong)}
   .mark .sub{margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
-  .volver{font-size:13px;font-weight:600;color:var(--accent-text);text-decoration:none}
-  .volver:hover{text-decoration:underline}
 
   h1{margin:26px 0 4px;font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.02em;color:var(--ink-strong)}
   .lead{margin:0 0 24px;color:var(--muted);font-size:14.5px;max-width:60ch}
@@ -143,14 +141,20 @@
   .neto .vl{font-size:clamp(20px,4vw,26px);font-weight:600;color:var(--ink-strong);
         font-variant-numeric:tabular-nums;white-space:nowrap}
 
+  #volver-portal{position:fixed;top:14px;left:16px;z-index:9999;
+    font:600 12px/1 'Hanken Grotesk','Jost',-apple-system,system-ui,sans-serif;
+    letter-spacing:.08em;text-transform:uppercase;color:#5f5c57;text-decoration:none;
+    background:rgba(255,255,255,.92);padding:9px 13px;border-radius:9px;border:1px solid #E3E1DA}
+  #volver-portal:hover{color:#000}
+  @media print{#volver-portal{display:none}}
 </style>
 </head>
 <body>
+<a id="volver-portal" href="portal.html">← Portal</a>
 <div class="wrap">
 
   <header class="top">
     <div class="mark"><div class="hh">hh</div><div class="sub">Luxury Real Estate</div></div>
-    <a class="volver" href="portal.html">← Volver al portal</a>
   </header>
 
   <h1>Calculadora de comisiones</h1>
