@@ -129,18 +129,20 @@
          padding:12px 15px;font-size:13px;font-weight:600;margin-bottom:16px}
   .aviso[hidden]{display:none}
 
-  @media print{
-    body{background:#fff}
-    .wrap{max-width:none;padding:0}
-    header.top,h1,.lead,form,.acciones{display:none !important}
-    .res{border:0;box-shadow:none;padding:0;margin:0}
-    .total{background:#2d2d2d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  }
-  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-  button.accion{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:12px 22px;
-        border-radius:10px;border:1px solid var(--line);background:var(--surface);
-        color:var(--ink);cursor:pointer}
-  button.accion.primario{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  /* desglose fiscal */
+  .fiscal{margin-top:22px;padding-top:18px;border-top:2px solid var(--hh-almost)}
+  .fiscal h3{margin:0 0 4px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+        font-weight:700;color:var(--accent-text)}
+  .fiscal .sub2{font-size:12.5px;color:var(--faint);margin:0 0 10px}
+  .ren.resta .mm{color:var(--warn)}
+  .neto{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:16px;
+        padding:16px 18px;border-radius:var(--r-sm);border:2px solid var(--accent);
+        background:var(--accent-tint)}
+  .neto .et{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+        color:var(--accent-text);font-weight:700}
+  .neto .vl{font-size:clamp(20px,4vw,26px);font-weight:600;color:var(--ink-strong);
+        font-variant-numeric:tabular-nums;white-space:nowrap}
+
 </style>
 </head>
 <body>
@@ -202,6 +204,32 @@
         <p class="ayuda">3 captadas suman 1% · 4 suman 2% · 5 o más suman 3%.</p>
       </div>
     </fieldset>
+
+    <fieldset>
+      <legend>Si vas a facturar</legend>
+      <label class="sw" for="factura">
+        <input type="checkbox" id="factura">
+        <span class="pill"></span>
+        <span><b>Calcular con factura</b>
+          <small>Te desglosa el IVA y lo que hh te retiene</small></span>
+      </label>
+
+      <div id="wregimen" hidden style="margin-top:18px">
+        <label>¿En qué régimen estás?</label>
+        <div class="ops">
+          <label class="op">
+            <input type="radio" name="regimen" value="resico" checked>
+            <span>RESICO
+              <small>Simplificado de Confianza · hh te retiene 1.25% de ISR</small></span>
+          </label>
+          <label class="op">
+            <input type="radio" name="regimen" value="general">
+            <span>Actividad empresarial y profesional
+              <small>Régimen general · hh te retiene 10% de ISR</small></span>
+          </label>
+        </div>
+      </div>
+    </fieldset>
   </form>
 
   <div id="salida"></div>
@@ -218,6 +246,19 @@
    ──────────────────────────────────────────────────────────────── */
 
 const PCT_AMBAS = 50, PCT_UNA = 25, PCT_CERT = 2;
+
+/* ── Impuestos, verificados en la ley ────────────────────────────
+   IVA 16%  ·  LIVA art. 1o., tasa general.
+   Retención de ISR:
+     RESICO            1.25% del subtotal, sin IVA   · LISR art. 113-J
+     Régimen general   10% del subtotal, sin deducción · LISR art. 106, último párrafo
+   Retención de IVA:
+     dos terceras partes del IVA trasladado          · LIVA art. 1o.-A fr. II inciso d)
+                                                       (servicios de comisionistas personas físicas)
+                                                       y RLIVA art. 3 fr. I inciso b)
+   ──────────────────────────────────────────────────────────────── */
+const IVA = 0.16, RET_IVA = 2/3;
+const RET_ISR = { resico: 0.0125, general: 0.10 };
 const bonoCaptacion = n => n >= 5 ? 3 : n === 4 ? 2 : n === 3 ? 1 : 0;
 
 const $ = id => document.getElementById(id);
@@ -243,13 +284,47 @@ $("monto").addEventListener("input", e => {
 
 $("mas").addEventListener("click", () => { captaciones++; pintaCapt(); calcula(); });
 $("menos").addEventListener("click", () => { captaciones = Math.max(0, captaciones-1); pintaCapt(); calcula(); });
-document.querySelectorAll('input[name="partes"], #cert').forEach(el =>
+document.querySelectorAll('input[name="partes"], #cert, input[name="regimen"]').forEach(el =>
   el.addEventListener("change", calcula));
+$("factura").addEventListener("change", e => {
+  $("wregimen").hidden = !e.target.checked;
+  calcula();
+});
 
 function pintaCapt(){
   $("capt").textContent = captaciones;
   const b = bonoCaptacion(captaciones);
   $("nivel").textContent = b ? `+${b}%` : "sin bono";
+}
+
+function bloqueFiscal(subtotal){
+  if (!$("factura").checked) return "";
+  const reg = document.querySelector('input[name="regimen"]:checked').value;
+  const iva     = subtotal * IVA;
+  const retIsr  = subtotal * RET_ISR[reg];
+  const retIva  = iva * RET_IVA;
+  const neto    = subtotal + iva - retIsr - retIva;
+  const nombre  = reg === "resico" ? "RESICO" : "Actividad empresarial y profesional";
+  const pctIsr  = reg === "resico" ? "1.25%" : "10%";
+  return `
+    <div class="fiscal">
+      <h3>Así debe quedar tu factura</h3>
+      <p class="sub2">${nombre} · la emites a nombre de SLCHAPA MONTERREY, S. de R.L. de C.V.</p>
+      <div class="ren"><span class="cc">Subtotal<span class="dd">Tus honorarios por la operación</span></span>
+        <span class="mm">${mxn(subtotal)}</span></div>
+      <div class="ren"><span class="cc">IVA trasladado<span class="dd">16%</span></span>
+        <span class="mm">${mxn(iva)}</span></div>
+      <div class="ren resta"><span class="cc">Retención de ISR
+        <span class="dd">${pctIsr} sobre el subtotal</span></span>
+        <span class="mm">− ${mxn(retIsr)}</span></div>
+      <div class="ren resta"><span class="cc">Retención de IVA
+        <span class="dd">Dos terceras partes del IVA</span></span>
+        <span class="mm">− ${mxn(retIva)}</span></div>
+      <div class="neto">
+        <span class="et">Te depositan</span>
+        <span class="vl">${mxn(neto)}</span>
+      </div>
+    </div>`;
 }
 
 function calcula(){
@@ -296,16 +371,18 @@ function calcula(){
       </div>
       <p class="equiv">Equivale al <b>${pctTot.toFixed(2)}%</b> de la comisión cobrada.</p>
 
+      ${bloqueFiscal(total)}
+
       <p class="nota">
         Cálculo del <b>Esquema 01 · Luxury Real Estate</b>. La certificación y el bono por captación
         se calculan sobre la comisión completa, no sobre tu parte.
-        Las cantidades son <b>antes de impuestos</b> y no incluyen IVA ni retenciones.
+        Fundamento de las retenciones: <b>ISR</b> — RESICO 1.25% (LISR art. 113-J), régimen general
+        10% (LISR art. 106). <b>IVA</b> — dos terceras partes, porque hh es persona moral y recibe
+        servicios de comisionistas personas físicas (LIVA art. 1o.-A fr. II inciso d y RLIVA art. 3
+        fr. I inciso b). Es una estimación de apoyo: <b>quien tiene la última palabra es tu contador</b>.
         Cualquier duda sobre tu esquema, con el gerente de tu ciudad.
       </p>
 
-      <div class="acciones">
-        <button type="button" class="accion primario" onclick="window.print()">Guardar en PDF</button>
-      </div>
     </div>`;
 }
 
