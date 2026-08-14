@@ -103,6 +103,22 @@
   nav a svg{width:17px;height:17px;flex:none;stroke:var(--accent-text);fill:none;stroke-width:1.6}
   nav a:hover{background:var(--accent-tint);color:var(--ink)}
   .rail-foot{margin-top:auto;font-size:11px;color:var(--faint);padding:0 11px;line-height:1.6}
+  .salir-form{margin:0 0 14px}
+  .rail-foot .pie-txt{display:block}
+  button.salir{display:flex;align-items:center;gap:10px;width:100%;padding:9px 0;
+        border:0;background:none;cursor:pointer;font-family:var(--sans);font-size:13px;
+        font-weight:600;color:var(--muted);border-top:1px solid var(--line);
+        padding-top:14px;transition:color .15s}
+  button.salir svg{width:16px;height:16px;flex:none;stroke:var(--faint);fill:none;stroke-width:1.7;
+        transition:stroke .15s}
+  button.salir:hover{color:var(--ink)}
+  button.salir:hover svg{stroke:var(--accent-text)}
+  /* en celular el menú lateral no se ve: la salida va al pie del contenido */
+  .salir-movil{display:none}
+  @media (max-width:860px){
+    .salir-movil{display:block;margin-top:8px}
+    .salir-movil button.salir{justify-content:center}
+  }
 
   /* ---- Main ---- */
   main{padding:24px clamp(16px,3.5vw,36px) 72px;display:flex;flex-direction:column;gap:26px;min-width:0}
@@ -269,8 +285,16 @@
     </nav>
 
     <div class="rail-foot">
-      Monterrey · Puebla<br>
-      Uso interno del equipo hh
+      <form class="salir-form" method="POST" action="https://www.hhre.mx/.wf_auth" target="_top">
+        <input type="hidden" name="pass" value="">
+        <input type="hidden" name="path" value="/asesores/portal">
+        <input type="hidden" name="page" value="/asesores/portal">
+        <button type="submit" class="salir">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></svg>
+          Cerrar sesión
+        </button>
+      </form>
+      <span class="pie-txt">Monterrey · Puebla<br>Uso interno del equipo hh</span>
     </div>
   </aside>
 
@@ -402,6 +426,18 @@
     <footer>
       Cada documento abre la versión de tu plaza. Si tienes elegido <em>Todas</em>, el renglón te ofrece las dos.<br>
       Si un formato cambió y aquí sigue el viejo, avísale al gerente de tu ciudad.
+
+      <div class="salir-movil">
+        <form class="salir-form" method="POST" action="https://www.hhre.mx/.wf_auth" target="_top">
+          <input type="hidden" name="pass" value="">
+          <input type="hidden" name="path" value="/asesores/portal">
+          <input type="hidden" name="page" value="/asesores/portal">
+          <button type="submit" class="salir">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></svg>
+            Cerrar sesión
+          </button>
+        </form>
+      </div>
     </footer>
   </main>
 </div>
@@ -610,6 +646,11 @@
     render();
   }));
   qEl.addEventListener("input", render);
+
+  // Al cerrar sesión se olvida también la ciudad elegida, para que el siguiente empiece limpio.
+  document.querySelectorAll(".salir-form").forEach(f => f.addEventListener("submit", () => {
+    try { localStorage.removeItem("hh-plaza"); } catch (e) {}
+  }));
 
   render();
 </script>
