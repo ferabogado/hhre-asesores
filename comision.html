@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Calculadora de comisiones · hh Luxury Real Estate</title>
+<meta name="theme-color" content="#2d2d2d">
+<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<style>
+  :root{
+    --hh-almost:#2d2d2d; --hh-olive:#9e9683;
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6;
+    --ink:#22211E; --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84;
+    --line:#E3E1DA; --accent:#9e9683; --accent-text:#6B6455;
+    --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD;
+    --shadow-sm:0 1px 2px rgba(45,45,45,.05), 0 3px 12px rgba(45,45,45,.05);
+    --shadow-md:0 10px 28px rgba(45,45,45,.11);
+    --r:14px; --r-sm:10px;
+    --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+    --serif:"Cormorant Garamond","Times New Roman",Times,serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
+      --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
+      --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
+      --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
+      --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6; --ink:#22211E;
+    --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84; --line:#E3E1DA;
+    --accent:#9e9683; --accent-text:#6B6455; --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD;
+  }
+  :root[data-theme="dark"]{
+    --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917; --ink:#E9E7E1;
+    --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870; --line:#302F2B;
+    --accent:#B3AB95; --accent-text:#C4BCA6; --accent-tint:rgba(158,150,131,.16);
+    --accent-ink:#16150F; --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:6px}
+  .wrap{max-width:880px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 80px}
+
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+             flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .mark .hh{font-family:var(--serif);font-size:38px;line-height:.85;color:var(--ink-strong)}
+  .mark .sub{margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+  .volver{font-size:13px;font-weight:600;color:var(--accent-text);text-decoration:none}
+  .volver:hover{text-decoration:underline}
+
+  h1{margin:26px 0 4px;font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.02em;color:var(--ink-strong)}
+  .lead{margin:0 0 24px;color:var(--muted);font-size:14.5px;max-width:60ch}
+
+  fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+           padding:20px;margin:0 0 16px;box-shadow:var(--shadow-sm)}
+  legend{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+         color:var(--accent-text);padding:0 8px}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  input[type=text]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:9px;
+        background:var(--surface-2);color:var(--ink);font-family:var(--sans);font-size:17px;
+        font-variant-numeric:tabular-nums}
+  input[type=text]:focus{outline:none;border-color:var(--accent)}
+  .ayuda{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+
+  /* opciones tipo tarjeta */
+  .ops{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  @media (max-width:560px){.ops{grid-template-columns:1fr}}
+  .op{position:relative}
+  .op input{position:absolute;opacity:0;pointer-events:none}
+  .op span{display:block;padding:14px;border:1px solid var(--line);border-radius:var(--r-sm);
+        background:var(--surface-2);cursor:pointer;font-size:14px;font-weight:600;color:var(--ink)}
+  .op span small{display:block;font-weight:400;font-size:12px;color:var(--faint);margin-top:3px}
+  .op input:checked + span{border-color:var(--accent);background:var(--accent-tint);
+        box-shadow:inset 0 0 0 1px var(--accent)}
+
+  /* interruptor de certificación */
+  .sw{display:flex;align-items:center;gap:13px;padding:14px;border:1px solid var(--line);
+      border-radius:var(--r-sm);background:var(--surface-2);cursor:pointer;margin-top:4px}
+  .sw input{position:absolute;opacity:0;pointer-events:none}
+  .sw .pill{width:46px;height:27px;border-radius:14px;background:var(--line);flex:none;
+        position:relative;transition:background .16s}
+  .sw .pill::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;
+        border-radius:50%;background:var(--surface);transition:transform .16s;
+        box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .sw input:checked + .pill{background:var(--accent)}
+  .sw input:checked + .pill::after{transform:translateX(19px)}
+  .sw b{font-size:14px;font-weight:600;display:block}
+  .sw small{font-size:12px;color:var(--faint)}
+
+  /* captaciones */
+  .cap{display:flex;align-items:center;gap:10px;margin-top:4px}
+  .cap button{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);
+        background:var(--surface-2);color:var(--ink);font-size:20px;font-weight:600;cursor:pointer;
+        font-family:var(--sans)}
+  .cap button:hover{border-color:var(--accent)}
+  .cap output{min-width:70px;text-align:center;font-size:24px;font-weight:600;
+        font-variant-numeric:tabular-nums}
+  .cap .nivel{font-size:12.5px;font-weight:600;color:var(--accent-text);margin-left:4px}
+
+  /* resultado */
+  .res{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+       padding:clamp(18px,4vw,28px);box-shadow:var(--shadow-md);margin-top:24px}
+  .ren{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:11px 0;
+       border-bottom:1px dotted var(--line);font-size:14.5px;font-variant-numeric:tabular-nums}
+  .ren .cc{flex:1}
+  .ren .dd{display:block;font-size:11.5px;color:var(--faint);margin-top:2px}
+  .ren .mm{font-weight:600;white-space:nowrap}
+  .ren.apagado{opacity:.45}
+  .total{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:18px;
+         padding:18px 20px;border-radius:var(--r-sm);background:var(--hh-almost)}
+  .total .et{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--hh-olive);font-weight:700}
+  .total .vl{font-size:clamp(24px,5vw,32px);font-weight:600;color:#F5F4F0;
+             font-variant-numeric:tabular-nums;white-space:nowrap}
+  .equiv{margin-top:10px;font-size:13px;color:var(--muted);text-align:right}
+  .equiv b{color:var(--accent-text)}
+  .nota{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);
+        font-size:11.5px;color:var(--faint);line-height:1.6}
+  .aviso{background:var(--warn-bg);color:var(--warn);border-radius:var(--r-sm);
+         padding:12px 15px;font-size:13px;font-weight:600;margin-bottom:16px}
+  .aviso[hidden]{display:none}
+
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    header.top,h1,.lead,form,.acciones{display:none !important}
+    .res{border:0;box-shadow:none;padding:0;margin:0}
+    .total{background:#2d2d2d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  button.accion{font-family:var(--sans);font-size:14.5px;font-weight:600;padding:12px 22px;
+        border-radius:10px;border:1px solid var(--line);background:var(--surface);
+        color:var(--ink);cursor:pointer}
+  button.accion.primario{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark"><div class="hh">hh</div><div class="sub">Luxury Real Estate</div></div>
+    <a class="volver" href="portal.html">← Volver al portal</a>
+  </header>
+
+  <h1>Calculadora de comisiones</h1>
+  <p class="lead">Cuánto te toca a ti de la comisión que se le cobró al propietario.
+     Esquema 01 · Luxury Real Estate.</p>
+
+  <div class="aviso" id="aviso" hidden></div>
+
+  <form id="f" autocomplete="off">
+    <fieldset>
+      <legend>La operación</legend>
+      <label for="monto">Comisión cobrada al propietario</label>
+      <input id="monto" type="text" inputmode="decimal" placeholder="$ 0" autocomplete="off">
+      <p class="ayuda">El total que cobró la inmobiliaria por la operación, antes de impuestos.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>¿A quién trajiste?</legend>
+      <div class="ops">
+        <label class="op">
+          <input type="radio" name="partes" value="ambas" checked>
+          <span>Las dos partes
+            <small>Propietario y comprador o arrendatario · te toca el 50%</small></span>
+        </label>
+        <label class="op">
+          <input type="radio" name="partes" value="una">
+          <span>Solo una parte
+            <small>La otra la trajo otro asesor · te toca el 25%</small></span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tus adicionales</legend>
+
+      <label class="sw" for="cert">
+        <input type="checkbox" id="cert">
+        <span class="pill"></span>
+        <span><b>Certificación EC0110.02</b>
+          <small>Asesoría en Comercialización de Bienes Inmuebles · +2%</small></span>
+      </label>
+
+      <div style="margin-top:18px">
+        <label for="capt">Captaciones que llevas este mes</label>
+        <div class="cap">
+          <button type="button" id="menos" aria-label="Una captación menos">−</button>
+          <output id="capt">0</output>
+          <button type="button" id="mas" aria-label="Una captación más">+</button>
+          <span class="nivel" id="nivel">sin bono</span>
+        </div>
+        <p class="ayuda">3 captadas suman 1% · 4 suman 2% · 5 o más suman 3%.</p>
+      </div>
+    </fieldset>
+  </form>
+
+  <div id="salida"></div>
+</div>
+
+<script>
+/* ── Esquema 01 · Luxury Real Estate ─────────────────────────────
+   Base:  las dos partes → 50% de la comisión
+          una sola parte → 25% de la comisión
+   Adicionales, TODOS sobre la comisión completa:
+          certificación EC0110.02 → +2%
+          captaciones del mes: 3 → +1% · 4 → +2% · 5 o más → +3%
+   Tope: 50 + 2 + 3 = 55% de la comisión.
+   ──────────────────────────────────────────────────────────────── */
+
+const PCT_AMBAS = 50, PCT_UNA = 25, PCT_CERT = 2;
+const bonoCaptacion = n => n >= 5 ? 3 : n === 4 ? 2 : n === 3 ? 1 : 0;
+
+const $ = id => document.getElementById(id);
+const mxn = n => new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",
+                   minimumFractionDigits:2}).format(isFinite(n) ? n : 0);
+const soloNum = s => parseFloat(String(s).replace(/[^\d.]/g,"")) || 0;
+const conComas = s => {
+  const [ent, dec] = String(s).split(".");
+  const e = ent.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return dec !== undefined ? e + "." + dec : e;
+};
+
+let captaciones = 0;
+
+// el monto se escribe con comas de miles, como en tus otras calculadoras
+$("monto").addEventListener("input", e => {
+  const crudo = e.target.value.replace(/[^\d.]/g,"");
+  const [ent, ...dec] = crudo.split(".");
+  const limpio = dec.length ? ent + "." + dec.join("").slice(0,2) : ent;
+  e.target.value = limpio === "" ? "" : conComas(limpio);
+  calcula();
+});
+
+$("mas").addEventListener("click", () => { captaciones++; pintaCapt(); calcula(); });
+$("menos").addEventListener("click", () => { captaciones = Math.max(0, captaciones-1); pintaCapt(); calcula(); });
+document.querySelectorAll('input[name="partes"], #cert').forEach(el =>
+  el.addEventListener("change", calcula));
+
+function pintaCapt(){
+  $("capt").textContent = captaciones;
+  const b = bonoCaptacion(captaciones);
+  $("nivel").textContent = b ? `+${b}%` : "sin bono";
+}
+
+function calcula(){
+  const comision = soloNum($("monto").value);
+  const ambas = document.querySelector('input[name="partes"]:checked').value === "ambas";
+  const cert = $("cert").checked;
+  const bono = bonoCaptacion(captaciones);
+
+  if (comision <= 0){ $("salida").innerHTML = ""; return; }
+
+  const pctBase = ambas ? PCT_AMBAS : PCT_UNA;
+  const base    = comision * pctBase / 100;
+  const mCert   = cert ? comision * PCT_CERT / 100 : 0;
+  const mBono   = comision * bono / 100;
+  const total   = base + mCert + mBono;
+  const pctTot  = comision > 0 ? total / comision * 100 : 0;
+
+  $("salida").innerHTML = `
+    <div class="res">
+      <div class="ren">
+        <span class="cc">Comisión cobrada al propietario<span class="dd">Base de todo el cálculo</span></span>
+        <span class="mm">${mxn(comision)}</span>
+      </div>
+      <div class="ren">
+        <span class="cc">Tu parte por la intermediación
+          <span class="dd">${pctBase}% — ${ambas ? "trajiste las dos partes" : "trajiste una sola parte"}</span></span>
+        <span class="mm">${mxn(base)}</span>
+      </div>
+      <div class="ren${cert ? "" : " apagado"}">
+        <span class="cc">Certificación EC0110.02
+          <span class="dd">${cert ? "+2% sobre la comisión" : "no aplica"}</span></span>
+        <span class="mm">${mxn(mCert)}</span>
+      </div>
+      <div class="ren${bono ? "" : " apagado"}">
+        <span class="cc">Bono por captación
+          <span class="dd">${bono ? `${captaciones} captadas este mes · +${bono}% sobre la comisión`
+                                  : "necesitas 3 captadas para el bono"}</span></span>
+        <span class="mm">${mxn(mBono)}</span>
+      </div>
+
+      <div class="total">
+        <span class="et">Te corresponde</span>
+        <span class="vl">${mxn(total)}</span>
+      </div>
+      <p class="equiv">Equivale al <b>${pctTot.toFixed(2)}%</b> de la comisión cobrada.</p>
+
+      <p class="nota">
+        Cálculo del <b>Esquema 01 · Luxury Real Estate</b>. La certificación y el bono por captación
+        se calculan sobre la comisión completa, no sobre tu parte.
+        Las cantidades son <b>antes de impuestos</b> y no incluyen IVA ni retenciones.
+        Cualquier duda sobre tu esquema, con el gerente de tu ciudad.
+      </p>
+
+      <div class="acciones">
+        <button type="button" class="accion primario" onclick="window.print()">Guardar en PDF</button>
+      </div>
+    </div>`;
+}
+
+pintaCapt();
+</script>
+</body>
+</html>
