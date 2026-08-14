@@ -105,19 +105,20 @@
   .rail-foot{margin-top:auto;font-size:11px;color:var(--faint);padding:0 11px;line-height:1.6}
   .salir-form{margin:0 0 14px}
   .rail-foot .pie-txt{display:block}
-  button.salir{display:flex;align-items:center;gap:10px;width:100%;padding:9px 0;
+  .salir-nota{display:block;margin-top:7px;font-size:10.5px;color:var(--faint);line-height:1.45}
+  a.salir{display:flex;align-items:center;gap:10px;width:100%;padding:9px 0;
         border:0;background:none;cursor:pointer;font-family:var(--sans);font-size:13px;
         font-weight:600;color:var(--muted);border-top:1px solid var(--line);
         padding-top:14px;transition:color .15s}
-  button.salir svg{width:16px;height:16px;flex:none;stroke:var(--faint);fill:none;stroke-width:1.7;
+  a.salir svg{width:16px;height:16px;flex:none;stroke:var(--faint);fill:none;stroke-width:1.7;
         transition:stroke .15s}
-  button.salir:hover{color:var(--ink)}
-  button.salir:hover svg{stroke:var(--accent-text)}
+  a.salir:hover{color:var(--ink)}
+  a.salir:hover svg{stroke:var(--accent-text)}
   /* en celular el menú lateral no se ve: la salida va al pie del contenido */
   .salir-movil{display:none}
   @media (max-width:860px){
     .salir-movil{display:block;margin-top:8px}
-    .salir-movil button.salir{justify-content:center}
+    .salir-movil a.salir{justify-content:center}
   }
 
   /* ---- Main ---- */
@@ -285,15 +286,13 @@
     </nav>
 
     <div class="rail-foot">
-      <form class="salir-form" method="POST" action="https://www.hhre.mx/.wf_auth" target="_top">
-        <input type="hidden" name="pass" value="cerrar-sesion">
-        <input type="hidden" name="path" value="/asesores/portal">
-        <input type="hidden" name="page" value="/asesores/portal">
-        <button type="submit" class="salir">
+      <div class="salir-form">
+        <a class="salir" href="https://www.hhre.mx/" target="_top" data-salir>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></svg>
-          Cerrar sesión
-        </button>
-      </form>
+          Salir del portal
+        </a>
+        <span class="salir-nota">La contraseña se vuelve a pedir cuando cierras el navegador.</span>
+      </div>
       <span class="pie-txt">Monterrey · Puebla<br>Uso interno del equipo hh</span>
     </div>
   </aside>
@@ -428,15 +427,13 @@
       Si un formato cambió y aquí sigue el viejo, avísale al gerente de tu ciudad.
 
       <div class="salir-movil">
-        <form class="salir-form" method="POST" action="https://www.hhre.mx/.wf_auth" target="_top">
-          <input type="hidden" name="pass" value="cerrar-sesion">
-          <input type="hidden" name="path" value="/asesores/portal">
-          <input type="hidden" name="page" value="/asesores/portal">
-          <button type="submit" class="salir">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></svg>
-            Cerrar sesión
-          </button>
-        </form>
+        <div class="salir-form">
+        <a class="salir" href="https://www.hhre.mx/" target="_top" data-salir>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></svg>
+          Salir del portal
+        </a>
+        <span class="salir-nota">La contraseña se vuelve a pedir cuando cierras el navegador.</span>
+      </div>
       </div>
     </footer>
   </main>
@@ -648,7 +645,7 @@
   qEl.addEventListener("input", render);
 
   // Al cerrar sesión se olvida también la ciudad elegida, para que el siguiente empiece limpio.
-  document.querySelectorAll(".salir-form").forEach(f => f.addEventListener("submit", () => {
+  document.querySelectorAll("[data-salir]").forEach(a => a.addEventListener("click", () => {
     try { localStorage.removeItem("hh-plaza"); } catch (e) {}
   }));
 
