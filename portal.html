@@ -150,6 +150,31 @@
                 font-size:14px;width:100%}
   .search input::placeholder{color:var(--faint)}
 
+  /* ===== Menú de celular ===== */
+  .hamb{display:none}
+  .menu-movil{display:none}
+  @media (max-width:860px){
+    .hamb{display:flex;flex-direction:column;justify-content:center;gap:4px;margin-left:auto;
+          width:46px;height:44px;padding:0 13px;border:1px solid var(--line);border-radius:11px;
+          background:var(--surface);box-shadow:var(--shadow-sm);cursor:pointer}
+    .hamb span{display:block;height:2px;border-radius:2px;background:var(--ink);
+               transition:transform .18s,opacity .18s}
+    .hamb[aria-expanded="true"]{background:var(--accent);border-color:transparent}
+    .hamb[aria-expanded="true"] span{background:var(--accent-ink)}
+    .hamb[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .hamb[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .hamb[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+    .menu-movil{display:flex;flex-direction:column;gap:2px;margin-top:-14px;
+          background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);
+          padding:8px;box-shadow:var(--shadow-md)}
+    .menu-movil[hidden]{display:none}
+    .menu-movil a{display:flex;align-items:center;gap:12px;padding:13px 12px;border-radius:9px;
+          color:var(--ink);font-size:15px;font-weight:600}
+    .menu-movil a svg{width:19px;height:19px;flex:none;stroke:var(--accent-text);fill:none;stroke-width:1.7}
+    .menu-movil a:active{background:var(--accent-tint)}
+  }
+
   /* Hero */
   .hero{background:var(--hh-almost);border-radius:var(--r);padding:30px 32px;
         display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;
@@ -313,11 +338,31 @@
         <button class="pbtn" type="button" data-plaza="pue" aria-pressed="false">Puebla</button>
         <button class="pbtn" type="button" data-plaza="all" aria-pressed="true">Todas</button>
       </div>
+      <button class="hamb" id="hamb" type="button" aria-expanded="false" aria-controls="menu-movil"
+              aria-label="Abrir el menú">
+        <span></span><span></span><span></span>
+      </button>
       <label class="search">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <input type="search" id="q" placeholder="Buscar un formato… (ej. exclusividad, buró, recibo)" aria-label="Buscar documentos">
       </label>
     </div>
+
+    <!-- Menú de celular: en el escritorio esto vive en la barra lateral -->
+    <nav class="menu-movil" id="menu-movil" hidden>
+      <a href="#documentos">
+        <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+        Documentos
+      </a>
+      <a href="#herramientas">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 1 5 5l-9.6 9.6a2 2 0 0 1-2.8-2.8z"/><path d="M6 6l3 3"/></svg>
+        Herramientas
+      </a>
+      <a href="#contacto">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Contacto
+      </a>
+    </nav>
 
     <p class="pasos" id="pasos">
       <span><b>1</b> Elige tu ciudad aquí arriba.</span>
@@ -647,6 +692,24 @@
     render();
   }));
   qEl.addEventListener("input", render);
+
+  // Menú de celular: abre y cierra, y se cierra solo al elegir una sección
+  const hamb = document.getElementById("hamb");
+  const menuMovil = document.getElementById("menu-movil");
+  const abreMenu = abrir => {
+    menuMovil.hidden = !abrir;
+    hamb.setAttribute("aria-expanded", String(abrir));
+    hamb.setAttribute("aria-label", abrir ? "Cerrar el menú" : "Abrir el menú");
+  };
+  hamb.addEventListener("click", e => {
+    e.stopPropagation();
+    abreMenu(menuMovil.hidden);
+  });
+  menuMovil.addEventListener("click", e => { if (e.target.closest("a")) abreMenu(false); });
+  document.addEventListener("click", e => {
+    if (!menuMovil.hidden && !menuMovil.contains(e.target) && e.target !== hamb) abreMenu(false);
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") abreMenu(false); });
 
   // Al cerrar sesión se olvida también la ciudad elegida, para que el siguiente empiece limpio.
   document.querySelectorAll("[data-salir]").forEach(a => a.addEventListener("click", () => {
