@@ -1,0 +1,1563 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Redacción de anuncios · hh Luxury Real Estate</title>
+<meta name="theme-color" content="#2d2d2d">
+<meta name="apple-mobile-web-app-title" content="hh Asesores">
+<style>
+  :root{
+    --hh-almost:#2d2d2d; --hh-olive:#9e9683;
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6;
+    --ink:#22211E; --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84;
+    --line:#E3E1DA; --accent:#9e9683; --accent-text:#6B6455;
+    --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD;
+    --bad:#8C3A2B; --bad-bg:#F6E4E0;
+    --ok:#4A6B45; --ok-bg:#E8F0E4;
+    --shadow-sm:0 1px 2px rgba(45,45,45,.05), 0 3px 12px rgba(45,45,45,.05);
+    --shadow-md:0 10px 28px rgba(45,45,45,.11);
+    --r:14px; --r-sm:10px;
+    --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+    --serif:"Cormorant Garamond","Times New Roman",Times,serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917;
+      --ink:#E9E7E1; --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870;
+      --line:#302F2B; --accent:#B3AB95; --accent-text:#C4BCA6;
+      --accent-tint:rgba(158,150,131,.16); --accent-ink:#16150F;
+      --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+      --bad:#E5A392; --bad-bg:rgba(190,90,60,.16);
+      --ok:#A8C79E; --ok-bg:rgba(120,170,100,.14);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.35); --shadow-md:0 14px 32px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --canvas:#F4F3EF; --surface:#FFFFFF; --surface-2:#FAF9F6; --ink:#22211E;
+    --ink-strong:#000000; --muted:#5f5c57; --faint:#918D84; --line:#E3E1DA;
+    --accent:#9e9683; --accent-text:#6B6455; --accent-tint:#EFEDE6; --accent-ink:#1A1A17;
+    --warn:#8A6D2F; --warn-bg:#F6EFDD; --bad:#8C3A2B; --bad-bg:#F6E4E0;
+    --ok:#4A6B45; --ok-bg:#E8F0E4;
+  }
+  :root[data-theme="dark"]{
+    --canvas:#141412; --surface:#1E1E1B; --surface-2:#191917; --ink:#E9E7E1;
+    --ink-strong:#FFFFFF; --muted:#A6A199; --faint:#7C7870; --line:#302F2B;
+    --accent:#B3AB95; --accent-text:#C4BCA6; --accent-tint:rgba(158,150,131,.16);
+    --accent-ink:#16150F; --warn:#D9BE86; --warn-bg:rgba(200,160,80,.15);
+    --bad:#E5A392; --bad-bg:rgba(190,90,60,.16); --ok:#A8C79E; --ok-bg:rgba(120,170,100,.14);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:6px}
+  .wrap{max-width:880px;margin:0 auto;padding:24px clamp(16px,4vw,32px) 90px}
+
+  header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+             flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+  .mark .hh{font-family:var(--serif);font-size:38px;line-height:.85;color:var(--ink-strong)}
+  .mark .sub{margin-top:6px;font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+
+  h1{margin:26px 0 4px;font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.02em;color:var(--ink-strong)}
+  .lead{margin:0 0 24px;color:var(--muted);font-size:14.5px;max-width:62ch}
+
+  fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+           padding:20px;margin:0 0 16px;box-shadow:var(--shadow-sm)}
+  legend{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+         color:var(--accent-text);padding:0 8px}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  label .opc{font-weight:400;color:var(--faint);text-transform:none;letter-spacing:0}
+  input[type=text],select,textarea{width:100%;padding:11px 13px;border:1px solid var(--line);
+        border-radius:9px;background:var(--surface-2);color:var(--ink);font-family:var(--sans);
+        font-size:16px;font-variant-numeric:tabular-nums}
+  textarea{line-height:1.55;resize:vertical;font-size:15px}
+  input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),
+        linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+        background-position:calc(100% - 18px) calc(1em + 2px),calc(100% - 13px) calc(1em + 2px);
+        background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:38px}
+  .ayuda{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.45}
+  .campo{margin-bottom:16px}
+  .campo:last-child{margin-bottom:0}
+  .rej{display:grid;gap:14px}
+  .rej.d2{grid-template-columns:1fr 1fr}
+  .rej.d3{grid-template-columns:1fr 1fr 1fr}
+  .rej.d4{grid-template-columns:1fr 1fr 1fr 1fr}
+  @media (max-width:620px){.rej.d3,.rej.d4{grid-template-columns:1fr 1fr}.rej.d2{grid-template-columns:1fr}}
+
+  /* opciones tipo tarjeta */
+  .ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:560px){.ops{grid-template-columns:1fr}}
+  .op{position:relative;margin:0}
+  .op input{position:absolute;opacity:0;pointer-events:none}
+  .op span{display:block;padding:14px;border:1px solid var(--line);border-radius:var(--r-sm);
+        background:var(--surface-2);cursor:pointer;font-size:14px;font-weight:600;color:var(--ink)}
+  .op span small{display:block;font-weight:400;font-size:12px;color:var(--faint);margin-top:3px}
+  .op input:checked + span{border-color:var(--accent);background:var(--accent-tint);
+        box-shadow:inset 0 0 0 1px var(--accent)}
+
+  /* interruptor */
+  .sw{display:flex;align-items:center;gap:13px;padding:13px;border:1px solid var(--line);
+      border-radius:var(--r-sm);background:var(--surface-2);cursor:pointer;margin-bottom:10px}
+  .sw input{position:absolute;opacity:0;pointer-events:none}
+  .sw .pill{width:46px;height:27px;border-radius:14px;background:var(--line);flex:none;
+        position:relative;transition:background .16s}
+  .sw .pill::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;
+        border-radius:50%;background:var(--surface);transition:transform .16s;
+        box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .sw input:checked + .pill{background:var(--accent)}
+  .sw input:checked + .pill::after{transform:translateX(19px)}
+  .sw b{font-size:13.5px;font-weight:600;display:block}
+  .sw small{font-size:11.5px;color:var(--faint);line-height:1.4;display:block}
+
+  /* chips de amenidades */
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{position:relative;margin:0}
+  .chip input{position:absolute;opacity:0;pointer-events:none}
+  .chip span{display:block;padding:8px 13px;border:1px solid var(--line);border-radius:99px;
+        background:var(--surface-2);cursor:pointer;font-size:13px;color:var(--ink);
+        transition:border-color .12s,background .12s}
+  .chip input:checked + span{border-color:var(--accent);background:var(--accent-tint);
+        font-weight:600;box-shadow:inset 0 0 0 1px var(--accent)}
+
+  /* medidor */
+  .medidor{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+        padding:18px 20px;margin:0 0 16px;box-shadow:var(--shadow-sm)}
+  .medidor .enc{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+  .medidor .enc b{font-size:13px;font-weight:600}
+  .medidor .enc .pct{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--accent-text)}
+  .barra{height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+  .barra i{display:block;height:100%;background:var(--accent);transition:width .3s;border-radius:99px}
+  .medidor .falta{margin:11px 0 0;font-size:12px;color:var(--faint);line-height:1.6}
+  .medidor .falta b{color:var(--muted);font-weight:600}
+
+  /* botón principal */
+  .cta{width:100%;padding:17px;border:0;border-radius:var(--r-sm);background:var(--hh-almost);
+       color:#F5F4F0;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:.02em;
+       cursor:pointer;box-shadow:var(--shadow-md)}
+  .cta:hover{background:#3a3a37}
+  .cta:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+
+  /* resultados */
+  .res{margin-top:30px}
+  .res[hidden]{display:none}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .tabs button{padding:10px 15px;border:1px solid var(--line);border-radius:99px;
+        background:var(--surface);color:var(--muted);font-family:var(--sans);font-size:13px;
+        font-weight:600;cursor:pointer}
+  .tabs button[aria-selected=true]{background:var(--hh-almost);color:#F5F4F0;border-color:var(--hh-almost)}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+         padding:clamp(16px,3.5vw,24px);box-shadow:var(--shadow-md)}
+  .panel[hidden]{display:none}
+  .panel > p.intro{margin:0 0 18px;font-size:13px;color:var(--muted);line-height:1.55}
+
+  .bloque{margin-bottom:20px}
+  .bloque:last-child{margin-bottom:0}
+  .bloque .eti{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
+  .bloque .eti span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+        color:var(--accent-text)}
+  .bloque .eti .cont{font-size:11.5px;color:var(--faint);font-weight:500;letter-spacing:0;
+        text-transform:none;font-variant-numeric:tabular-nums}
+  .bloque .eti .cont.mal{color:var(--bad);font-weight:700}
+  .salida{width:100%;border:1px solid var(--line);border-radius:var(--r-sm);
+        background:var(--surface-2);color:var(--ink);font-family:var(--sans);font-size:15px;
+        line-height:1.6;padding:14px;resize:vertical}
+  .salida:focus{outline:none;border-color:var(--accent)}
+  .copiar{margin-top:9px;padding:11px 18px;border:1px solid var(--accent);border-radius:9px;
+        background:var(--accent-tint);color:var(--accent-text);font-family:var(--sans);
+        font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.02em}
+  .copiar:hover{background:var(--accent);color:var(--accent-ink)}
+  .copiar.hecho{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+
+  .alts{margin-top:9px}
+  .alts .tit{font-size:11.5px;color:var(--faint);margin-bottom:6px}
+  .alts .lista{display:flex;flex-direction:column;gap:6px}
+  .alts button{text-align:left;padding:10px 13px;border:1px dashed var(--line);border-radius:9px;
+        background:transparent;color:var(--ink);font-family:var(--sans);font-size:13.5px;cursor:pointer}
+  .alts button:hover{border-color:var(--accent);border-style:solid;background:var(--surface-2)}
+  .alts button em{font-style:normal;color:var(--faint);font-size:11.5px;display:block;margin-top:2px}
+
+  .campos-fb{margin-top:16px;padding:14px 16px;border-radius:var(--r-sm);background:var(--surface-2);
+        border:1px solid var(--line)}
+  .campos-fb h4{margin:0 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+        font-weight:700;color:var(--accent-text)}
+  .campos-fb ul{margin:0;padding-left:18px;font-size:13px;color:var(--muted);line-height:1.7}
+  .campos-fb ul b{color:var(--ink)}
+
+  /* diagnóstico */
+  .diag{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  .diag li{display:flex;gap:11px;padding:12px 14px;border-radius:var(--r-sm);font-size:13.5px;
+        line-height:1.5;align-items:flex-start}
+  .diag li .ic{flex:none;font-weight:700;font-size:12px;line-height:1.45}
+  .diag li.mal{background:var(--bad-bg);color:var(--bad)}
+  .diag li.ojo{background:var(--warn-bg);color:var(--warn)}
+  .diag li.bien{background:var(--ok-bg);color:var(--ok)}
+  .diag li b{font-weight:700}
+
+  /* fotos */
+  .fotos{list-style:none;counter-reset:f;margin:0;padding:0}
+  .fotos li{counter-increment:f;display:flex;gap:13px;padding:11px 0;border-bottom:1px dotted var(--line);
+        font-size:14px;align-items:flex-start}
+  .fotos li:last-child{border-bottom:0}
+  .fotos li::before{content:counter(f);flex:none;width:26px;height:26px;border-radius:50%;
+        background:var(--accent-tint);color:var(--accent-text);font-size:12px;font-weight:700;
+        display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .fotos li .tx b{display:block;font-weight:600;color:var(--ink-strong)}
+  .fotos li .tx small{display:block;font-size:12px;color:var(--faint);margin-top:2px;line-height:1.45}
+  .portada{background:var(--accent-tint);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:14px;
+        font-size:13px;color:var(--accent-text);line-height:1.55}
+  .portada b{color:var(--ink-strong)}
+
+  /* guía por portal */
+  details.guia{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+        margin-top:16px;box-shadow:var(--shadow-sm);overflow:hidden}
+  details.guia summary{padding:17px 20px;cursor:pointer;font-size:14px;font-weight:600;
+        color:var(--ink-strong);list-style:none;display:flex;justify-content:space-between;align-items:center}
+  details.guia summary::-webkit-details-marker{display:none}
+  details.guia summary::after{content:"+";font-size:19px;color:var(--faint);font-weight:400}
+  details.guia[open] summary::after{content:"−"}
+  details.guia .cuerpo{padding:0 20px 20px}
+  .portal{padding:14px 0;border-top:1px solid var(--line)}
+  .portal h4{margin:0 0 5px;font-size:14px;font-weight:600;color:var(--ink-strong)}
+  .portal p{margin:0;font-size:13px;color:var(--muted);line-height:1.6}
+  .portal p em{font-style:normal;color:var(--accent-text);font-weight:600}
+
+  .nota{margin-top:22px;padding-top:15px;border-top:1px solid var(--line);
+        font-size:11.5px;color:var(--faint);line-height:1.65}
+  .nota b{color:var(--muted)}
+
+  .aviso{background:var(--warn-bg);color:var(--warn);border-radius:var(--r-sm);
+         padding:12px 15px;font-size:13px;font-weight:600;margin-bottom:16px}
+  .aviso[hidden]{display:none}
+
+  #volver-portal{position:fixed;top:14px;left:16px;z-index:9999;
+    font:600 12px/1 'Hanken Grotesk','Jost',-apple-system,system-ui,sans-serif;
+    letter-spacing:.08em;text-transform:uppercase;color:#5f5c57;text-decoration:none;
+    background:rgba(255,255,255,.92);padding:9px 13px;border-radius:9px;border:1px solid #E3E1DA}
+  #volver-portal:hover{color:#000}
+  @media print{#volver-portal{display:none}}
+</style>
+</head>
+<body>
+<a id="volver-portal" href="portal.html">← Portal</a>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark"><div class="hh">hh</div><div class="sub">Luxury Real Estate</div></div>
+  </header>
+
+  <h1>Redacción de anuncios</h1>
+  <p class="lead">Llenas la ficha una vez y salen los cuatro textos listos para copiar: portales,
+     Facebook Marketplace, redes y WhatsApp. Además te dice en qué orden subir las fotos y qué
+     revisar antes de publicar.</p>
+
+  <div class="aviso" id="aviso" hidden></div>
+
+  <form id="f" autocomplete="off">
+
+    <fieldset>
+      <legend>La operación</legend>
+      <div class="campo">
+        <div class="ops">
+          <label class="op">
+            <input type="radio" name="operacion" value="venta" checked>
+            <span>Venta<small>El precio se publica como precio de venta</small></span>
+          </label>
+          <label class="op">
+            <input type="radio" name="operacion" value="renta">
+            <span>Renta<small>El precio se publica como renta mensual</small></span>
+          </label>
+        </div>
+      </div>
+      <div class="rej d2">
+        <div class="campo">
+          <label for="precio">Precio</label>
+          <input id="precio" type="text" inputmode="decimal" placeholder="$ 0">
+          <p class="ayuda" id="ayudaPrecio">Precio de venta en pesos.</p>
+        </div>
+        <div class="campo">
+          <label for="mantenimiento">Mantenimiento <span class="opc">· opcional</span></label>
+          <input id="mantenimiento" type="text" inputmode="decimal" placeholder="$ 0">
+          <p class="ayuda">Déjalo vacío si no aplica o si ya va incluido.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>El inmueble</legend>
+      <div class="rej d2">
+        <div class="campo">
+          <label for="tipo">Tipo de inmueble</label>
+          <select id="tipo">
+            <option value="depto">Departamento</option>
+            <option value="casa">Casa</option>
+            <option value="condominio">Casa en condominio</option>
+            <option value="residencia">Residencia</option>
+            <option value="penthouse">Penthouse</option>
+            <option value="loft">Loft</option>
+            <option value="local">Local comercial</option>
+            <option value="oficina">Oficina</option>
+            <option value="bodega">Bodega o nave industrial</option>
+            <option value="edificio">Edificio</option>
+            <option value="terreno">Terreno</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="desarrollo">Edificio, desarrollo o fraccionamiento <span class="opc">· opcional</span></label>
+          <input id="desarrollo" type="text" placeholder="Amo Living">
+          <p class="ayuda">Mucha gente busca por el nombre del desarrollo. Si lo tiene, ponlo.</p>
+        </div>
+      </div>
+      <div class="rej d2">
+        <div class="campo">
+          <label for="zona">Zona o colonia</label>
+          <input id="zona" type="text" placeholder="Mitras Centro">
+          <p class="ayuda">La que la gente usa para buscar, no la del catastro.</p>
+        </div>
+        <div class="campo">
+          <label for="ciudad">Ciudad o municipio</label>
+          <input id="ciudad" type="text" placeholder="Monterrey">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Los números</legend>
+      <div class="rej d4" id="grupoM2">
+        <div class="campo">
+          <label for="m2c">m² de construcción</label>
+          <input id="m2c" type="text" inputmode="decimal" placeholder="0">
+        </div>
+        <div class="campo">
+          <label for="m2t">m² de terreno <span class="opc">· opcional</span></label>
+          <input id="m2t" type="text" inputmode="decimal" placeholder="0">
+        </div>
+        <div class="campo">
+          <label for="recamaras">Recámaras</label>
+          <input id="recamaras" type="text" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="campo">
+          <label for="banos">Baños completos</label>
+          <input id="banos" type="text" inputmode="numeric" placeholder="0">
+        </div>
+      </div>
+      <div class="rej d4">
+        <div class="campo">
+          <label for="medios">Medios baños <span class="opc">· opcional</span></label>
+          <input id="medios" type="text" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="campo">
+          <label for="cajones">Cajones de estacionamiento</label>
+          <input id="cajones" type="text" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="campo">
+          <label for="nivel">Piso o niveles <span class="opc">· opcional</span></label>
+          <input id="nivel" type="text" placeholder="Piso 8 de 12">
+        </div>
+        <div class="campo">
+          <label for="antiguedad">Antigüedad <span class="opc">· opcional</span></label>
+          <input id="antiguedad" type="text" placeholder="A estrenar">
+        </div>
+      </div>
+      <div class="campo" id="campoAmueblado">
+        <label for="amueblado">¿Se entrega amueblado?</label>
+        <select id="amueblado">
+          <option value="">No especificar</option>
+          <option value="Sin amueblar">Sin amueblar</option>
+          <option value="Semiamueblado">Semiamueblado</option>
+          <option value="Amueblado">Amueblado</option>
+          <option value="Cocina equipada">Cocina equipada</option>
+        </select>
+        <p class="ayuda">Lamudi lo pide expresamente: es de lo primero que pregunta el cliente.</p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Lo que lo hace distinto</legend>
+      <p class="ayuda" style="margin:0 0 14px">
+        Aquí es donde se gana o se pierde el anuncio. Escribe hasta cinco razones concretas por las que
+        alguien elegiría este inmueble y no otro igual en la misma zona. Concretas, no adjetivos:
+        <b>“A dos cuadras del Hospital Universitario”</b> sirve; “ubicación privilegiada” no dice nada.
+      </p>
+      <div class="campo"><label for="c1">Razón 1</label><input id="c1" type="text" placeholder="A 2 cuadras del Hospital Universitario"></div>
+      <div class="campo"><label for="c2">Razón 2</label><input id="c2" type="text" placeholder="Seguridad 24/7"></div>
+      <div class="campo"><label for="c3">Razón 3</label><input id="c3" type="text" placeholder="Mantenimiento incluido en la renta"></div>
+      <div class="campo"><label for="c4">Razón 4 <span class="opc">· opcional</span></label><input id="c4" type="text"></div>
+      <div class="campo"><label for="c5">Razón 5 <span class="opc">· opcional</span></label><input id="c5" type="text"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Amenidades y características</legend>
+      <div class="chips" id="chips"></div>
+      <div class="campo" style="margin-top:14px">
+        <label for="otras">Otras, separadas por coma <span class="opc">· opcional</span></label>
+        <input id="otras" type="text" placeholder="Ludoteca, sport bar, fogateros">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>La zona</legend>
+      <div class="campo">
+        <label for="cercanias">Qué hay cerca <span class="opc">· opcional pero pesa mucho</span></label>
+        <textarea id="cercanias" rows="2" placeholder="A 5 minutos de Av. Gonzalitos, frente al Parque España, cerca del Tec y de Plaza Fiesta San Agustín."></textarea>
+        <p class="ayuda">Escuelas, avenidas, plazas, hospitales, transporte. Los portales recomiendan
+          decirlo y el cliente lo busca. Sin dar la dirección exacta.</p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Lo que ya traes escrito</legend>
+      <div class="campo">
+        <label for="notas">Descripción o notas que te pasó el propietario <span class="opc">· opcional</span></label>
+        <textarea id="notas" rows="4" placeholder="Pega aquí lo que ya tengas. Se revisa y se te avisa qué corregir; lo que sirva se acomoda al final de la descripción."></textarea>
+        <p class="ayuda">Ojo: esto se pega tal cual al final. Si trae mayúsculas, signos repetidos o
+          párrafos larguísimos, abajo te lo marco para que lo arregles.</p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tu contacto</legend>
+      <div class="rej d2">
+        <div class="campo">
+          <label for="asesor">Tu nombre</label>
+          <input id="asesor" type="text" placeholder="Fernando García">
+        </div>
+        <div class="campo">
+          <label for="tel">WhatsApp</label>
+          <input id="tel" type="text" inputmode="tel" placeholder="81 1044 5118">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="liga">Liga del anuncio <span class="opc">· opcional</span></label>
+        <input id="liga" type="text" placeholder="hhre.mx">
+      </div>
+      <label class="sw" for="swPrecio" style="margin-top:6px">
+        <input type="checkbox" id="swPrecio" checked>
+        <span class="pill"></span>
+        <span><b>Escribir el precio dentro del texto</b>
+          <small>Además del campo de precio del portal. En Marketplace y WhatsApp conviene siempre.</small></span>
+      </label>
+      <label class="sw" for="swContacto">
+        <input type="checkbox" id="swContacto">
+        <span class="pill"></span>
+        <span><b>Poner tu teléfono en la descripción de portales</b>
+          <small>Apagado a propósito: en los portales tu teléfono va en los campos de contacto del aviso,
+            no en el texto. En Marketplace, redes y WhatsApp sí se incluye siempre.</small></span>
+      </label>
+      <label class="sw" for="swEmoji">
+        <input type="checkbox" id="swEmoji" checked>
+        <span class="pill"></span>
+        <span><b>Usar emojis en Marketplace y redes</b>
+          <small>Nunca se ponen en el texto de portales.</small></span>
+      </label>
+    </fieldset>
+
+    <div class="medidor">
+      <div class="enc"><b>Qué tan completo va tu anuncio</b><span class="pct" id="pct">0%</span></div>
+      <div class="barra"><i id="barra" style="width:0%"></i></div>
+      <p class="falta" id="falta">Los portales califican qué tan completo está el aviso y con eso deciden
+        en qué lugar te ponen en los resultados. Llénalo todo.</p>
+    </div>
+
+    <button type="button" class="cta" id="generar">Generar los textos</button>
+  </form>
+
+  <div class="res" id="res" hidden>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="t-portales" aria-selected="true" data-p="p-portales">Portales</button>
+      <button type="button" role="tab" id="t-market" aria-selected="false" data-p="p-market">Marketplace</button>
+      <button type="button" role="tab" id="t-redes" aria-selected="false" data-p="p-redes">Redes</button>
+      <button type="button" role="tab" id="t-wa" aria-selected="false" data-p="p-wa">WhatsApp</button>
+      <button type="button" role="tab" id="t-fotos" aria-selected="false" data-p="p-fotos">Fotos</button>
+      <button type="button" role="tab" id="t-rev" aria-selected="false" data-p="p-rev">Revisión</button>
+    </div>
+
+    <section class="panel" id="p-portales" role="tabpanel" aria-labelledby="t-portales">
+      <p class="intro">Sirve igual para Inmuebles24, Lamudi, Propiedades.com, Vivanuncios, Doorvel y
+        para Proppit o EasyBroker, que replican a los demás. Copia el título, pégalo, regresa y copia
+        la descripción. Puedes editar cualquiera de los dos aquí mismo antes de copiar.</p>
+
+      <div class="bloque">
+        <div class="eti"><span>Título</span><span class="cont" id="cTitulo">0 caracteres</span></div>
+        <textarea class="salida" id="oTitulo" rows="2"></textarea>
+        <button type="button" class="copiar" data-copia="oTitulo">Copiar el título</button>
+        <div class="alts" id="alts" hidden>
+          <div class="tit">O usa una de estas — da clic y se sustituye:</div>
+          <div class="lista" id="altsLista"></div>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <div class="eti"><span>Descripción</span><span class="cont" id="cDesc">0 caracteres</span></div>
+        <textarea class="salida" id="oDesc" rows="20"></textarea>
+        <button type="button" class="copiar" data-copia="oDesc">Copiar la descripción</button>
+      </div>
+    </section>
+
+    <section class="panel" id="p-market" role="tabpanel" aria-labelledby="t-market" hidden>
+      <p class="intro">Marketplace no es un portal inmobiliario: la gente va pasando el dedo y decide en
+        dos segundos. Por eso el texto es más corto, más directo y sí lleva tu teléfono.</p>
+
+      <div class="bloque">
+        <div class="eti"><span>Título del anuncio</span><span class="cont" id="cMTit">0 caracteres</span></div>
+        <textarea class="salida" id="oMTit" rows="2"></textarea>
+        <button type="button" class="copiar" data-copia="oMTit">Copiar el título</button>
+      </div>
+
+      <div class="bloque">
+        <div class="eti"><span>Descripción</span><span class="cont" id="cMDesc">0 caracteres</span></div>
+        <textarea class="salida" id="oMDesc" rows="16"></textarea>
+        <button type="button" class="copiar" data-copia="oMDesc">Copiar la descripción</button>
+      </div>
+
+      <div class="campos-fb">
+        <h4>Cómo se publica</h4>
+        <ul>
+          <li>Marketplace → <b>Crear publicación</b> → <b>Viviendas en venta o alquiler</b>. No la publiques
+            como artículo suelto: en esa categoría te pide los campos correctos y te muestra a quien busca casa.</li>
+          <li>Llena los campos propios de Facebook <b>además</b> del texto: tipo de propiedad, recámaras,
+            baños, metros cuadrados, precio y ubicación. Son los que usa el buscador.</li>
+          <li id="fbFotos">Cuida las primeras fotos: son las que alcanza a ver la mayoría antes de seguirse.</li>
+          <li><b>No vuelvas a publicar la misma propiedad</b> para “refrescarla”. Facebook lo lee como spam,
+            deja de mostrarla y puede bloquear la cuenta. Si ya lleva tiempo, edítala o márcala como disponible.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel" id="p-redes" role="tabpanel" aria-labelledby="t-redes" hidden>
+      <p class="intro">Para el muro de Facebook y para Instagram. Aquí la primera línea es todo: es lo único
+        que se ve antes del “ver más”.</p>
+      <div class="bloque">
+        <div class="eti"><span>Publicación</span><span class="cont" id="cRedes">0 caracteres</span></div>
+        <textarea class="salida" id="oRedes" rows="18"></textarea>
+        <button type="button" class="copiar" data-copia="oRedes">Copiar la publicación</button>
+      </div>
+    </section>
+
+    <section class="panel" id="p-wa" role="tabpanel" aria-labelledby="t-wa" hidden>
+      <p class="intro">Para cuando le compartes la propiedad a un cliente o a otro asesor. Corto, para que
+        se lea completo en la pantalla del celular sin abrir “leer más”.</p>
+      <div class="bloque">
+        <div class="eti"><span>Mensaje</span><span class="cont" id="cWA">0 caracteres</span></div>
+        <textarea class="salida" id="oWA" rows="10"></textarea>
+        <button type="button" class="copiar" data-copia="oWA">Copiar el mensaje</button>
+      </div>
+    </section>
+
+    <section class="panel" id="p-fotos" role="tabpanel" aria-labelledby="t-fotos" hidden>
+      <p class="intro">El error más común es subir las fotos en el orden en que salieron de la cámara. Quien
+        las ve tiene que sentir que está recorriendo la propiedad: se entra por la fachada y se termina
+        afuera. Este es el orden para el tipo de inmueble que capturaste.</p>
+      <div class="portada" id="portadaNota"></div>
+      <ol class="fotos" id="oFotos"></ol>
+      <button type="button" class="copiar" data-copia-texto="fotos">Copiar la lista</button>
+      <div class="campos-fb" style="margin-top:20px">
+        <h4>Reglas que aplican a todas</h4>
+        <ul>
+          <li><b>Horizontales</b> y con luz de día. La luz natural es la que mejor funciona.</li>
+          <li><b>Sin flash</b> frente a espejos o ventanas: el reflejo arruina la toma.</li>
+          <li><b>Ninguna repetida.</b> Si subes 15 fotos, que sean 15 espacios distintos.</li>
+          <li>Sin gente, sin mascotas, sin coches enfrente de la fachada y sin cosas tiradas.</li>
+          <li>Si hay algo que pintar o reparar, hazlo <b>antes</b> de la sesión.</li>
+          <li>El plano va al final, nunca de portada.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel" id="p-rev" role="tabpanel" aria-labelledby="t-rev" hidden>
+      <p class="intro">Lo que revisaría un editor antes de que esto salga a la calle.</p>
+      <ul class="diag" id="oDiag"></ul>
+      <div class="campos-fb" style="margin-top:20px">
+        <h4>Checklist de publicación ganadora · hh</h4>
+        <ul>
+          <li><b>Precio contra la estimación.</b> El precio publicado no debe pasar del 10% por arriba del
+            valor que arroja la estimación. Arriba de eso, difícilmente se renta o se vende.</li>
+          <li><b>Deja rastro.</b> En la descripción privada de la propiedad anota el valor estimado y en qué
+            canales la publicaste (MPFB, IG, FB, portales).</li>
+          <li><b>Rótulo o lona</b> en el inmueble con los teléfonos de la oficina.</li>
+          <li><b>Sube todo lo que el portal permita:</b> fotos, video, recorrido y plano. Ese porcentaje de
+            avance es literalmente lo que usan para decidir tu posición en los resultados.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <details class="guia">
+    <summary>Qué pide y qué premia cada portal</summary>
+    <div class="cuerpo">
+      <div class="portal">
+        <h4>Inmuebles24</h4>
+        <p>Pide ubicación, características principales, fotos, video y planos, y amenidades.
+          <em>Mide qué tan completo quedó tu aviso</em> y con ese porcentaje decide tu posición en los
+          resultados, así que llena hasta el último campo. Para la descripción recomiendan no pasar de
+          <em>1,000 caracteres</em>.</p>
+      </div>
+      <div class="portal">
+        <h4>Lamudi · Proppit</h4>
+        <p>Proppit es la plataforma de publicación de Lamudi: desde ahí sale tu anuncio a varios portales
+          de un clic, así que lo que escribas se replica tal cual. Piden título corto con
+          <em>colonia y ciudad</em>, sin mayúsculas sostenidas, y en la descripción las amenidades,
+          recámaras, baños, estacionamiento, metros y si va amueblado. Piden expresamente mencionar
+          <em>qué hay cerca</em>: restaurantes, parques, plazas, bancos, transporte.</p>
+      </div>
+      <div class="portal">
+        <h4>Vivanuncios</h4>
+        <p>El título tiene pocos caracteres, así que mete ahí <em>la característica que te distingue</em>
+          — el formato que ellos mismos ponen de ejemplo es “casa en Acapulco con alberca”. Piden muchas
+          fotos, incluyendo exteriores: jardín, alberca, cochera.</p>
+      </div>
+      <div class="portal">
+        <h4>Propiedades.com</h4>
+        <p>Publicación gratuita con inventario y CRM propios. Sin reglas especiales de redacción; lo que
+          insisten es en <em>la ortografía</em>: un anuncio con errores se lee como un asesor descuidado.</p>
+      </div>
+      <div class="portal">
+        <h4>Doorvel</h4>
+        <p>Plataforma mexicana fuerte en renta en Monterrey, CDMX y Guadalajara. Público más joven y más
+          digital: <em>el texto corto y el precio claro</em> funcionan mejor que la descripción larga.</p>
+      </div>
+      <div class="portal">
+        <h4>Los agregadores: Mitula, Trovit, icasas, Doomos, Clasf</h4>
+        <p>No publicas ahí: jalan tu anuncio desde los portales. En sus listados casi siempre se ve
+          <em>solo el título y las primeras líneas</em>. Por eso el título carga todo el peso — si dice
+          “Se vende casa”, ahí muere.</p>
+      </div>
+      <div class="portal">
+        <h4>Facebook Marketplace</h4>
+        <p>Categoría <em>Viviendas en venta o alquiler</em>, no artículo suelto. Sus campos propios
+          alimentan el buscador, así que llénalos aunque el texto ya lo diga. Y no repitas la publicación:
+          lo detecta como spam.</p>
+      </div>
+      <div class="portal">
+        <h4>LuxuryEstate</h4>
+        <p>Vitrina internacional. Aquí sí conviene una segunda versión del texto <em>en inglés</em> y foto
+          de portada de arquitectura o vista, no de fachada de calle.</p>
+      </div>
+    </div>
+  </details>
+
+  <p class="nota">
+    <b>De dónde salen estas reglas.</b> De la <b>Plantilla de anuncios LP hh</b> y del
+    <b>Checklist de publicación ganadora</b> que ya usa el equipo, más las recomendaciones publicadas por
+    Inmuebles24, Lamudi, Vivanuncios, Propiedades.com y EasyBroker.
+    Los textos se arman con lo que capturas — <b>revísalos antes de publicar</b>: tú conoces la propiedad.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ───────── catálogos ───────── */
+
+  var TIPOS = {
+    depto:      {label:"Departamento",       fem:false, fam:"residencial", foto:"depto"},
+    casa:       {label:"Casa",               fem:true,  fam:"residencial", foto:"casa"},
+    condominio: {label:"Casa en condominio", fem:true,  fam:"residencial", foto:"casa"},
+    residencia: {label:"Residencia",         fem:true,  fam:"residencial", foto:"casa"},
+    penthouse:  {label:"Penthouse",          fem:false, fam:"residencial", foto:"depto"},
+    loft:       {label:"Loft",               fem:false, fam:"residencial", foto:"depto"},
+    local:      {label:"Local comercial",    fem:false, fam:"comercial",   foto:"local"},
+    oficina:    {label:"Oficina",            fem:true,  fam:"comercial",   foto:"oficina"},
+    bodega:     {label:"Bodega industrial",  fem:true,  fam:"comercial",   foto:"bodega"},
+    edificio:   {label:"Edificio",           fem:false, fam:"comercial",   foto:"oficina"},
+    terreno:    {label:"Terreno",            fem:false, fam:"terreno",     foto:"terreno"}
+  };
+
+  var AMENIDADES = {
+    residencial:["Alberca","Gimnasio","Roof garden","Terraza","Jardín","Asadores","Salón de eventos",
+      "Área de juegos infantiles","Ludoteca","Sport bar","Coworking","Cancha deportiva","Elevador",
+      "Seguridad 24/7","Acceso controlado","Estacionamiento de visitas","Pet friendly","Cuarto de servicio",
+      "Cuarto de lavado","Bodega","Cisterna","Planta de emergencia","Aire acondicionado","Vista panorámica",
+      "Vestidor","Closets de piso a techo","Amueblado"],
+    comercial:["Aire acondicionado","Elevador","Seguridad 24/7","Circuito cerrado","Acceso controlado",
+      "Recepción","Estacionamiento de clientes","Andén de carga","Patio de maniobras","Cortina metálica",
+      "Planta de emergencia","Subestación eléctrica","Bodega","Baños","Cocineta","Sala de juntas",
+      "Frente a avenida","Alta afluencia peatonal"],
+    terreno:["Servicios a pie de calle","Agua","Luz","Drenaje","Bardeado","Escriturado","Uso de suelo mixto",
+      "Uso de suelo habitacional","Uso de suelo comercial","Dentro de coto","Frente a avenida",
+      "Topografía plana","Esquina","Dos frentes"]
+  };
+
+  // la comparación se hace sin acentos, así que aquí va una sola forma de cada palabra
+  var VACIAS = ["espectacular","de ensueño","increíble","insuperable","hermosa","hermoso",
+    "precioso","preciosa","divino","divina","soñado","único en su tipo","oportunidad única",
+    "no te lo pierdas","imperdible","remato","urge","ganga","maravilloso","maravillosa",
+    "ubicación privilegiada","excelente ubicación"];
+
+  /* ───────── utilidades ───────── */
+
+  function $(id){ return document.getElementById(id); }
+  function v(id){ var e=$(id); return e ? e.value.trim() : ""; }
+  function num(id){
+    var s=v(id).replace(/[^0-9.]/g,"");
+    var n=parseFloat(s);
+    return isFinite(n) ? n : 0;
+  }
+  function miles(n){
+    if(!isFinite(n)) return "";
+    var p=String(n).split(".");
+    p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,",");
+    return p.join(".");
+  }
+  function sinAcentos(s){
+    return s.normalize ? s.normalize("NFD").replace(/[̀-ͯ]/g,"") : s;
+  }
+  function minusInicial(s){
+    if(!s) return s;
+    // baja la inicial solo si la palabra no es un nombre propio evidente
+    var resto=s.slice(1);
+    if(resto !== resto.toLowerCase() && /[A-ZÁÉÍÓÚÑ]/.test(resto)) return s;
+    return s.charAt(0).toLowerCase()+resto;
+  }
+  function limpiaPunto(s){ return s.replace(/[.\s]+$/,""); }
+  function pluraliza(n, uno, varios){ return n===1 ? uno : varios; }
+
+  /* ───────── formato de números al escribir ───────── */
+
+  function formatoMiles(e){
+    var s=e.value.replace(/[^0-9]/g,"");
+    e.value = s ? "$ "+miles(parseInt(s,10)) : "";
+  }
+  ["precio","mantenimiento"].forEach(function(id){
+    $(id).addEventListener("input", function(){
+      var pos=this.value.length-this.selectionStart;
+      formatoMiles(this);
+      var np=this.value.length-pos;
+      try{ this.setSelectionRange(np,np); }catch(err){}
+      medir();
+    });
+  });
+
+  /* ───────── amenidades dinámicas ───────── */
+
+  var amenidadesMarcadas = {};
+
+  function pintaChips(){
+    var fam = TIPOS[v("tipo")].fam;
+    var lista = AMENIDADES[fam];
+    var cont = $("chips");
+    cont.innerHTML = "";
+    lista.forEach(function(a,i){
+      var l=document.createElement("label"); l.className="chip";
+      var inp=document.createElement("input");
+      inp.type="checkbox"; inp.value=a; inp.id="am"+i;
+      inp.checked = !!amenidadesMarcadas[a];
+      inp.addEventListener("change", function(){
+        if(this.checked) amenidadesMarcadas[this.value]=true;
+        else delete amenidadesMarcadas[this.value];
+        medir();
+      });
+      var sp=document.createElement("span"); sp.textContent=a;
+      l.appendChild(inp); l.appendChild(sp);
+      cont.appendChild(l);
+    });
+  }
+
+  function amenidades(){
+    var out=[];
+    var fam = TIPOS[v("tipo")].fam;
+    AMENIDADES[fam].forEach(function(a){ if(amenidadesMarcadas[a]) out.push(a); });
+    v("otras").split(",").forEach(function(s){
+      s=s.trim(); if(s) out.push(s.charAt(0).toUpperCase()+s.slice(1));
+    });
+    return out;
+  }
+
+  /* ───────── ajustes por tipo de inmueble ───────── */
+
+  function ajustaCampos(){
+    var t = TIPOS[v("tipo")];
+    var esTerreno = t.fam==="terreno";
+    var esResid   = t.fam==="residencial";
+    $("grupoM2").style.display = "";
+    ["recamaras","banos","medios"].forEach(function(id){
+      var campo=$(id).closest(".campo");
+      campo.style.display = esResid ? "" : "none";
+    });
+    $("m2c").closest(".campo").style.display = esTerreno ? "none" : "";
+    $("campoAmueblado").style.display = esResid ? "" : "none";
+    $("nivel").closest(".campo").style.display = esTerreno ? "none" : "";
+    var op = document.querySelector("input[name=operacion]:checked").value;
+    $("ayudaPrecio").textContent = op==="renta"
+      ? "Renta mensual en pesos." : "Precio de venta en pesos.";
+  }
+
+  $("tipo").addEventListener("change", function(){ pintaChips(); ajustaCampos(); medir(); });
+  Array.prototype.forEach.call(document.querySelectorAll("input[name=operacion]"), function(r){
+    r.addEventListener("change", function(){ ajustaCampos(); medir(); });
+  });
+
+  /* ───────── lectura de la ficha ───────── */
+
+  function ficha(){
+    var tk = v("tipo");
+    var t  = TIPOS[tk];
+    var op = document.querySelector("input[name=operacion]:checked").value;
+    var d = {
+      k:tk, tipo:t.label, fem:t.fem, fam:t.fam, foto:t.foto,
+      op:op,
+      opTxt: op==="venta" ? "en venta" : "en renta",
+      art: t.fem ? "una" : "un",
+      elLa: t.fem ? "la" : "lo",
+      esteEsta: t.fem ? "esta" : "este",
+      desarrollo:v("desarrollo"), zona:v("zona"), ciudad:v("ciudad"),
+      precio:num("precio"), mant:num("mantenimiento"),
+      m2c:num("m2c"), m2t:num("m2t"),
+      rec:num("recamaras"), ban:num("banos"), med:num("medios"), caj:num("cajones"),
+      nivel:v("nivel"), antig:v("antiguedad"), amueblado:v("amueblado"),
+      cercanias:v("cercanias"), notas:v("notas"),
+      asesor:v("asesor"), tel:v("tel"), liga:v("liga"),
+      claves:[], amen:amenidades(),
+      conPrecio:$("swPrecio").checked,
+      conTel:$("swContacto").checked,
+      emoji:$("swEmoji").checked
+    };
+    ["c1","c2","c3","c4","c5"].forEach(function(id){
+      var s=v(id); if(s) d.claves.push(limpiaPunto(s));
+    });
+    d.lugar = d.zona + (d.ciudad ? ", "+d.ciudad : "");
+    return d;
+  }
+
+  /* ───────── medidor de completitud ───────── */
+
+  function medir(){
+    var d=ficha();
+    var items=[
+      {ok:!!d.zona,                 t:"la zona o colonia"},
+      {ok:!!d.ciudad,               t:"la ciudad"},
+      {ok:d.precio>0,               t:"el precio"},
+      {ok:d.fam==="terreno" ? d.m2t>0 : d.m2c>0, t:"los metros cuadrados"},
+      {ok:d.fam!=="residencial" || d.rec>0, t:"las recámaras"},
+      {ok:d.fam!=="residencial" || d.ban>0, t:"los baños"},
+      {ok:d.caj>0 || d.fam==="terreno",     t:"los cajones de estacionamiento"},
+      {ok:d.claves.length>=3,       t:"al menos 3 razones que lo distingan"},
+      {ok:d.amen.length>=3,         t:"al menos 3 amenidades"},
+      {ok:!!d.cercanias,            t:"qué hay cerca"},
+      {ok:!!d.desarrollo || d.fam==="terreno", t:"el nombre del desarrollo"},
+      {ok:!!d.asesor && !!d.tel,    t:"tu nombre y tu WhatsApp"}
+    ];
+    var ok=0, faltan=[];
+    items.forEach(function(i){ if(i.ok) ok++; else faltan.push(i.t); });
+    var pct=Math.round(ok/items.length*100);
+    $("pct").textContent = pct+"%";
+    $("barra").style.width = pct+"%";
+    if(faltan.length===0){
+      $("falta").innerHTML = "<b>Completo.</b> Así es como los portales te suben de posición.";
+    }else{
+      $("falta").innerHTML = "<b>Te falta:</b> "+faltan.join(" · ")+
+        ". Los portales califican qué tan completo está el aviso y con eso deciden tu lugar en los resultados.";
+    }
+    $("generar").disabled = !(d.zona && d.ciudad);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("#f input, #f select, #f textarea"),
+    function(e){ e.addEventListener("input", medir); e.addEventListener("change", medir); });
+
+  /* ───────── piezas de texto ───────── */
+
+  function medidasTxt(d){
+    var p=[];
+    if(d.fam==="terreno"){
+      if(d.m2t) p.push(miles(d.m2t)+" m² de terreno");
+    }else{
+      if(d.m2c) p.push(miles(d.m2c)+" m² de construcción");
+      if(d.m2t) p.push(miles(d.m2t)+" m² de terreno");
+    }
+    return p;
+  }
+
+  function distribucion(d){
+    var L=[];
+    medidasTxt(d).forEach(function(m){ L.push(m); });
+    if(d.rec) L.push(d.rec+" "+pluraliza(d.rec,"recámara","recámaras"));
+    if(d.ban) L.push(d.ban+" "+pluraliza(d.ban,"baño completo","baños completos"));
+    if(d.med) L.push(d.med+" "+pluraliza(d.med,"medio baño","medios baños"));
+    if(d.caj) L.push(d.caj+" "+pluraliza(d.caj,"cajón de estacionamiento","cajones de estacionamiento"));
+    if(d.nivel) L.push(d.nivel);
+    if(d.antig) L.push("Antigüedad: "+d.antig);
+    if(d.amueblado) L.push(d.amueblado);
+    return L;
+  }
+
+  function resumenCorto(d){
+    var p=[];
+    if(d.fam==="terreno"){ if(d.m2t) p.push(miles(d.m2t)+" m²"); }
+    else if(d.m2c) p.push(miles(d.m2c)+" m²");
+    if(d.rec) p.push(d.rec+" "+pluraliza(d.rec,"recámara","recámaras"));
+    if(d.ban) p.push(d.ban+" "+pluraliza(d.ban,"baño","baños"));
+    if(d.caj) p.push(d.caj+" "+pluraliza(d.caj,"estacionamiento","estacionamientos"));
+    return p;
+  }
+
+  function precioTxt(d){
+    if(!d.precio) return "";
+    var s = "$"+miles(d.precio)+" MXN";
+    if(d.op==="renta") s += " al mes";
+    return s;
+  }
+
+  function lineaPrecio(d){
+    if(!d.precio) return "";
+    var s = (d.op==="renta" ? "Renta: " : "Precio: ")+precioTxt(d);
+    if(d.mant) s += " · Mantenimiento: $"+miles(d.mant)+" MXN al mes";
+    return s;
+  }
+
+  /* ───────── título ───────── */
+
+  // "con X" solo funciona si X es un sustantivo. "A 2 cuadras del hospital" no lo es.
+  var PREPOS = /^(a|al|en|de|del|con|cerca|frente|junto|sobre|dentro|listo|lista|ideal|excelente)\b/i;
+
+  function ganchoNominal(d){
+    var cand=[];
+    if(d.claves.length) cand.push(d.claves[0]);
+    d.amen.forEach(function(a){ cand.push(a); });
+    for(var i=0;i<cand.length;i++){
+      if(cand[i].length<=30 && !PREPOS.test(sinAcentos(cand[i]))) return minusInicial(cand[i]);
+    }
+    return "";
+  }
+
+  function ganchoLibre(d){
+    if(d.claves.length && d.claves[0].length<=42) return minusInicial(d.claves[0]);
+    return "";
+  }
+
+  function titulos(d){
+    var base = d.tipo+" "+d.opTxt+" en "+d.zona;
+    var lista=[];
+
+    // recomendado: base + desarrollo + ciudad, recortando para no pasar de 65
+    var gn=ganchoNominal(d), gl=ganchoLibre(d);
+
+    var rec = base;
+    if(d.desarrollo && (rec+" — "+d.desarrollo).length<=62) rec += " — "+d.desarrollo;
+    if(d.ciudad && (rec+", "+d.ciudad).length<=65) rec += ", "+d.ciudad;
+    if(gn){
+      // si el título ya trae desarrollo o ciudad, "con X" queda pegado al nombre propio
+      var sep = (rec===base) ? " con " : " · ";
+      var g2  = (rec===base) ? gn : gn.charAt(0).toUpperCase()+gn.slice(1);
+      if((rec+sep+g2).length<=65) rec += sep+g2;
+    }
+    lista.push({t:rec, por:"tipo + operación + zona: así es como la gente teclea la búsqueda"});
+
+    if(d.desarrollo){
+      var a = d.tipo+" "+d.opTxt+" en "+d.desarrollo+", "+d.zona;
+      if(lista[0].t!==a) lista.push({t:a, por:"si el desarrollo es conocido, jala búsquedas por nombre"});
+    }
+    if(gn){
+      var b = d.tipo+" "+d.opTxt+" en "+d.zona+" con "+gn;
+      if(!lista.some(function(x){return x.t===b;}))
+        lista.push({t:b, por:"el formato que recomienda Vivanuncios: la característica que te distingue"});
+    }
+    if(gl){
+      var e = d.tipo+" "+d.opTxt+" en "+d.zona+" — "+gl;
+      if(e.length<=68 && !lista.some(function(x){return x.t===e;}))
+        lista.push({t:e, por:"con tu mejor argumento pegado al título"});
+    }
+    var nums=[];
+    if(d.rec) nums.push(d.rec+" "+pluraliza(d.rec,"recámara","recámaras"));
+    if(d.m2c) nums.push(miles(d.m2c)+" m²");
+    else if(d.m2t) nums.push(miles(d.m2t)+" m²");
+    if(nums.length){
+      var c = d.tipo+" "+d.opTxt+" en "+d.zona+", "+nums.join(" y ");
+      if(!lista.some(function(x){return x.t===c;}))
+        lista.push({t:c, por:"con los números por delante, para quien filtra por tamaño"});
+    }
+    return lista;
+  }
+
+  /* ───────── descripción para portales ───────── */
+
+  function primerParrafo(d){
+    var enc = d.zona ? (d.zona+(d.ciudad?", "+d.ciudad:"")) : d.ciudad;
+    var tam = d.fam==="terreno"
+      ? (d.m2t ? " de "+miles(d.m2t)+" m²" : "")
+      : (d.m2c ? " de "+miles(d.m2c)+" m²" : "");
+    if(d.claves.length>=1){
+      return limpiaPunto(d.claves[0])+": "+d.art+" "+minusInicial(d.tipo)+tam+" "+d.opTxt+" en "+enc+".";
+    }
+    var r = d.tipo+tam+" "+d.opTxt+" en "+enc+".";
+    if(d.rec) r += " "+d.rec+" "+pluraliza(d.rec,"recámara","recámaras")+
+                   (d.ban? " y "+d.ban+" "+pluraliza(d.ban,"baño","baños"):"")+".";
+    return r;
+  }
+
+  function descPortales(d){
+    var L=[];
+    L.push(primerParrafo(d));
+
+    var dist=distribucion(d);
+    if(dist.length){
+      L.push("");
+      L.push(d.fam==="terreno" ? "Superficie:" : "Distribución:");
+      dist.forEach(function(x){ L.push("• "+x); });
+    }
+
+    var extras = d.claves.slice(1);
+    if(extras.length){
+      L.push("");
+      L.push("Lo que "+d.elLa+" distingue:");
+      extras.forEach(function(x){ L.push("• "+x); });
+    }
+
+    if(d.amen.length){
+      L.push("");
+      L.push(d.fam==="residencial" ? "Amenidades y características:" : "Características:");
+      d.amen.forEach(function(x){ L.push("• "+x); });
+    }
+
+    if(d.cercanias){
+      L.push("");
+      L.push("La zona:");
+      L.push(d.cercanias);
+    }
+
+    if(d.notas){
+      L.push("");
+      L.push(d.notas);
+    }
+
+    if(d.conPrecio && d.precio){
+      L.push("");
+      L.push(lineaPrecio(d));
+    }
+
+    L.push("");
+    if(d.conTel && d.tel){
+      L.push("Agenda tu visita: escríbeme por WhatsApp al "+d.tel+
+             (d.asesor ? " ("+d.asesor+")" : "")+".");
+    }else{
+      L.push("Agenda una visita y con gusto "+(d.fem?"te la":"te lo")+" muestro. Escríbeme desde este anuncio.");
+    }
+    return L.join("\n");
+  }
+
+  /* ───────── Facebook Marketplace ───────── */
+
+  function tituloMarket(d){
+    var t = d.tipo+" "+d.opTxt+" en "+d.zona;
+    if(d.precio) t += " · "+precioTxt(d);
+    return t;
+  }
+
+  function descMarket(d){
+    var E=d.emoji;
+    var L=[];
+    L.push((E?"📍 ":"")+d.tipo+" "+d.opTxt+" en "+d.zona+(d.ciudad?", "+d.ciudad:"")+
+           (d.desarrollo?" — "+d.desarrollo:""));
+    var r=resumenCorto(d);
+    if(r.length) L.push((E?"📐 ":"")+r.join(" · "));
+    if(d.nivel) L.push((E?"🏢 ":"")+d.nivel);
+    if(d.amueblado) L.push((E?"🛋 ":"")+d.amueblado);
+
+    if(d.claves.length){
+      L.push("");
+      d.claves.forEach(function(c){ L.push((E?"✅ ":"— ")+c); });
+    }
+    if(d.amen.length){
+      L.push("");
+      L.push((E?"✨ ":"")+"Amenidades: "+d.amen.join(" · "));
+    }
+    if(d.cercanias){
+      L.push("");
+      L.push((E?"🗺 ":"")+d.cercanias);
+    }
+    if(d.precio){
+      L.push("");
+      L.push((E?"💰 ":"")+lineaPrecio(d));
+    }
+    L.push("");
+    var verlo = d.fem ? "verla" : "verlo";
+    if(d.tel){
+      L.push((E?"📲 ":"")+"¿Quieres "+verlo+"? Escríbeme por WhatsApp al "+d.tel+" y agendamos la visita.");
+    }else{
+      L.push("¿Quieres "+verlo+"? Mándame mensaje y agendamos la visita.");
+    }
+    if(d.asesor) L.push(d.asesor+" · hh Luxury Real Estate");
+    if(d.liga) L.push(d.liga);
+    return L.join("\n");
+  }
+
+  /* ───────── redes ───────── */
+
+  function hashtags(d){
+    function tag(s){
+      if(!s) return "";
+      var w = sinAcentos(s).replace(/[^A-Za-z0-9 ]/g,"").split(/\s+/).filter(Boolean);
+      return "#"+w.map(function(x){ return x.charAt(0).toUpperCase()+x.slice(1); }).join("");
+    }
+    var h=[];
+    var tipoTag = sinAcentos(d.tipo).split(" ")[0];
+    h.push(tag(tipoTag+" en "+(d.op==="venta"?"venta":"renta")));
+    if(d.ciudad) h.push(tag(tipoTag+" en "+d.ciudad));
+    if(d.zona)   h.push(tag(d.zona));
+    if(d.ciudad) h.push(tag("Bienes raices "+d.ciudad));
+    if(d.desarrollo) h.push(tag(d.desarrollo));
+    h.push("#hhLuxuryRealEstate");
+    return h.filter(function(x,i,a){ return x && a.indexOf(x)===i; }).join(" ");
+  }
+
+  function textoRedes(d){
+    var E=d.emoji;
+    var L=[];
+    L.push(d.claves.length ? limpiaPunto(d.claves[0])+"." :
+      ("¿Buscas "+minusInicial(d.tipo)+" en "+d.zona+"?"));
+    L.push("");
+    L.push(d.tipo+" "+d.opTxt+(d.desarrollo?" en "+d.desarrollo:"")+" · "+d.zona+
+           (d.ciudad?", "+d.ciudad:""));
+    var r=resumenCorto(d);
+    if(r.length) L.push(r.join(" | "));
+    if(d.claves.length>1){
+      L.push("");
+      d.claves.slice(1).forEach(function(c){ L.push((E?"• ":"- ")+c); });
+    }
+    if(d.amen.length){
+      L.push("");
+      L.push("Amenidades: "+d.amen.slice(0,8).join(" · "));
+    }
+    if(d.conPrecio && d.precio){ L.push(""); L.push(lineaPrecio(d)); }
+    L.push("");
+    L.push((E?"📩 ":"")+"Mándame DM o WhatsApp"+(d.tel?" al "+d.tel:"")+" y agendamos la visita"+
+           (d.asesor?" — "+d.asesor:"")+".");
+    if(d.liga) L.push(d.liga);
+    L.push("");
+    L.push(hashtags(d));
+    return L.join("\n");
+  }
+
+  /* ───────── WhatsApp ───────── */
+
+  function textoWA(d){
+    var p=[];
+    p.push("Hola, soy "+(d.asesor||"tu asesor")+" de hh Luxury Real Estate.");
+    var r=resumenCorto(d);
+    p.push("Tengo "+d.art+" "+minusInicial(d.tipo)+" "+d.opTxt+" en "+d.zona+
+           (d.ciudad?", "+d.ciudad:"")+(d.desarrollo?" ("+d.desarrollo+")":"")+
+           (r.length? ": "+r.join(", ") : "")+".");
+    if(d.claves.length) p.push(d.claves.slice(0,3).join(". ")+".");
+    if(d.precio) p.push(lineaPrecio(d)+".");
+    var cierre="¿Te la agendo esta semana?";
+    if(!d.fem) cierre="¿Te lo agendo esta semana?";
+    p.push(d.liga ? ("Aquí puedes ver las fotos: "+d.liga+" — "+cierre) : cierre);
+    return p.join("\n\n");
+  }
+
+  /* ───────── secuencia de fotos ───────── */
+
+  function secuenciaFotos(d){
+    var F=[];
+    function add(t,n,cond){ if(cond===undefined||cond) F.push({t:t,n:n||""}); }
+    var tieneJardin = d.amen.indexOf("Jardín")>=0;
+    var tieneAlberca= d.amen.indexOf("Alberca")>=0;
+    var tieneTerraza= d.amen.indexOf("Terraza")>=0 || d.amen.indexOf("Roof garden")>=0;
+    var amenComunes = d.amen.filter(function(a){
+      return ["Alberca","Gimnasio","Roof garden","Salón de eventos","Área de juegos infantiles",
+              "Ludoteca","Sport bar","Coworking","Cancha deportiva","Asadores"].indexOf(a)>=0;
+    });
+
+    if(d.foto==="casa"){
+      add("Fachada completa, de frente","Desde la banqueta de enfrente, horizontal, con algo de cielo. Sin coches estacionados delante.");
+      add("Fachada en ángulo","Da profundidad y deja ver el fondo del terreno.");
+      add("Cochera o acceso vehicular","", d.caj>0);
+      add("Recibidor o entrada","Lo primero que se ve al abrir la puerta.");
+      add("Sala","Desde la esquina más lejana, para que se vea el espacio completo.");
+      add("Comedor","");
+      add("Cocina","La toma más importante después de la fachada. Barra despejada.");
+      add("Medio baño o baño de visitas","", d.med>0);
+      add("Escaleras o pasillo","Conecta la planta baja con la alta; sin eso el recorrido se corta.", !!d.nivel || d.rec>2);
+      add("Recámara principal","");
+      add("Vestidor","", d.amen.indexOf("Vestidor")>=0);
+      add("Baño de la recámara principal","", d.ban>0);
+      add("Segunda recámara","", d.rec>1);
+      add("Tercera recámara","", d.rec>2);
+      add("Recámaras restantes","Una foto por recámara, ninguna repetida.", d.rec>3);
+      add("Baño compartido","", d.ban>1);
+      add("Cuarto de lavado o de servicio","", d.amen.indexOf("Cuarto de servicio")>=0||d.amen.indexOf("Cuarto de lavado")>=0);
+      add("Terraza o asador","", tieneTerraza||d.amen.indexOf("Asadores")>=0);
+      add("Jardín","", tieneJardin);
+      add("Alberca","", tieneAlberca);
+      add("Amenidades del fraccionamiento","Al final: primero se vende la casa, luego el coto.", amenComunes.length>0);
+      add("Plano arquitectónico","Siempre al final y nunca de portada.");
+    }
+    else if(d.foto==="depto"){
+      add("Fachada del edificio o acceso principal","Horizontal, de día. Si el edificio es la marca del desarrollo, mejor.");
+      add("Lobby o recepción","Es lo que dice el nivel del edificio.");
+      add("Sala-comedor","Desde la esquina más lejana, con la luz de la ventana a favor.");
+      add("Vista desde la sala o el balcón","Si la vista es buena, esta puede ser tu portada en vez de la fachada.");
+      add("Cocina","");
+      add("Terraza o balcón","", tieneTerraza||d.amen.indexOf("Terraza")>=0);
+      add("Recámara principal","");
+      add("Baño de la recámara principal","", d.ban>0);
+      add("Segunda recámara","", d.rec>1);
+      add("Recámaras restantes","", d.rec>2);
+      add("Baño secundario","", d.ban>1||d.med>0);
+      add("Cuarto de lavado","", d.amen.indexOf("Cuarto de lavado")>=0);
+      add("Cajón de estacionamiento y bodega","", d.caj>0);
+      amenComunes.forEach(function(a){ add(a+" (amenidad del edificio)",""); });
+      add("Plano del departamento","Al final. Ayuda a entender la distribución que las fotos no alcanzan a explicar.");
+    }
+    else if(d.foto==="local"){
+      add("Fachada con el frente completo","Que se vea el ancho del local y la altura de la cortina.");
+      add("La calle hacia un lado","Para que se entienda el flujo de gente y de coches.");
+      add("La calle hacia el otro lado","");
+      add("Interior desde la puerta","Vacío y con luz encendida: lo que se vende es la amplitud.");
+      add("Interior desde el fondo hacia la puerta","La contratoma; sin ella no se dimensiona el espacio.");
+      add("Bodega o almacén","");
+      add("Baños","");
+      add("Instalaciones","Tablero eléctrico, aire acondicionado, cortina, medidores.");
+      add("Estacionamiento","", d.caj>0);
+      add("Croquis o mapa de ubicación","En comercial la ubicación vale más que el acabado.");
+    }
+    else if(d.foto==="oficina"){
+      add("Fachada del edificio","");
+      add("Lobby y acceso","");
+      add("Recepción de la oficina","");
+      add("Área abierta de trabajo","Desde la esquina, para que se lea el metraje.");
+      add("Privados","");
+      add("Sala de juntas","", d.amen.indexOf("Sala de juntas")>=0);
+      add("Cocineta o comedor","", d.amen.indexOf("Cocineta")>=0);
+      add("Baños","");
+      add("Vista desde la ventana","");
+      add("Amenidades del edificio","", amenComunes.length>0);
+      add("Estacionamiento","", d.caj>0);
+      add("Plano de distribución","");
+    }
+    else if(d.foto==="bodega"){
+      add("Fachada y acceso de tráileres","Que se vea el ancho de la entrada.");
+      add("Patio de maniobras","Es lo primero que evalúa un operador logístico.");
+      add("Interior a lo largo","Para que se lea la altura libre y los claros entre columnas.");
+      add("Interior a lo ancho","");
+      add("Andenes o rampas","", d.amen.indexOf("Andén de carga")>=0);
+      add("Oficinas dentro de la nave","");
+      add("Baños y vestidores","");
+      add("Subestación e instalaciones","Capacidad eléctrica instalada: es dato duro y decide la renta.");
+      add("Plano con medidas","");
+    }
+    else { // terreno
+      add("Toma aérea con el polígono marcado","Con dron. Es la que vende: sin ella nadie entiende la forma del terreno.");
+      add("Frente del terreno desde la calle","Horizontal, con la banqueta visible.");
+      add("La calle hacia un lado","");
+      add("La calle hacia el otro lado","");
+      add("Desde el fondo hacia el frente","Muestra la topografía y si tiene desnivel.");
+      add("Servicios a pie de calle","Postes, tomas de agua, drenaje, banqueta. Es la primera pregunta que hacen.");
+      add("El entorno","Lo que ya está construido alrededor: dice si la zona está consolidada.");
+      add("Croquis o plano con medidas y colindancias","Con superficie y frente.");
+    }
+    return F;
+  }
+
+  function notaPortada(d){
+    if(d.foto==="depto"){
+      return "<b>Tu portada:</b> la fachada del edificio — salvo que la vista sea espectacular de verdad, "+
+             "en cuyo caso esa gana. Nunca de portada: el baño, el plano ni una recámara vacía.";
+    }
+    if(d.foto==="terreno"){
+      return "<b>Tu portada:</b> la toma aérea con el polígono marcado. Si no tienes dron, el frente desde "+
+             "la calle. Nunca el croquis solo.";
+    }
+    if(d.foto==="local"||d.foto==="bodega"){
+      return "<b>Tu portada:</b> la fachada con el frente completo. En comercial se compra ubicación y "+
+             "exposición, no acabados.";
+    }
+    if(d.foto==="oficina"){
+      return "<b>Tu portada:</b> la fachada del edificio corporativo. Si el edificio no dice mucho, entonces "+
+             "el área de trabajo con luz natural.";
+    }
+    return "<b>Tu portada:</b> la fachada completa, de día y horizontal. Es la foto que decide si le dan clic "+
+           "o siguen bajando. Nunca de portada: el baño, la cochera ni el plano.";
+  }
+
+  /* ───────── revisión ───────── */
+
+  function revision(d, titulo, desc){
+    var R=[];
+    function mal(t){ R.push({n:"mal",t:t}); }
+    function ojo(t){ R.push({n:"ojo",t:t}); }
+    function bien(t){ R.push({n:"bien",t:t}); }
+
+    // título
+    if(titulo.length>70){
+      mal("<b>El título va largo ("+titulo.length+" caracteres).</b> En los resultados y en los agregadores "+
+          "se corta. Déjalo en 65 o menos.");
+    }else if(titulo.length>=28){
+      bien("<b>El título está en buen tamaño</b> ("+titulo.length+" caracteres) y trae tipo, operación y zona, "+
+           "que es como la gente busca.");
+    }else{
+      ojo("<b>El título está muy corto.</b> Te sobra espacio para meter el desarrollo o lo que distingue al inmueble.");
+    }
+    var letras=titulo.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ]/g,"");
+    var mayus=titulo.replace(/[^A-ZÁÉÍÓÚÑ]/g,"");
+    if(letras.length>6 && mayus.length/letras.length>0.6){
+      mal("<b>El título está en mayúsculas.</b> Lamudi lo dice literal: las mayúsculas se leen como gritar. "+
+          "Además los portales las penalizan.");
+    }
+
+    // descripción
+    if(desc.length>1000){
+      ojo("<b>La descripción trae "+desc.length+" caracteres.</b> Inmuebles24 recomienda no pasar de 1,000. "+
+          "Quita amenidades repetidas o acorta las notas del propietario.");
+    }else if(desc.length<350){
+      ojo("<b>La descripción queda corta ("+desc.length+" caracteres).</b> Te faltan razones o amenidades: "+
+          "un anuncio flaco se hunde en los resultados.");
+    }else if(d.claves.length || d.amen.length){
+      bien("<b>La descripción está en el rango bueno</b> ("+desc.length+" caracteres, el tope recomendado es 1,000) "+
+           "y va en bloques cortos con viñetas, que es como sí se lee.");
+    }else{
+      ojo("<b>La descripción está en buen tamaño pero es un bloque de texto.</b> Sin razones ni amenidades "+
+          "no hay viñetas que escanear, y un párrafo corrido nadie lo lee completo.");
+    }
+
+    // palabras vacías
+    var texto = sinAcentos((titulo+" "+desc).toLowerCase());
+    var encontradas=[];
+    VACIAS.forEach(function(w){
+      var ws=sinAcentos(w.toLowerCase());
+      if(texto.indexOf(ws)>=0 && encontradas.indexOf(w)<0) encontradas.push(w);
+    });
+    if(encontradas.length){
+      ojo("<b>Adjetivos que no dicen nada:</b> “"+encontradas.join("”, “")+"”. Restan credibilidad. "+
+          "Cámbialos por un dato: en vez de “ubicación privilegiada”, “a 5 minutos de Gonzalitos”.");
+    }
+
+    // razones
+    if(d.claves.length===0){
+      mal("<b>No pusiste ni una razón que lo distinga.</b> Sin eso tu anuncio es idéntico a los otros "+
+          "cuarenta de la misma zona y compites solo por precio.");
+    }else if(d.claves.length<3){
+      ojo("<b>Solo pusiste "+d.claves.length+" "+pluraliza(d.claves.length,"razón","razones")+".</b> Con tres "+
+          "el anuncio ya cuenta una historia. Piensa en lo que te dijo el propietario que más le gustaba.");
+    }else{
+      bien("<b>"+d.claves.length+" razones concretas.</b> Eso es lo que hace que te contacten a ti y no al de junto.");
+    }
+
+    // cercanías
+    if(!d.cercanias){
+      ojo("<b>No dijiste qué hay cerca.</b> Lamudi lo pide expresamente y es de lo primero que busca el cliente: "+
+          "escuelas, avenidas, plazas, hospitales, transporte.");
+    }
+
+    // fotos / amenidades
+    if(d.amen.length<3){
+      ojo("<b>Van "+d.amen.length+" amenidades.</b> Los portales usan esos campos para filtrar búsquedas: "+
+          "si no las marcas, no apareces en el filtro.");
+    }
+
+    // precio
+    if(!d.precio){
+      mal("<b>Falta el precio.</b> Un anuncio sin precio se salta. Y recuerda el checklist de hh: no debe "+
+          "pasar del 10% por arriba de la estimación.");
+    }
+
+    // teléfono en portales
+    var traeTel = /\d[\d\s().-]{7,}/.test(desc);
+    if(traeTel && !d.conTel){
+      ojo("<b>Se coló un teléfono en la descripción de portales.</b> Revísalo: ahí tus datos van en los campos "+
+          "de contacto del aviso, no en el texto.");
+    }
+    if(d.conTel){
+      ojo("<b>Dejaste tu teléfono dentro de la descripción de portales.</b> Funciona, pero varios portales "+
+          "prefieren que vaya en los campos de contacto. Si te rebotan el aviso, apaga ese interruptor.");
+    }
+
+    // notas del propietario
+    if(d.notas){
+      var np=d.notas;
+      var lp=sinAcentos(np).replace(/[^A-Za-z]/g,"");
+      var lm=np.replace(/[^A-ZÁÉÍÓÚÑ]/g,"");
+      if(lp.length>20 && lm.length/lp.length>0.5){
+        mal("<b>Las notas que pegaste vienen en mayúsculas.</b> Pásalas a minúsculas antes de publicar.");
+      }
+      if(/[!?]{2,}/.test(np)){
+        ojo("<b>Las notas traen signos repetidos</b> (!! o ??). En un anuncio profesional se ven como spam.");
+      }
+      var parrafos=np.split(/\n\s*\n/);
+      var largo=parrafos.some(function(p){ return p.length>420; });
+      if(largo){
+        ojo("<b>Las notas traen un párrafo larguísimo.</b> Ese es justo el error que hace que nadie lea: "+
+            "pártelo en viñetas o pásalo a las cinco razones de arriba.");
+      }
+    }
+
+    // contacto
+    if(!d.asesor || !d.tel){
+      ojo("<b>Falta tu nombre o tu WhatsApp.</b> En Marketplace y en redes el texto se queda sin cierre.");
+    }
+
+    // orden
+    var orden={mal:0,ojo:1,bien:2};
+    R.sort(function(a,b){ return orden[a.n]-orden[b.n]; });
+    return R;
+  }
+
+  /* ───────── copiar ───────── */
+
+  function copiar(texto, btn, fuente){
+    var listo=false;
+    function fin(ok){
+      var original = btn.getAttribute("data-orig") || btn.textContent;
+      btn.setAttribute("data-orig", original);
+      if(ok){
+        btn.textContent="✓ Copiado";
+        btn.classList.add("hecho");
+        setTimeout(function(){ btn.textContent=original; btn.classList.remove("hecho"); },1800);
+      }else{
+        btn.textContent="Selecciónalo y copia con ⌘C";
+        setTimeout(function(){ btn.textContent=original; },2600);
+        if(fuente && fuente.select){ fuente.focus(); fuente.select(); }
+      }
+    }
+    // 1) API moderna
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(texto).then(function(){ fin(true); },
+        function(){ fin(respaldo(texto)); });
+      return;
+    }
+    fin(respaldo(texto));
+  }
+
+  function respaldo(texto){
+    var ta=document.createElement("textarea");
+    ta.value=texto;
+    ta.setAttribute("readonly","");
+    ta.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0";
+    document.body.appendChild(ta);
+    var ok=false;
+    try{
+      ta.select(); ta.setSelectionRange(0,ta.value.length);
+      ok=document.execCommand("copy");
+    }catch(e){ ok=false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  var textoFotos="";
+
+  document.addEventListener("click", function(ev){
+    var b=ev.target.closest ? ev.target.closest(".copiar") : null;
+    if(!b) return;
+    var id=b.getAttribute("data-copia");
+    if(id){ var el=$(id); copiar(el.value, b, el); return; }
+    if(b.getAttribute("data-copia-texto")==="fotos"){ copiar(textoFotos, b, null); }
+  });
+
+  /* ───────── pestañas ───────── */
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function(b){
+    b.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function(x){
+        x.setAttribute("aria-selected", x===b ? "true":"false");
+      });
+      Array.prototype.forEach.call(document.querySelectorAll(".panel"), function(p){
+        p.hidden = (p.id !== b.getAttribute("data-p"));
+      });
+    });
+  });
+
+  /* ───────── contadores ───────── */
+
+  function contador(idTexto, idCont, tope){
+    var t=$(idTexto), c=$(idCont);
+    function upd(){
+      var n=t.value.length;
+      c.textContent = miles(n)+" caracteres";
+      c.className = "cont" + (tope && n>tope ? " mal" : "");
+      if(tope && n>tope) c.textContent = miles(n)+" caracteres · pasa de "+miles(tope);
+    }
+    t.addEventListener("input", upd);
+    return upd;
+  }
+  var updT   = contador("oTitulo","cTitulo",65);
+  var updD   = contador("oDesc","cDesc",1000);
+  var updMT  = contador("oMTit","cMTit",0);
+  var updMD  = contador("oMDesc","cMDesc",0);
+  var updR   = contador("oRedes","cRedes",0);
+  var updW   = contador("oWA","cWA",0);
+
+  /* ───────── generar ───────── */
+
+  $("generar").addEventListener("click", function(){
+    var d=ficha();
+
+    if(!d.zona || !d.ciudad){
+      $("aviso").hidden=false;
+      $("aviso").textContent="Falta la zona o la ciudad. Sin eso no se puede armar el título.";
+      return;
+    }
+    $("aviso").hidden=true;
+
+    var tits = titulos(d);
+    $("oTitulo").value = tits[0].t;
+    var alts = tits.slice(1);
+    $("alts").hidden = alts.length===0;
+    var cont=$("altsLista"); cont.innerHTML="";
+    alts.forEach(function(a){
+      var b=document.createElement("button");
+      b.type="button";
+      var s=document.createElement("strong"); s.textContent=a.t; s.style.fontWeight="600";
+      var e=document.createElement("em"); e.textContent=a.por+" · "+a.t.length+" caracteres";
+      b.appendChild(s); b.appendChild(e);
+      b.addEventListener("click", function(){
+        $("oTitulo").value=a.t; updT();
+        $("oTitulo").focus();
+      });
+      cont.appendChild(b);
+    });
+
+    var desc = descPortales(d);
+    $("oDesc").value = desc;
+    $("oMTit").value = tituloMarket(d);
+    $("oMDesc").value = descMarket(d);
+    $("oRedes").value = textoRedes(d);
+    $("oWA").value    = textoWA(d);
+    updT(); updD(); updMT(); updMD(); updR(); updW();
+
+    // fotos
+    var F=secuenciaFotos(d);
+    $("portadaNota").innerHTML = notaPortada(d);
+    var ol=$("oFotos"); ol.innerHTML="";
+    var lineas=[];
+    F.forEach(function(f,i){
+      var li=document.createElement("li");
+      var tx=document.createElement("div"); tx.className="tx";
+      var b=document.createElement("b"); b.textContent=f.t;
+      tx.appendChild(b);
+      if(f.n){ var sm=document.createElement("small"); sm.textContent=f.n; tx.appendChild(sm); }
+      li.appendChild(tx);
+      ol.appendChild(li);
+      lineas.push((i+1)+". "+f.t+(f.n?" — "+f.n:""));
+    });
+    textoFotos = "Orden de las fotos — "+d.tipo+" "+d.opTxt+" en "+d.lugar+"\n\n"+lineas.join("\n");
+
+    // revisión
+    var R=revision(d, $("oTitulo").value, desc);
+    var ul=$("oDiag"); ul.innerHTML="";
+    R.forEach(function(r){
+      var li=document.createElement("li"); li.className=r.n;
+      var ic=document.createElement("span"); ic.className="ic";
+      ic.textContent = r.n==="mal" ? "✕" : (r.n==="ojo" ? "!" : "✓");
+      var tx=document.createElement("span"); tx.innerHTML=r.t;
+      li.appendChild(ic); li.appendChild(tx);
+      ul.appendChild(li);
+    });
+
+    $("res").hidden=false;
+    $("res").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  /* ───────── arranque ───────── */
+  pintaChips();
+  ajustaCampos();
+  medir();
+})();
+</script>
+</body>
+</html>
