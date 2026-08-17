@@ -235,6 +235,17 @@
          padding:12px 15px;font-size:13px;font-weight:600;margin-bottom:16px}
   .aviso[hidden]{display:none}
 
+  /* aviso de ortografía, al pie de los resultados */
+  .orto{margin-top:22px;border:1px solid var(--warn);border-radius:var(--r-sm);
+        background:var(--warn-bg);padding:16px 18px}
+  .orto b.tit{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+        color:var(--warn);margin-bottom:7px}
+  .orto p{margin:0 0 8px;font-size:13.5px;line-height:1.6;color:var(--ink)}
+  .orto p:last-child{margin:0}
+  .orto .dato{font-size:13px;color:var(--muted);border-top:1px solid rgba(138,109,47,.25);
+        padding-top:9px;margin-top:10px}
+  .orto .dato b{color:var(--warn)}
+
   #volver-portal{position:fixed;top:14px;left:16px;z-index:9999;
     font:600 12px/1 'Hanken Grotesk','Jost',-apple-system,system-ui,sans-serif;
     letter-spacing:.08em;text-transform:uppercase;color:#5f5c57;text-decoration:none;
@@ -621,6 +632,20 @@
       </div>
     </div>
   </details>
+
+
+    <div class="orto">
+      <b class="tit">⚠ Importante · antes de publicar</b>
+      <p><b>Esta herramienta ordena, no corrige.</b> Acomoda mayúsculas, acentos de palabras comunes y
+        la puntuación, pero <b>no revisa tu ortografía ni tu redacción</b>. Lo que escribiste mal, se
+        publica mal.</p>
+      <p><b>Lee el texto completo antes de subirlo.</b> En voz baja y despacio: así saltan las faltas
+        que el ojo se brinca.</p>
+      <p class="dato">Casi <b>6 de cada 10 consumidores</b> dicen que no le comprarían a una empresa
+        cuyos textos tienen errores de ortografía o gramática <span style="opacity:.8">(estudio de
+        Global Lingo)</span>. Y la BBC documentó que las faltas de ortografía pueden <b>reducir a la
+        mitad</b> las ventas de un sitio. En una propiedad de varios millones, una falta sale cara.</p>
+    </div>
 
   <p class="nota">
     <b>De dónde salen estas reglas.</b> De la <b>Plantilla de anuncios LP hh</b> y del
