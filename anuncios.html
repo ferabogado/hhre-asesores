@@ -791,6 +791,87 @@
     r.addEventListener("change", function(){ ajustaCampos(); medir(); });
   });
 
+
+  /* ───────── normalización de lo que escribe el asesor ─────────
+     Corrige mayúsculas, acentos de palabras comunes del giro y
+     espacios, para que el anuncio salga parejo aunque se escriba
+     de prisa desde el celular. No sustituye una lectura final. */
+
+  var ACENTOS = {
+    recamara:"recámara", recamaras:"recámaras", bano:"baño", banos:"baños",
+    jardin:"jardín", area:"área", areas:"áreas", comun:"común",
+    ubicacion:"ubicación", construccion:"construcción", habitacion:"habitación",
+    salon:"salón", balcon:"balcón", sotano:"sótano", atico:"ático", duplex:"dúplex",
+    climatizacion:"climatización", iluminacion:"iluminación", remodelacion:"remodelación",
+    electrico:"eléctrico", electrica:"eléctrica", hidraulico:"hidráulico",
+    automatico:"automático", automatica:"automática", panoramica:"panorámica",
+    panoramico:"panorámico", lavanderia:"lavandería", cristaleria:"cristalería",
+    garage:"garaje", publico:"público", publica:"pública", credito:"crédito",
+    metros2:"m²", mts2:"m²", telefono:"teléfono", proximo:"próximo", proxima:"próxima",
+    ademas:"además", tambien:"también", facil:"fácil", rapido:"rápido",
+    exclusivo:"exclusivo", unico:"único", unica:"única", magnifico:"magnífico",
+    energia:"energía", camara:"cámara", camaras:"cámaras",
+    /* nombres propios y gentilicios que casi siempre se escriben sin tilde */
+    garcia:"García", leon:"León", nicolas:"Nicolás", mexico:"México", merida:"Mérida",
+    cancun:"Cancún", queretaro:"Querétaro", angelopolis:"Angelópolis", andres:"Andrés",
+    cholula:"Cholula", tecamachalco:"Tecamachalco", ingles:"inglés", frances:"francés",
+    aleman:"alemán", japones:"japonés", jose:"José", martin:"Martín", ramon:"Ramón",
+    zuniga:"Zúñiga", velazquez:"Velázquez", gomez:"Gómez", perez:"Pérez", diaz:"Díaz",
+    rodriguez:"Rodríguez", hernandez:"Hernández", jimenez:"Jiménez", martinez:"Martínez",
+    gonzalez:"González", sanchez:"Sánchez", vazquez:"Vázquez", benitez:"Benítez"
+  };
+
+  var CONECTORES = ["de","del","la","las","los","el","y","e","en","a","al","por","con","para"];
+
+  function corrigeAcentos(txt){
+    return txt.replace(/[A-Za-zÁÉÍÓÚÑáéíóúñ0-9]+/g, function(p){
+      var llave = sinAcentos(p).toLowerCase();
+      if(!ACENTOS[llave]) return p;
+      var bueno = ACENTOS[llave];
+      /* si venía con inicial mayúscula, se conserva */
+      return (p[0] === p[0].toUpperCase() && p[0] !== p[0].toLowerCase())
+        ? bueno.charAt(0).toUpperCase() + bueno.slice(1) : bueno;
+    });
+  }
+
+  function baseLimpia(txt){
+    if(!txt) return "";
+    var t = txt.replace(/\s+/g," ").trim();
+    /* MAYÚSCULAS sostenidas: gritan y varios portales las penalizan.
+       Se bajan palabra por palabra, así "EXCELENTE UBICACION cerca" también se arregla.
+       Se respetan siglas cortas y cosas como 24/7 o m². */
+    t = t.replace(/[A-ZÁÉÍÓÚÑ]{4,}/g, function(p){ return p.toLowerCase(); });
+    return corrigeAcentos(t);
+  }
+
+  /* frases: primera letra mayúscula, sin punto final */
+  function frase(txt){
+    var t = baseLimpia(txt);
+    if(!t) return "";
+    t = t.charAt(0).toUpperCase() + t.slice(1);
+    return t.replace(/[.\s]+$/,"");
+  }
+
+  /* nombres propios: Valle Oriente, San Pedro Garza García */
+  function nombrePropio(txt){
+    var t = baseLimpia(txt);
+    if(!t) return "";
+    return t.split(" ").map(function(p, i){
+      var min = p.toLowerCase();
+      if(i > 0 && CONECTORES.indexOf(sinAcentos(min)) >= 0) return min;
+      return min.charAt(0).toUpperCase() + min.slice(1);
+    }).join(" ");
+  }
+
+  /* párrafos largos: respeta los puntos y arranca cada oración en mayúscula */
+  function parrafo(txt){
+    var t = baseLimpia(txt);
+    if(!t) return "";
+    return t.replace(/(^|[.!?]\s+)([a-záéíóúñ])/g, function(_, ini, letra){
+      return ini + letra.toUpperCase();
+    });
+  }
+
   /* ───────── lectura de la ficha ───────── */
 
   function ficha(){
@@ -804,13 +885,13 @@
       art: t.fem ? "una" : "un",
       elLa: t.fem ? "la" : "lo",
       esteEsta: t.fem ? "esta" : "este",
-      desarrollo:v("desarrollo"), zona:v("zona"), ciudad:v("ciudad"),
+      desarrollo:nombrePropio(v("desarrollo")), zona:nombrePropio(v("zona")), ciudad:nombrePropio(v("ciudad")),
       precio:num("precio"), mant:num("mantenimiento"),
       m2c:num("m2c"), m2t:num("m2t"),
       rec:num("recamaras"), ban:num("banos"), med:num("medios"), caj:num("cajones"),
-      nivel:v("nivel"), antig:v("antiguedad"), amueblado:v("amueblado"),
-      cercanias:v("cercanias"), notas:v("notas"),
-      asesor:v("asesor"), tel:v("tel"), liga:v("liga"),
+      nivel:v("nivel"), antig:frase(v("antiguedad")), amueblado:v("amueblado"),
+      cercanias:frase(v("cercanias")), notas:parrafo(v("notas")),
+      asesor:nombrePropio(v("asesor")), tel:v("tel"), liga:v("liga"),
       claves:[], amen:amenidades(),
       conPrecio:true,        /* el precio va siempre en el texto */
       conTel:false,          /* en portales el teléfono va en los campos de contacto */
@@ -824,7 +905,7 @@
       var repetida = yaMarcadas.some(function(a){
         return a && (a===clave || (clave.length>4 && a.indexOf(clave)>=0) || (a.length>4 && clave.indexOf(a)>=0));
       });
-      if(!repetida) d.claves.push(limpiaPunto(txt));
+      if(!repetida) d.claves.push(limpiaPunto(frase(txt)));
     });
     d.lugar = d.zona + (d.ciudad ? ", "+d.ciudad : "");
     return d;
@@ -1037,10 +1118,10 @@
 
     L.push("");
     if(d.conTel && d.tel){
-      L.push("Agenda tu visita: escríbeme por WhatsApp al "+d.tel+
+      L.push("Para agendar una visita, escribe por WhatsApp al "+d.tel+
              (d.asesor ? " ("+d.asesor+")" : "")+".");
     }else{
-      L.push("Agenda una visita y con gusto "+(d.fem?"te la":"te lo")+" muestro. Escríbeme desde este anuncio.");
+      L.push("Agenda tu visita desde este anuncio.");
     }
     return L.join("\n");
   }
@@ -1082,9 +1163,9 @@
     L.push("");
     var verlo = d.fem ? "verla" : "verlo";
     if(d.tel){
-      L.push((E?"📲 ":"")+"¿Quieres "+verlo+"? Escríbeme por WhatsApp al "+d.tel+" y agendamos la visita.");
+      L.push((E?"📲 ":"")+"¿Quieres "+verlo+"? Escribe por WhatsApp al "+d.tel+" para agendar una visita.");
     }else{
-      L.push("¿Quieres "+verlo+"? Mándame mensaje y agendamos la visita.");
+      L.push("¿Quieres "+verlo+"? Envía un mensaje desde este anuncio para agendar una visita.");
     }
     if(d.asesor) L.push(d.asesor+" · hh Luxury Real Estate");
     if(d.liga) L.push(d.liga);
@@ -1130,7 +1211,7 @@
     }
     if(d.conPrecio && d.precio){ L.push(""); L.push(lineaPrecio(d)); }
     L.push("");
-    L.push((E?"📩 ":"")+"Mándame DM o WhatsApp"+(d.tel?" al "+d.tel:"")+" y agendamos la visita"+
+    L.push((E?"📩 ":"")+"Escribe por DM o WhatsApp"+(d.tel?" al "+d.tel:"")+" para agendar una visita"+
            (d.asesor?" — "+d.asesor:"")+".");
     if(d.liga) L.push(d.liga);
     L.push("");
@@ -1359,6 +1440,13 @@
     if(!d.precio){
       mal("<b>Falta el precio.</b> Un anuncio sin precio se salta. Y recuerda el checklist de hh: no debe "+
           "pasar del 10% por arriba de la estimación.");
+    }
+
+    // primera persona en lo que escribió el asesor
+    var suyo = [d.notas].concat(d.claves).join(" ");
+    if(/\b(yo|mi|mis|conmigo|me encanta|te va a encantar|mándame|escríbeme|tengo|vendo|rento)\b/i.test(suyo)){
+      ojo("<b>Tu texto mezcla primera y segunda persona.</b> En portales el anuncio se lee mejor en tercera "+
+          "persona: describe el inmueble, no lo que tú harías. Deja el “escríbeme” para el mensaje de WhatsApp.");
     }
 
     // teléfono en portales
