@@ -339,25 +339,25 @@
         </div>
         <div class="campo">
           <label for="recamaras">Recámaras</label>
-          <input id="recamaras" type="text" inputmode="numeric" placeholder="0">
+          <select id="recamaras"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select>
         </div>
         <div class="campo">
           <label for="banos">Baños completos</label>
-          <input id="banos" type="text" inputmode="numeric" placeholder="0">
+          <select id="banos"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
         </div>
       </div>
       <div class="rej d4">
         <div class="campo">
           <label for="medios">Medios baños <span class="opc">· opcional</span></label>
-          <input id="medios" type="text" inputmode="numeric" placeholder="0">
+          <select id="medios"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
         </div>
         <div class="campo">
           <label for="cajones">Cajones de estacionamiento</label>
-          <input id="cajones" type="text" inputmode="numeric" placeholder="0">
+          <select id="cajones"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
         </div>
         <div class="campo">
-          <label for="nivel">Piso o niveles <span class="opc">· opcional</span></label>
-          <input id="nivel" type="text" placeholder="Piso 8 de 12">
+          <label for="nivel" id="lblNivel">Piso o nivel <span class="opc">· opcional</span></label>
+          <select id="nivel"></select>
         </div>
         <div class="campo">
           <label for="antiguedad">Antigüedad <span class="opc">· opcional</span></label>
@@ -378,10 +378,19 @@
     </fieldset>
 
     <fieldset>
+      <legend>Amenidades y características</legend>
+      <div class="chips" id="chips"></div>
+      <div class="campo" style="margin-top:14px">
+        <label for="otras">Otras, separadas por coma <span class="opc">· opcional</span></label>
+        <input id="otras" type="text" placeholder="Ludoteca, sport bar, fogateros">
+      </div>
+    </fieldset>
+
+    <fieldset>
       <legend>Lo que lo hace distinto</legend>
       <p class="ayuda" style="margin:0 0 14px">
         Aquí es donde se gana o se pierde el anuncio. Escribe hasta cinco razones concretas por las que
-        alguien elegiría este inmueble y no otro igual en la misma zona. Concretas, no adjetivos:
+        alguien elegiría este inmueble y no otro igual en la misma zona. No repitas lo que ya marcaste arriba en amenidades — eso ya sale solo. Concretas, no adjetivos:
         <b>“A dos cuadras del Hospital Universitario”</b> sirve; “ubicación privilegiada” no dice nada.
       </p>
       <div class="campo"><label for="c1">Razón 1</label><input id="c1" type="text" placeholder="A 2 cuadras del Hospital Universitario"></div>
@@ -389,15 +398,6 @@
       <div class="campo"><label for="c3">Razón 3</label><input id="c3" type="text" placeholder="Mantenimiento incluido en la renta"></div>
       <div class="campo"><label for="c4">Razón 4 <span class="opc">· opcional</span></label><input id="c4" type="text"></div>
       <div class="campo"><label for="c5">Razón 5 <span class="opc">· opcional</span></label><input id="c5" type="text"></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Amenidades y características</legend>
-      <div class="chips" id="chips"></div>
-      <div class="campo" style="margin-top:14px">
-        <label for="otras">Otras, separadas por coma <span class="opc">· opcional</span></label>
-        <input id="otras" type="text" placeholder="Ludoteca, sport bar, fogateros">
-      </div>
     </fieldset>
 
     <fieldset>
@@ -436,25 +436,6 @@
         <label for="liga">Liga del anuncio <span class="opc">· opcional</span></label>
         <input id="liga" type="text" placeholder="hhre.mx">
       </div>
-      <label class="sw" for="swPrecio" style="margin-top:6px">
-        <input type="checkbox" id="swPrecio" checked>
-        <span class="pill"></span>
-        <span><b>Escribir el precio dentro del texto</b>
-          <small>Además del campo de precio del portal. En Marketplace y WhatsApp conviene siempre.</small></span>
-      </label>
-      <label class="sw" for="swContacto">
-        <input type="checkbox" id="swContacto">
-        <span class="pill"></span>
-        <span><b>Poner tu teléfono en la descripción de portales</b>
-          <small>Apagado a propósito: en los portales tu teléfono va en los campos de contacto del aviso,
-            no en el texto. En Marketplace, redes y WhatsApp sí se incluye siempre.</small></span>
-      </label>
-      <label class="sw" for="swEmoji">
-        <input type="checkbox" id="swEmoji" checked>
-        <span class="pill"></span>
-        <span><b>Usar emojis en Marketplace y redes</b>
-          <small>Nunca se ponen en el texto de portales.</small></span>
-      </label>
     </fieldset>
 
     <div class="medidor">
@@ -471,8 +452,8 @@
     <div class="tabs" role="tablist">
       <button type="button" role="tab" id="t-portales" aria-selected="true" data-p="p-portales">Portales</button>
       <button type="button" role="tab" id="t-market" aria-selected="false" data-p="p-market">Marketplace</button>
-      <button type="button" role="tab" id="t-redes" aria-selected="false" data-p="p-redes">Redes</button>
       <button type="button" role="tab" id="t-wa" aria-selected="false" data-p="p-wa">WhatsApp</button>
+      <button type="button" role="tab" id="t-redes" aria-selected="false" data-p="p-redes">Redes</button>
       <button type="button" role="tab" id="t-fotos" aria-selected="false" data-p="p-fotos">Fotos</button>
       <button type="button" role="tab" id="t-rev" aria-selected="false" data-p="p-rev">Revisión</button>
     </div>
@@ -772,8 +753,22 @@
 
   /* ───────── ajustes por tipo de inmueble ───────── */
 
+  function llenaNivel(){
+    var t = TIPOS[v("tipo")], sel = $("nivel"), previo = sel.value, ops = ['<option value="">—</option>'];
+    if(t.foto === "casa"){                       /* horizontal: se cuentan niveles */
+      for(var i=1;i<=4;i++) ops.push('<option value="'+(i===1?"1 nivel":i+" niveles")+'">'+
+                                     (i===1?"1 nivel":i+" niveles")+'</option>');
+    }else{                                       /* vertical: se dice en qué piso está */
+      ops.push('<option value="Planta baja">Planta baja</option>');
+      for(var j=1;j<=40;j++) ops.push('<option value="Piso '+j+'">Piso '+j+'</option>');
+    }
+    sel.innerHTML = ops.join("");
+    sel.value = previo;                          /* conserva la elección si sigue existiendo */
+  }
+
   function ajustaCampos(){
     var t = TIPOS[v("tipo")];
+    llenaNivel();
     var esTerreno = t.fam==="terreno";
     var esResid   = t.fam==="residencial";
     $("grupoM2").style.display = "";
@@ -784,6 +779,8 @@
     $("m2c").closest(".campo").style.display = esTerreno ? "none" : "";
     $("campoAmueblado").style.display = esResid ? "" : "none";
     $("nivel").closest(".campo").style.display = esTerreno ? "none" : "";
+    $("lblNivel").innerHTML = (t.foto==="casa" ? "Niveles" : "Piso") +
+        ' <span class="opc">· opcional</span>';
     var op = document.querySelector("input[name=operacion]:checked").value;
     $("ayudaPrecio").textContent = op==="renta"
       ? "Renta mensual en pesos." : "Precio de venta en pesos.";
@@ -815,12 +812,19 @@
       cercanias:v("cercanias"), notas:v("notas"),
       asesor:v("asesor"), tel:v("tel"), liga:v("liga"),
       claves:[], amen:amenidades(),
-      conPrecio:$("swPrecio").checked,
-      conTel:$("swContacto").checked,
-      emoji:$("swEmoji").checked
+      conPrecio:true,        /* el precio va siempre en el texto */
+      conTel:false,          /* en portales el teléfono va en los campos de contacto */
+      emoji:true
     };
+    var yaMarcadas = d.amen.map(function(a){ return sinAcentos(a).toLowerCase().replace(/[^a-z0-9]/g,""); });
     ["c1","c2","c3","c4","c5"].forEach(function(id){
-      var s=v(id); if(s) d.claves.push(limpiaPunto(s));
+      var txt=v(id); if(!txt) return;
+      var clave = sinAcentos(txt).toLowerCase().replace(/[^a-z0-9]/g,"");
+      /* si ya viene de la lista de amenidades, no se repite en las razones */
+      var repetida = yaMarcadas.some(function(a){
+        return a && (a===clave || (clave.length>4 && a.indexOf(clave)>=0) || (a.length>4 && clave.indexOf(a)>=0));
+      });
+      if(!repetida) d.claves.push(limpiaPunto(txt));
     });
     d.lugar = d.zona + (d.ciudad ? ", "+d.ciudad : "");
     return d;
@@ -1365,7 +1369,7 @@
     }
     if(d.conTel){
       ojo("<b>Dejaste tu teléfono dentro de la descripción de portales.</b> Funciona, pero varios portales "+
-          "prefieren que vaya en los campos de contacto. Si te rebotan el aviso, apaga ese interruptor.");
+          "prefieren que vaya en los campos de contacto.");
     }
 
     // notas del propietario
