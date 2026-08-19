@@ -194,7 +194,7 @@
         <input type="checkbox" id="cert">
         <span class="pill"></span>
         <span><b>Certificación EC0110.02</b>
-          <small>Asesoría en Comercialización de Bienes Inmuebles · +2%</small></span>
+          <small>Asesoría en Comercialización de Bienes Inmuebles · <span id="pctCert">+2%</span></small></span>
       </label>
 
       <div style="margin-top:18px">
@@ -205,7 +205,7 @@
           <button type="button" id="mas" aria-label="Una captación más">+</button>
           <span class="nivel" id="nivel">sin bono</span>
         </div>
-        <p class="ayuda">3 captadas suman 1% · 4 suman 2% · 5 o más suman 3%.</p>
+        <p class="ayuda" id="ayudaCapt">3 captadas suman 1% · 4 suman 2% · 5 o más suman 3%.</p>
       </div>
     </fieldset>
 
@@ -243,10 +243,20 @@
 /* ── Esquema 01 · Luxury Real Estate ─────────────────────────────
    Base:  las dos partes → 50% de la comisión
           una sola parte → 25% de la comisión
-   Adicionales, TODOS sobre la comisión completa:
+
+   Adicionales: van sobre LA PARTE DE LA OPERACIÓN QUE TRAJISTE,
+   no sobre la comisión completa.
           certificación EC0110.02 → +2%
           captaciones del mes: 3 → +1% · 4 → +2% · 5 o más → +3%
-   Tope: 50 + 2 + 3 = 55% de la comisión.
+
+   🔑 Con UNA sola parte trajiste la mitad de la operación, así que los
+      adicionales se calculan sobre la mitad de la comisión. En pantalla
+      se muestran ya reducidos a la mitad, para no confundir al asesor:
+          certificación → +1%
+          captaciones: 3 → +0.5% · 4 → +1% · 5 o más → +1.5%
+
+   Tope: las dos partes 50 + 2 + 3   = 55%
+         una sola parte 25 + 1 + 1.5 = 27.5%
    ──────────────────────────────────────────────────────────────── */
 
 const PCT_AMBAS = 50, PCT_UNA = 25, PCT_CERT = 2;
@@ -264,6 +274,12 @@ const PCT_AMBAS = 50, PCT_UNA = 25, PCT_CERT = 2;
 const IVA = 0.16, RET_IVA = 2/3;
 const RET_ISR = { resico: 0.0125, general: 0.10 };
 const bonoCaptacion = n => n >= 5 ? 3 : n === 4 ? 2 : n === 3 ? 1 : 0;
+
+/* Trajiste una sola parte = la mitad de la operación, así que los
+   adicionales valen la mitad. Todo lo demás sale de aquí. */
+const traeAmbas = () => document.querySelector('input[name="partes"]:checked').value === "ambas";
+const factorParte = () => traeAmbas() ? 1 : 0.5;
+const pct = n => Number(n.toFixed(2)).toString();   // 1.5 → "1.5" · 1.0 → "1"
 
 const $ = id => document.getElementById(id);
 const mxn = n => new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",
@@ -288,8 +304,11 @@ $("monto").addEventListener("input", e => {
 
 $("mas").addEventListener("click", () => { captaciones++; pintaCapt(); calcula(); });
 $("menos").addEventListener("click", () => { captaciones = Math.max(0, captaciones-1); pintaCapt(); calcula(); });
-document.querySelectorAll('input[name="partes"], #cert, input[name="regimen"]').forEach(el =>
+document.querySelectorAll('#cert, input[name="regimen"]').forEach(el =>
   el.addEventListener("change", calcula));
+// al cambiar de una parte a las dos, los porcentajes anunciados cambian también
+document.querySelectorAll('input[name="partes"]').forEach(el =>
+  el.addEventListener("change", () => { pintaAdicionales(); calcula(); }));
 $("factura").addEventListener("change", e => {
   $("wregimen").hidden = !e.target.checked;
   calcula();
@@ -297,8 +316,18 @@ $("factura").addEventListener("change", e => {
 
 function pintaCapt(){
   $("capt").textContent = captaciones;
-  const b = bonoCaptacion(captaciones);
-  $("nivel").textContent = b ? `+${b}%` : "sin bono";
+  const b = bonoCaptacion(captaciones) * factorParte();
+  $("nivel").textContent = b ? `+${pct(b)}%` : "sin bono";
+}
+
+/* Los porcentajes que se anuncian arriba también se parten a la mitad
+   cuando el asesor trajo una sola parte, para que cuadren con el resultado. */
+function pintaAdicionales(){
+  const f = factorParte();
+  $("pctCert").textContent = `+${pct(PCT_CERT * f)}%`;
+  $("ayudaCapt").textContent =
+    `3 captadas suman ${pct(1*f)}% · 4 suman ${pct(2*f)}% · 5 o más suman ${pct(3*f)}%.`;
+  pintaCapt();
 }
 
 function bloqueFiscal(subtotal){
@@ -339,10 +368,13 @@ function calcula(){
 
   if (comision <= 0){ $("salida").innerHTML = ""; return; }
 
+  const f       = factorParte();          // 1 si trajo las dos partes · 0.5 si trajo una
   const pctBase = ambas ? PCT_AMBAS : PCT_UNA;
+  const pctCert = PCT_CERT * f;           // 2%  → 1%
+  const pctBono = bono * f;               // 3/2/1% → 1.5/1/0.5%
   const base    = comision * pctBase / 100;
-  const mCert   = cert ? comision * PCT_CERT / 100 : 0;
-  const mBono   = comision * bono / 100;
+  const mCert   = cert ? comision * pctCert / 100 : 0;
+  const mBono   = comision * pctBono / 100;
   const total   = base + mCert + mBono;
   const pctTot  = comision > 0 ? total / comision * 100 : 0;
 
@@ -359,12 +391,13 @@ function calcula(){
       </div>
       <div class="ren${cert ? "" : " apagado"}">
         <span class="cc">Certificación EC0110.02
-          <span class="dd">${cert ? "+2% sobre la comisión" : "no aplica"}</span></span>
+          <span class="dd">${cert ? `+${pct(pctCert)}% de la comisión${ambas ? "" : " — la mitad, porque trajiste una parte"}`
+                                  : "no aplica"}</span></span>
         <span class="mm">${mxn(mCert)}</span>
       </div>
       <div class="ren${bono ? "" : " apagado"}">
         <span class="cc">Bono por captación
-          <span class="dd">${bono ? `${captaciones} captadas este mes · +${bono}% sobre la comisión`
+          <span class="dd">${bono ? `${captaciones} captadas este mes · +${pct(pctBono)}% de la comisión${ambas ? "" : " — la mitad, porque trajiste una parte"}`
                                   : "necesitas 3 captadas para el bono"}</span></span>
         <span class="mm">${mxn(mBono)}</span>
       </div>
@@ -390,7 +423,7 @@ function calcula(){
     </div>`;
 }
 
-pintaCapt();
+pintaAdicionales();
 </script>
 </body>
 </html>

@@ -1,0 +1,64 @@
+<!-- Portal de Asesores hh — recordar la clave en el dispositivo.
+     Va en Webflow: Pages → Utility pages → Password → Page settings →
+     Custom code → "Inside <head> tag". Pegar al final, sin borrar nada.
+
+     Por qué: la contraseña de página de Webflow se guarda en una cookie de
+     sesión (wf_auth_page) que NO se puede alargar. Esto no la alarga: guarda
+     la clave en el teléfono y la vuelve a meter sola. El asesor ve un parpadeo. -->
+<script>
+(function () {
+  function arranca() {
+    var form = document.querySelector('form.w-password-page') ||
+               document.querySelector('.utility_form');
+    var inp  = document.querySelector('input[type="password"]') ||
+               document.querySelector('.form_input');
+    if (!form || !inp) return;
+
+    // Una llave por carpeta protegida (/asesores), que es como Webflow agrupa la clave
+    var campoRuta = document.querySelector('input[name="path"]');
+    var ruta = (campoRuta && campoRuta.value) || location.pathname;
+    var KEY   = 'hh_pw_' + (ruta.split('/')[1] || 'root');
+    var SELLO = KEY + '_intento';
+
+    // 1. Guardar lo que escriba el asesor
+    form.addEventListener('submit', function () {
+      try {
+        localStorage.setItem(KEY, inp.value);
+        sessionStorage.removeItem(SELLO);
+      } catch (e) {}
+    });
+
+    // 2. Si Webflow marca error (?e=1), la guardada ya no sirve: se borra y se pide de nuevo
+    if (/[?&]e=1(&|$)/.test(location.search)) {
+      try {
+        localStorage.removeItem(KEY);
+        sessionStorage.removeItem(SELLO);
+      } catch (e) {}
+      return;
+    }
+
+    var guardada = null;
+    try { guardada = localStorage.getItem(KEY); } catch (e) {}
+    if (!guardada) return;
+
+    // 3. Red de seguridad: si el intento anterior fue hace menos de 10 segundos,
+    //    es un ciclo de recargas. Se borra la clave y se corta. Nunca deja el
+    //    teléfono recargando en bucle.
+    try {
+      var ahora  = Date.now();
+      var ultimo = parseInt(sessionStorage.getItem(SELLO) || '0', 10);
+      if (ahora - ultimo < 10000) { localStorage.removeItem(KEY); return; }
+      sessionStorage.setItem(SELLO, String(ahora));
+    } catch (e) {}
+
+    inp.value = guardada;
+    form.submit();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', arranca);
+  } else {
+    arranca();
+  }
+})();
+</script>
