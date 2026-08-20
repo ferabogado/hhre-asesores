@@ -168,7 +168,23 @@
       <legend>La operación</legend>
       <label for="monto">Comisión cobrada al propietario</label>
       <input id="monto" type="text" inputmode="decimal" placeholder="$ 0" autocomplete="off">
-      <p class="ayuda">El total que cobró la inmobiliaria por la operación, antes de impuestos.</p>
+      <p class="ayuda">El total que cobró la inmobiliaria por la operación.</p>
+
+      <div style="margin-top:18px">
+        <label>¿Ese monto lleva IVA?</label>
+        <div class="ops">
+          <label class="op">
+            <input type="radio" name="iva" value="mas" checked>
+            <span>Más IVA
+              <small>El 16% se suma aparte · el monto que capturaste ya es el neto</small></span>
+          </label>
+          <label class="op">
+            <input type="radio" name="iva" value="incluido">
+            <span>IVA incluido
+              <small>El 16% ya viene dentro · se le quita para hacer el cálculo</small></span>
+          </label>
+        </div>
+      </div>
     </fieldset>
 
     <fieldset>
@@ -304,7 +320,7 @@ $("monto").addEventListener("input", e => {
 
 $("mas").addEventListener("click", () => { captaciones++; pintaCapt(); calcula(); });
 $("menos").addEventListener("click", () => { captaciones = Math.max(0, captaciones-1); pintaCapt(); calcula(); });
-document.querySelectorAll('#cert, input[name="regimen"]').forEach(el =>
+document.querySelectorAll('#cert, input[name="regimen"], input[name="iva"]').forEach(el =>
   el.addEventListener("change", calcula));
 // al cambiar de una parte a las dos, los porcentajes anunciados cambian también
 document.querySelectorAll('input[name="partes"]').forEach(el =>
@@ -361,12 +377,16 @@ function bloqueFiscal(subtotal){
 }
 
 function calcula(){
-  const comision = soloNum($("monto").value);
+  const capturado = soloNum($("monto").value);
+  // Todo el esquema corre sobre la comisión SIN IVA. Si el monto viene con IVA
+  // dentro, se le quita antes de repartir nada.
+  const ivaDentro = document.querySelector('input[name="iva"]:checked').value === "incluido";
+  const comision  = ivaDentro ? capturado / (1 + IVA) : capturado;
   const ambas = document.querySelector('input[name="partes"]:checked').value === "ambas";
   const cert = $("cert").checked;
   const bono = bonoCaptacion(captaciones);
 
-  if (comision <= 0){ $("salida").innerHTML = ""; return; }
+  if (capturado <= 0){ $("salida").innerHTML = ""; return; }
 
   const f       = factorParte();          // 1 si trajo las dos partes · 0.5 si trajo una
   const pctBase = ambas ? PCT_AMBAS : PCT_UNA;
@@ -380,10 +400,23 @@ function calcula(){
 
   $("salida").innerHTML = `
     <div class="res">
+      ${ivaDentro ? `
       <div class="ren">
-        <span class="cc">Comisión cobrada al propietario<span class="dd">Base de todo el cálculo</span></span>
-        <span class="mm">${mxn(comision)}</span>
+        <span class="cc">Comisión cobrada al propietario<span class="dd">Como la capturaste, con IVA dentro</span></span>
+        <span class="mm">${mxn(capturado)}</span>
       </div>
+      <div class="ren resta">
+        <span class="cc">IVA que trae dentro<span class="dd">16% — no es parte de la comisión</span></span>
+        <span class="mm">− ${mxn(capturado - comision)}</span>
+      </div>
+      <div class="ren">
+        <span class="cc">Comisión sin IVA<span class="dd">Base de todo el cálculo</span></span>
+        <span class="mm">${mxn(comision)}</span>
+      </div>` : `
+      <div class="ren">
+        <span class="cc">Comisión cobrada al propietario<span class="dd">Base de todo el cálculo · sin IVA</span></span>
+        <span class="mm">${mxn(comision)}</span>
+      </div>`}
       <div class="ren">
         <span class="cc">Tu parte por la intermediación
           <span class="dd">${pctBase}% — ${ambas ? "trajiste las dos partes" : "trajiste una sola parte"}</span></span>
@@ -406,7 +439,7 @@ function calcula(){
         <span class="et">Te corresponde</span>
         <span class="vl">${mxn(total)}</span>
       </div>
-      <p class="equiv">Equivale al <b>${pctTot.toFixed(2)}%</b> de la comisión cobrada.</p>
+      <p class="equiv">Equivale al <b>${pctTot.toFixed(2)}%</b> de la comisión${ivaDentro ? " sin IVA" : " cobrada"}.</p>
 
       ${bloqueFiscal(total)}
 
